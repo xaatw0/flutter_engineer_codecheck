@@ -6,6 +6,8 @@ part 'result.freezed.dart';
 part 'result.g.dart';
 
 @freezed
+
+/// GithubApiで取得するデータのトップに対応するデータ
 class Result with _$Result {
   const Result._();
 

@@ -16,6 +16,8 @@ part 'item.freezed.dart';
 part 'item.g.dart';
 
 @freezed
+
+/// GithubApiで取得するデータのitemsのリストに対応するデータ
 class Item with _$Item {
   const Item._(); //メソッド不要の場合、削除
 
@@ -23,12 +25,25 @@ class Item with _$Item {
     fieldRename: FieldRename.snake,
   )
   const factory Item({
+    /// レポジトリ名
     required String name,
+
+    /// オーナー除法
     required Owner owner,
+
+    /// 言語
     String? language,
+
+    /// イシュー数
     required int openIssues,
+
+    /// スター数
     required int stargazersCount,
+
+    /// ウォッチ数
     required int watchers,
+
+    /// フォーク数
     required int forks,
   }) = _Item;
 
