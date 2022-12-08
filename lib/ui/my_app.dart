@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.dartTheme,
         home: SearchResultPage(
-          keyword: 'test',
+          keyword: 'flutter',
         ),
       ),
     );
