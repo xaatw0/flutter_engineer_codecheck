@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../domain/entities/git_repository_data.dart';
+import '../atoms/owner_image.dart';
 
 /// レポジトリの情報を表示するカード
 class RepositoryDataCard extends StatelessWidget {
@@ -16,10 +17,7 @@ class RepositoryDataCard extends StatelessWidget {
     return Card(
       child: ListTile(
         // 画像
-        leading: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Image.network(data.ownerIconUrl()),
-        ),
+        leading: OwnerImage(url: data.ownerIconUrl()),
         // レポジトリ名
         title: Text(
           data.repositoryName(),
