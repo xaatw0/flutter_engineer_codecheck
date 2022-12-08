@@ -46,3 +46,4 @@ app.*.map.json
 # 自動生成を除外
 *.g.dart
 *.freezed.dart
+*.gen.dart
