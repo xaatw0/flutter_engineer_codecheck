@@ -19,6 +19,8 @@ main() async {
     expect(result.items[0].language, 'Dart');
     expect(result.items[0].owner.avatarUrl,
         'https://avatars.githubusercontent.com/u/14101776?v=4');
+    expect(result.items[0].description,
+        'Flutter makes it easy and fast to build beautiful apps for mobile and beyond');
 
     expect(result.items[29].name, 'flutter_wanandroid');
   });

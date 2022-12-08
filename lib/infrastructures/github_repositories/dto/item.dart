@@ -1,3 +1,4 @@
+import 'package:flutter_engineer_codecheck/domain/value_objects/repository_description.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
 import 'dart:convert';
@@ -31,8 +32,11 @@ class Item with _$Item {
     /// オーナー除法
     required Owner owner,
 
-    /// 言語
+    /// 言語(存在しない場合もある)
     String? language,
+
+    /// 概略(存在しない場合もある)
+    String? description,
 
     /// イシュー数
     required int openIssues,
@@ -54,6 +58,7 @@ class Item with _$Item {
       repositoryName: RepositoryName(name),
       ownerIconUrl: OwnerIconUrl(owner.avatarUrl),
       projectLanguage: ProjectLanguage(language),
+      repositoryDescription: RepositoryDescription(description),
       countStar: CountStar(stargazersCount),
       countWatcher: CountWatcher(watchers),
       countFork: CountFork(forks),
