@@ -3,11 +3,13 @@ import 'package:flutter_engineer_codecheck/ui/pages/search_page/search_page_vm.d
 import 'package:flutter_engineer_codecheck/ui/widgets/templates/day_night_template.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../widgets/atoms/github_icon.dart';
-import '../../widgets/molecules/seatch_text_field.dart';
+import '../../widgets/molecules/search_text_field.dart';
 
 /// 検索用のトップページのView
 class SearchPage extends ConsumerStatefulWidget {
   const SearchPage({super.key});
+
+  static const path = '/';
 
   @override
   ConsumerState<SearchPage> createState() => _SearchPageState();
@@ -35,7 +37,9 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                 isDarkMode: _vm.isDarkMode,
               ),
             ),
-            SearchTextField(),
+            SearchTextField(
+                onSubmitted: (String keyword) =>
+                    _vm.onSearch(keyword, context)),
           ],
         ),
       ),

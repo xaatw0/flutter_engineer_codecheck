@@ -1,5 +1,3 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-
 /// ValueObject の基底クラス
 abstract class ValueObject<T> {
   final T value;

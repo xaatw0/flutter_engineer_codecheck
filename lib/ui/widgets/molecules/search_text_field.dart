@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 class SearchTextField extends StatelessWidget {
   const SearchTextField({
     Key? key,
+    required this.onSubmitted,
   }) : super(key: key);
+
+  /// キーボードの検索ボタン押下時のファンクション
+  final void Function(String value) onSubmitted;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +25,8 @@ class SearchTextField extends StatelessWidget {
         ),
       ),
       keyboardType: TextInputType.text,
+      textInputAction: TextInputAction.search,
+      onSubmitted: onSubmitted,
     );
   }
 }

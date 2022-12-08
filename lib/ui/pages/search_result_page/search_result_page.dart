@@ -14,6 +14,9 @@ class SearchResultPage extends ConsumerStatefulWidget {
 
   final String keyword;
 
+  static const kKeyword = 'keyword';
+  static const path = '/search/:$kKeyword';
+
   @override
   ConsumerState<SearchResultPage> createState() => _SearchResultPageState();
 }
