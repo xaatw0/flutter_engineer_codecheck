@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_engineer_codecheck/ui/pages/search_page/search_page.dart';
+import 'package:flutter_engineer_codecheck/ui/pages/search_result_page/search_result_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'app_theme.dart';
@@ -16,7 +16,9 @@ class MyApp extends StatelessWidget {
         themeMode: ref.watch(AppTheme.themeMode),
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.dartTheme,
-        home: const SearchPage(),
+        home: SearchResultPage(
+          keyword: 'test',
+        ),
       ),
     );
   }
