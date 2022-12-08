@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_engineer_codecheck/ui/pages/search_result_page/search_result_page_vm.dart';
 import 'package:flutter_engineer_codecheck/ui/widgets/templates/day_night_template.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:loading_animations/loading_animations.dart';
 
 import '../../widgets/organisms/search_result_list_view.dart';
 
@@ -38,7 +39,7 @@ class _SearchResultPageState extends ConsumerState<SearchResultPage> {
         Expanded(
             child: _vm.getRepositoryData(widget.keyword).when(
                   error: (error, _) => Text(error.toString()),
-                  loading: () => const CircularProgressIndicator(),
+                  loading: () => LoadingRotating.square(),
                   data: (data) => SearchResultListView(data: data),
                 )),
       ],
