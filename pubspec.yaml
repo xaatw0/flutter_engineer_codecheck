@@ -42,6 +42,7 @@ dependencies:
   flutter_riverpod: ^2.1.1
   flutter_svg: ^1.1.6
   day_night_switcher: ^0.2.0+1
+  get_it: ^7.2.0
 
 dev_dependencies:
   flutter_test:
