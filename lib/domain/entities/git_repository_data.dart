@@ -4,6 +4,7 @@ import 'package:flutter_engineer_codecheck/domain/value_objects/count_star.dart'
 import 'package:flutter_engineer_codecheck/domain/value_objects/count_watcher.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/owner_icon_url.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/project_language.dart';
+import 'package:flutter_engineer_codecheck/domain/value_objects/repository_description.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/repository_name.dart';
 
 /// Gitのレポジトリの情報
@@ -12,6 +13,7 @@ class GitRepositoryData {
     required this.repositoryName,
     required this.ownerIconUrl,
     required this.projectLanguage,
+    required this.repositoryDescription,
     required this.countStar,
     required this.countWatcher,
     required this.countFork,
@@ -26,6 +28,9 @@ class GitRepositoryData {
 
   /// 該当リポジトリのプロジェクト言語
   final ProjectLanguage projectLanguage;
+
+  /// 該当リポジトリの概要
+  final RepositoryDescription repositoryDescription;
 
   /// 該当リポジトリのStar 数
   final CountStar countStar;

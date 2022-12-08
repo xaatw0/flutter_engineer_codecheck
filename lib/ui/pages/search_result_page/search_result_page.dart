@@ -1,0 +1,47 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_engineer_codecheck/ui/pages/search_result_page/search_result_page_vm.dart';
+import 'package:flutter_engineer_codecheck/ui/widgets/templates/day_night_template.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../widgets/organisms/search_result_list_view.dart';
+
+/// 検索結果を表示するためのページのView
+class SearchResultPage extends ConsumerStatefulWidget {
+  SearchResultPage({
+    super.key,
+    required this.keyword,
+  });
+
+  final String keyword;
+
+  static const kKeyword = 'keyword';
+  static const path = '/search/:$kKeyword';
+
+  @override
+  ConsumerState<SearchResultPage> createState() => _SearchResultPageState();
+}
+
+class _SearchResultPageState extends ConsumerState<SearchResultPage> {
+  final SearchResultPageVm _vm = SearchResultPageVm();
+
+  @override
+  void initState() {
+    super.initState();
+    _vm.setRef(ref);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return DayNightTemplate(
+      title: '[${widget.keyword}]の検索',
+      children: [
+        Expanded(
+            child: _vm.getRepositoryData(widget.keyword).when(
+                  error: (error, _) => Text(error.toString()),
+                  loading: () => const CircularProgressIndicator(),
+                  data: (data) => SearchResultListView(data: data),
+                )),
+      ],
+    );
+  }
+}
