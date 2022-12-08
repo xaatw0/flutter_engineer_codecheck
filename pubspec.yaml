@@ -44,6 +44,7 @@ dependencies:
   day_night_switcher: ^0.2.0+1
   get_it: ^7.2.0
   go_router: ^5.2.1
+  loading_animations: ^2.2.0
 
 
 dev_dependencies:
