@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_engineer_codecheck/domain/entities/git_repository_data.dart';
+import 'package:flutter_engineer_codecheck/ui/widgets/atoms/owner_image.dart';
 import 'package:flutter_engineer_codecheck/ui/widgets/templates/day_night_template.dart';
 
 import '../../widgets/molecules/owner_clip.dart';
@@ -25,7 +26,10 @@ class _RepositoryDetailPageState extends State<RepositoryDetailPage> {
     final description = repositoryData.repositoryDescription() ?? '';
     return DayNightTemplate(children: [
       // オーナー画像
-      OwnerClip(repositoryData.ownerIconUrl),
+      Hero(
+        tag: OwnerImage.kHeroKey + widget.data.repositoryId().toString(),
+        child: OwnerClip(repositoryData.ownerIconUrl),
+      ),
       const SizedBox(height: 20.0),
       // レポジトリ名
       Center(

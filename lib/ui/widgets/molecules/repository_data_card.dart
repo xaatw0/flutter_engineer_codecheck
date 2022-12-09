@@ -17,7 +17,9 @@ class RepositoryDataCard extends StatelessWidget {
     return Card(
       child: ListTile(
         // 画像
-        leading: OwnerImage(url: data.ownerIconUrl()),
+        leading: Hero(
+            tag: OwnerImage.kHeroKey + data.repositoryId().toString(),
+            child: OwnerImage(url: data.ownerIconUrl())),
         // レポジトリ名
         title: Text(
           data.repositoryName(),
