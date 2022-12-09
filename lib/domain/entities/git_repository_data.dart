@@ -7,40 +7,41 @@ import 'package:flutter_engineer_codecheck/domain/value_objects/project_language
 import 'package:flutter_engineer_codecheck/domain/value_objects/repository_description.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/repository_name.dart';
 
-/// Gitのレポジトリの情報
-class GitRepositoryData {
-  const GitRepositoryData({
-    required this.repositoryName,
-    required this.ownerIconUrl,
-    required this.projectLanguage,
-    required this.repositoryDescription,
-    required this.countStar,
-    required this.countWatcher,
-    required this.countFork,
-    required this.countIssue,
-  });
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  /// 該当リポジトリのリポジトリ名
-  final RepositoryName repositoryName;
+part 'git_repository_data.freezed.dart';
+part 'git_repository_data.g.dart';
 
-  /// 該当リポジトリのオーナーアイコン
-  final OwnerIconUrl ownerIconUrl;
+@freezed
+class GitRepositoryData with _$GitRepositoryData {
+  const GitRepositoryData._(); //メソッド不要の場合、削除
+  const factory GitRepositoryData({
+    /// 該当リポジトリのリポジトリ名
+    @RepositoryNameConverter() required RepositoryName repositoryName,
 
-  /// 該当リポジトリのプロジェクト言語
-  final ProjectLanguage projectLanguage;
+    /// 該当リポジトリのオーナーアイコン
+    @OwnerIconUrlConverter() required OwnerIconUrl ownerIconUrl,
 
-  /// 該当リポジトリの概要
-  final RepositoryDescription repositoryDescription;
+    /// 該当リポジトリのプロジェクト言語
+    @ProjectLanguageConverter() required ProjectLanguage projectLanguage,
 
-  /// 該当リポジトリのStar 数
-  final CountStar countStar;
+    /// 該当リポジトリの概要
+    @RepositoryDescriptionConverter()
+        required RepositoryDescription repositoryDescription,
 
-  /// 該当リポジトリのWatcher 数
-  final CountWatcher countWatcher;
+    /// 該当リポジトリのStar 数
+    @CountStarConverter() required CountStar countStar,
 
-  /// 該当リポジトリのFork 数
-  final CountFork countFork;
+    /// 該当リポジトリのWatcher 数
+    @CountWatcherConverter() required CountWatcher countWatcher,
 
-  /// 該当リポジトリのIssue 数
-  final CountIssue countIssue;
+    /// 該当リポジトリのFork 数
+    @CountForkConverter() required CountFork countFork,
+
+    /// 該当リポジトリのIssue 数
+    @CountIssueConverter() required CountIssue countIssue,
+  }) = _GitRepositoryData;
+
+  factory GitRepositoryData.fromJson(Map<String, dynamic> json) =>
+      _$GitRepositoryDataFromJson(json);
 }

@@ -40,7 +40,10 @@ class _SearchResultPageState extends ConsumerState<SearchResultPage> {
             child: _vm.getRepositoryData(widget.keyword).when(
                   error: (error, _) => Text(error.toString()),
                   loading: () => LoadingRotating.square(),
-                  data: (data) => SearchResultListView(data: data),
+                  data: (data) => SearchResultListView(
+                    data: data,
+                    onTapped: _vm.onRepositoryTapped,
+                  ),
                 )),
       ],
     );
