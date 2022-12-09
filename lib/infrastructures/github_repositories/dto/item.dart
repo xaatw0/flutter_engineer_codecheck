@@ -11,6 +11,7 @@ import 'package:flutter_engineer_codecheck/domain/value_objects/count_watcher.da
 import 'package:flutter_engineer_codecheck/domain/value_objects/owner_icon_url.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/project_language.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/repository_name.dart';
+import 'package:flutter_engineer_codecheck/domain/value_objects/repository_id.dart';
 import 'owner.dart';
 
 part 'item.freezed.dart';
@@ -26,6 +27,9 @@ class Item with _$Item {
     fieldRename: FieldRename.snake,
   )
   const factory Item({
+    /// レポジトリID
+    required int id,
+
     /// レポジトリ名
     required String name,
 
@@ -55,6 +59,7 @@ class Item with _$Item {
 
   GitRepositoryData toGitRepositoryData() {
     return GitRepositoryData(
+      repositoryId: RepositoryId(id),
       repositoryName: RepositoryName(name),
       ownerIconUrl: OwnerIconUrl(owner.avatarUrl),
       projectLanguage: ProjectLanguage(language),

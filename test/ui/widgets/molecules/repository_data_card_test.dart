@@ -7,6 +7,7 @@ import 'package:flutter_engineer_codecheck/domain/value_objects/count_watcher.da
 import 'package:flutter_engineer_codecheck/domain/value_objects/owner_icon_url.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/project_language.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/repository_description.dart';
+import 'package:flutter_engineer_codecheck/domain/value_objects/repository_id.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/repository_name.dart';
 import 'package:flutter_engineer_codecheck/ui/widgets/molecules/repository_data_card.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -17,6 +18,7 @@ Widget target() => MaterialApp(
         children: [
           RepositoryDataCard(
             data: GitRepositoryData(
+              repositoryId: RepositoryId(123),
               repositoryName: RepositoryName('repositoryName'),
               ownerIconUrl: OwnerIconUrl('OwnerIconUrl'),
               projectLanguage: ProjectLanguage('projectLanguage'),
@@ -30,6 +32,7 @@ Widget target() => MaterialApp(
           ),
           RepositoryDataCard(
             data: GitRepositoryData(
+              repositoryId: RepositoryId(31792824),
               repositoryName: RepositoryName('flutter'),
               ownerIconUrl: OwnerIconUrl('OwnerIconUrl1'),
               projectLanguage: ProjectLanguage('Dart'),

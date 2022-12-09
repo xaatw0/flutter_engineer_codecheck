@@ -143,6 +143,7 @@ main() async {
     final map = json.decode(jsonData);
     final result = Item.fromJson(map);
 
+    expect(result.id, 31792824);
     expect(result.name, 'flutter');
     expect(result.language, 'Dart');
     expect(result.stargazersCount, 146985);

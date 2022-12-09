@@ -5,6 +5,7 @@ import 'package:flutter_engineer_codecheck/domain/value_objects/count_watcher.da
 import 'package:flutter_engineer_codecheck/domain/value_objects/owner_icon_url.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/project_language.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/repository_description.dart';
+import 'package:flutter_engineer_codecheck/domain/value_objects/repository_id.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/repository_name.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -16,6 +17,9 @@ part 'git_repository_data.g.dart';
 class GitRepositoryData with _$GitRepositoryData {
   const GitRepositoryData._(); //メソッド不要の場合、削除
   const factory GitRepositoryData({
+    /// 該当リポジトリのリポジトリID
+    @RepositoryIdConverter() required RepositoryId repositoryId,
+
     /// 該当リポジトリのリポジトリ名
     @RepositoryNameConverter() required RepositoryName repositoryName,
 
