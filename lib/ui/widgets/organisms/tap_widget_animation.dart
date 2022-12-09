@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 /// 対象のWidgetを押すと、少し小さくなって、それから元の大きさになるアニメーションを実施する。
 /// アニメーション後、[onTap]が実施される。
-class ButtonClickAnimation extends StatefulWidget {
-  const ButtonClickAnimation({Key? key, required this.child, this.onTap})
+class TapWidgetAnimation extends StatefulWidget {
+  const TapWidgetAnimation({Key? key, required this.child, this.onTap})
       : super(key: key);
 
   /// アニメーションするWidget
@@ -13,13 +13,13 @@ class ButtonClickAnimation extends StatefulWidget {
   final void Function()? onTap;
 
   @override
-  State<StatefulWidget> createState() => _ButtonClickAnimationState();
+  State<StatefulWidget> createState() => _TapWidgetAnimationState();
 }
 
-class _ButtonClickAnimationState extends State<ButtonClickAnimation>
-    with TickerProviderStateMixin<ButtonClickAnimation> {
+class _TapWidgetAnimationState extends State<TapWidgetAnimation>
+    with TickerProviderStateMixin<TapWidgetAnimation> {
   // 100ミリ秒でアニメーションが実施される。
-  late AnimationController controller = AnimationController(
+  late final AnimationController _controller = AnimationController(
       vsync: this,
       duration: const Duration(
         milliseconds: 100,
@@ -27,9 +27,10 @@ class _ButtonClickAnimationState extends State<ButtonClickAnimation>
       value: 1.0);
 
   // 最初が1で最後に0.95になるようにする。つまり、100%の大きさを95%の大きさに変化させる。
-  late Animation<double> easeInAnimation = Tween(begin: 1.0, end: 0.95).animate(
+  late final Animation<double> _easeInAnimation =
+      Tween(begin: 1.0, end: 0.95).animate(
     CurvedAnimation(
-      parent: controller,
+      parent: _controller,
       curve: Curves.easeIn,
     ),
   );
@@ -37,7 +38,7 @@ class _ButtonClickAnimationState extends State<ButtonClickAnimation>
   @override
   void initState() {
     super.initState();
-    controller.reverse();
+    _controller.reset();
   }
 
   @override
@@ -45,10 +46,10 @@ class _ButtonClickAnimationState extends State<ButtonClickAnimation>
     return GestureDetector(
       onTapDown: (_) {
         // 1→0.95に変化させて、サイズを変える
-        controller.forward();
+        _controller.forward();
       },
       onTapUp: (_) {
-        controller.reverse().then((_) {
+        _controller.reverse().then((_) {
           // 元の大きさに戻ったら、onTapのイベントがあれば実行する
           if (widget.onTap != null) {
             widget.onTap!();
@@ -57,7 +58,7 @@ class _ButtonClickAnimationState extends State<ButtonClickAnimation>
       },
       // childの大きさを1→0.95→1にアニメーションさせる
       child: ScaleTransition(
-        scale: easeInAnimation,
+        scale: _easeInAnimation,
         child: widget.child,
       ),
     );
@@ -65,7 +66,7 @@ class _ButtonClickAnimationState extends State<ButtonClickAnimation>
 
   @override
   void dispose() {
-    controller.dispose();
+    _controller.dispose();
     super.dispose();
   }
 }
