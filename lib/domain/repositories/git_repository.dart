@@ -9,4 +9,7 @@ abstract class GitRepository {
     String keyword, {
     int page = 1,
   });
+
+  /// 最初の1ページ目のインデックス
+  int getFirstPageIndex();
 }

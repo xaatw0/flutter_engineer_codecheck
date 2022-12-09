@@ -40,4 +40,9 @@ class GithubRepository implements GitRepository {
     final result = Result.fromJson(map);
     return result.items.map((item) => item.toGitRepositoryData());
   }
+
+  @override
+  int getFirstPageIndex() {
+    return 1;
+  }
 }
