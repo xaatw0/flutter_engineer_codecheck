@@ -41,9 +41,18 @@ class _SearchResultPageState extends ConsumerState<SearchResultPage> {
             child: _vm.getRepositoryData.when(
           error: (error, _) => Text(error.toString()),
           loading: () => LoadingRotating.square(),
-          data: (data) => SearchResultListView(
-            data: data,
-            onTapped: _vm.onRepositoryTapped,
+          data: (data) => NotificationListener<ScrollEndNotification>(
+            onNotification: (ScrollEndNotification notification) {
+              bool isReachScrollEnd = notification.metrics.extentAfter == 0;
+              if (isReachScrollEnd) {
+                _vm.onLoadMore();
+              }
+              return isReachScrollEnd;
+            },
+            child: SearchResultListView(
+              data: data,
+              onTapped: _vm.onRepositoryTapped,
+            ),
           ),
         )),
       ],

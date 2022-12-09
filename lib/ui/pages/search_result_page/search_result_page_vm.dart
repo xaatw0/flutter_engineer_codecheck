@@ -10,12 +10,13 @@ import '../../../domain/repositories/git_repository.dart';
 
 /// 剣客結果を表示するページのViewModel
 class SearchResultPageVm {
+  // GitRepositoryのインスタンス
+  final _gitRepository = GetIt.I.get<GitRepository>();
+
   // キーワードに基づいた検索結果を取得するProvider
-  final _searchResultProvider = StateNotifierProvider<SearchResultNotifier,
+  late final _searchResultProvider = StateNotifierProvider<SearchResultNotifier,
       AsyncValue<List<GitRepositoryData>>>(
-    (ref) => SearchResultNotifier(
-      GetIt.I.get<GitRepository>(),
-    ),
+    (ref) => SearchResultNotifier(_gitRepository),
   );
 
   // キーワードに基づいた検索結果を取得するProviderの状態を管理するAsyncValue
@@ -27,19 +28,32 @@ class SearchResultPageVm {
     _ref = ref;
   }
 
+  /// 検索キーワード
   String _keyword = '';
+
+  /// データ取得が終了したページのインデックス
   int _page = 0;
 
+  /// [keyword]を検索キーワードにして、[page]ページ目の GitRepositoryのデータを取得する。
+  /// [isLoadMore] false: 初回取得 true:2回目以降の取得
   void _fetch(String keyword, int page, bool isLoadMore) {
     _ref.read(_searchResultProvider.notifier).fetch(keyword, page, isLoadMore);
   }
 
+  /// [keyword]で初めて検索をする
   void onLoad(String keyword) {
     _keyword = keyword;
-    _fetch(_keyword, 1, false);
+    _page = _gitRepository.getFirstPageIndex();
+    _fetch(_keyword, _page, false);
   }
 
-  void onLoadMore() {}
+  /// [_keyword]を検索キーワードにして、[_page]ページ目の GitRepositoryのデータを取得する。
+  void onLoadMore() {
+    _page++;
+    if (!_ref.read(_searchResultProvider.notifier).isLoading()) {
+      _fetch(_keyword, _page, true);
+    }
+  }
 
   /// レポジトリのカードが押下されたら、レポジトリ詳細画面に遷移する
   void onRepositoryTapped(

@@ -15,15 +15,22 @@ class SearchResultNotifier
   Future<void> fetch(String keyword, int page, bool isLoadMore) async {
     state = await AsyncValue.guard(() async {
       final newData = await repository.search(keyword, page: page);
-      // return [if (isLoadMore) ...state.value ?? [], ...newData];
-      return newData;
+
+      // 同じIDがレポジトリがある場合、追加しない
+      // (検索中に順位が入れ替わったケースを想定。その場合、抜けるレポジトリがあるのか)
+      final existIds = state.value?.map((e) => e.repositoryId) ?? [];
+      newData.removeWhere((e) => existIds.contains(e.repositoryId));
+      return [if (isLoadMore) ...state.value ?? [], ...newData];
     });
   }
 
+  bool isLoading() =>
+      state ==
+      const AsyncLoading<List<GitRepositoryData>>().copyWithPrevious(state);
+
   void load(String keyword, int page, isLoadMoreData) {
     // ローディング中にローディングしないようにする
-    if (state ==
-        const AsyncLoading<List<GitRepositoryData>>().copyWithPrevious(state)) {
+    if (isLoading()) {
       return;
     }
 
