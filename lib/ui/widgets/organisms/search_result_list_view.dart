@@ -8,9 +8,11 @@ class SearchResultListView extends StatelessWidget {
   const SearchResultListView({
     Key? key,
     required this.data,
+    this.onTapped,
   }) : super(key: key);
 
   final List<GitRepositoryData> data;
+  final void Function(BuildContext context, GitRepositoryData data)? onTapped;
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +20,11 @@ class SearchResultListView extends StatelessWidget {
       itemCount: data.length,
       itemBuilder: (context, index) {
         final repository = data[index];
-        return RepositoryDataCard(
-          data: repository,
+        return GestureDetector(
+          onTap: onTapped == null ? null : () => onTapped!(context, repository),
+          child: RepositoryDataCard(
+            data: repository,
+          ),
         );
       },
     );
