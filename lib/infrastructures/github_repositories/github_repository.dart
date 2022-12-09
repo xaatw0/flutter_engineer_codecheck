@@ -11,13 +11,26 @@ import 'dto/result.dart';
 /// ・ネットワークが繋がっていない、または遅い
 /// ・WebAPIの形式が変更された
 class GithubRepository implements GitRepository {
+  /// パラメータのキーワードの置換用文字列
+  static const kParamKeyword = '<keyword>';
+
+  /// パラメータのページ数の置換用文字列
+  static const kParamPage = '<page>';
+
+  /// Github APIへアクセスするためのURL
   static const String apiUrl =
-      'https://api.github.com/search/repositories?q=<keyword>';
+      'https://api.github.com/search/repositories?q=$kParamKeyword&page=$kParamPage';
 
   @override
-  Future<List<GitRepositoryData>> search(String keyword) async {
+  Future<List<GitRepositoryData>> search(
+    String keyword, {
+    int page = 1,
+  }) async {
     // TODO 並び順、ページ数などへの対応
-    final apiUri = Uri.parse(apiUrl.replaceFirst('<keyword>', keyword));
+    final uri = apiUrl
+        .replaceFirst(kParamKeyword, keyword)
+        .replaceFirst(kParamPage, page.toString());
+    final apiUri = Uri.parse(uri);
     http.Response response = await http.get(apiUri);
     return fromJson(response.body).toList();
   }
@@ -26,5 +39,10 @@ class GithubRepository implements GitRepository {
     final map = json.decode(jsonData);
     final result = Result.fromJson(map);
     return result.items.map((item) => item.toGitRepositoryData());
+  }
+
+  @override
+  int getFirstPageIndex() {
+    return 1;
   }
 }

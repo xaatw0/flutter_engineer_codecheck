@@ -18,5 +18,19 @@ main() async {
     expect(result.first.repositoryName(), 'flutter');
   });
 
-  test('search', () async {});
+  test('page', () async {
+    final repository = GithubRepository();
+    final result = await repository.search('flutter');
+
+    expect(result.length, 30);
+    expect(result.first.repositoryName(), 'flutter');
+
+    // ページ1の最初は公式だし、多分「flutter」。
+    final page1 = await repository.search('flutter', page: 1);
+    expect(page1.first.repositoryName(), 'flutter');
+
+    // ページ2の最初は多分「Flutter」ではない
+    final page2 = await repository.search('flutter', page: 2);
+    expect(page2.first.repositoryName(), isNot('flutter'));
+  });
 }

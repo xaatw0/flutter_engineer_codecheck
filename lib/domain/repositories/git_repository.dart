@@ -4,5 +4,12 @@ import '../entities/git_repository_data.dart';
 /// Githubだけではなく、他のGitでデータ取得をするケースも想定して、抽象クラスを作成する。
 abstract class GitRepository {
   /// キーワードに対する検索結果を取得する
-  Future<List<GitRepositoryData>> search(String keyword);
+  /// [page]で何ページ目かを指定する。Githubでは、最初のページは1ページ目。
+  Future<List<GitRepositoryData>> search(
+    String keyword, {
+    int page = 1,
+  });
+
+  /// 最初の1ページ目のインデックス
+  int getFirstPageIndex();
 }
