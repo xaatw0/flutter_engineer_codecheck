@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 /// 対象のWidgetを押すと、少し小さくなって、それから元の大きさになるアニメーションを実施する。
 /// アニメーション後、[onTap]が実施される。
 class ButtonClickAnimation extends StatefulWidget {
-  const ButtonClickAnimation(
-      {Key? key, required this.child, required this.onTap})
+  const ButtonClickAnimation({Key? key, required this.child, this.onTap})
       : super(key: key);
 
   /// アニメーションするWidget
@@ -44,16 +43,16 @@ class _ButtonClickAnimationState extends State<ButtonClickAnimation>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
+      onTapDown: (_) {
         // 1→0.95に変化させて、サイズを変える
-        controller.forward().then((_) {
-          // 0.95になった後に逆再生させて、1に戻す
-          controller.reverse().then((_) {
-            // 元の大きさに戻ったら、onTapのイベントがあれば実行する
-            if (widget.onTap != null) {
-              widget.onTap!();
-            }
-          });
+        controller.forward();
+      },
+      onTapUp: (_) {
+        controller.reverse().then((_) {
+          // 元の大きさに戻ったら、onTapのイベントがあれば実行する
+          if (widget.onTap != null) {
+            widget.onTap!();
+          }
         });
       },
       // childの大きさを1→0.95→1にアニメーションさせる
