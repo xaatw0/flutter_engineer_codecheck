@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_engineer_codecheck/ui/pages/search_page/search_page_vm.dart';
+import 'package:flutter_engineer_codecheck/ui/widgets/organisms/tap_widget_animation.dart';
 import 'package:flutter_engineer_codecheck/ui/widgets/templates/day_night_template.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../widgets/atoms/github_icon.dart';
@@ -32,9 +33,11 @@ class _SearchPageState extends ConsumerState<SearchPage> {
           children: [
             Padding(
               padding: const EdgeInsets.all(24.0),
-              child: GithubIcon(
-                size: MediaQuery.of(context).size.height / 4,
-                isDarkMode: _vm.isDarkMode,
+              child: TapWidgetAnimation(
+                child: GithubIcon(
+                  size: MediaQuery.of(context).size.height / 4,
+                  isDarkMode: _vm.isDarkMode,
+                ),
               ),
             ),
             SearchTextField(
