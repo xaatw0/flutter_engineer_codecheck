@@ -29,6 +29,7 @@ class _SearchResultPageState extends ConsumerState<SearchResultPage> {
   void initState() {
     super.initState();
     _vm.setRef(ref);
+    _vm.onLoad(widget.keyword);
   }
 
   @override
@@ -37,14 +38,14 @@ class _SearchResultPageState extends ConsumerState<SearchResultPage> {
       title: '[${widget.keyword}]の検索',
       children: [
         Expanded(
-            child: _vm.getRepositoryData(widget.keyword).when(
-                  error: (error, _) => Text(error.toString()),
-                  loading: () => LoadingRotating.square(),
-                  data: (data) => SearchResultListView(
-                    data: data,
-                    onTapped: _vm.onRepositoryTapped,
-                  ),
-                )),
+            child: _vm.getRepositoryData.when(
+          error: (error, _) => Text(error.toString()),
+          loading: () => LoadingRotating.square(),
+          data: (data) => SearchResultListView(
+            data: data,
+            onTapped: _vm.onRepositoryTapped,
+          ),
+        )),
       ],
     );
   }
