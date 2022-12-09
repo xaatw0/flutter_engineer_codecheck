@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_engineer_codecheck/ui/widgets/organisms/button_click_animation.dart';
 
 import '../../../domain/entities/git_repository_data.dart';
 import '../molecules/repository_data_card.dart';
@@ -20,7 +21,7 @@ class SearchResultListView extends StatelessWidget {
       itemCount: data.length,
       itemBuilder: (context, index) {
         final repository = data[index];
-        return GestureDetector(
+        return ButtonClickAnimation(
           onTap: onTapped == null ? null : () => onTapped!(context, repository),
           child: RepositoryDataCard(
             data: repository,
