@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_engineer_codecheck/ui/widgets/organisms/theme_switcher.dart';
 
+import '../../../domain/string_resources.dart';
+
 /// ライトテーマとダークテーマの切り替えボタンのあるテンプレート。
 class DayNightTemplate extends StatelessWidget {
   const DayNightTemplate({
@@ -16,7 +18,7 @@ class DayNightTemplate extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title ?? ''),
+        title: Text(title ?? StringResources.kEmpty),
         actions: [ThemeSwitcher()],
       ),
       body: SafeArea(

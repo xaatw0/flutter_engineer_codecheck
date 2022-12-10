@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_engineer_codecheck/domain/entities/git_repository_data.dart';
+import 'package:flutter_engineer_codecheck/domain/string_resources.dart';
 import 'package:flutter_engineer_codecheck/ui/widgets/atoms/owner_image.dart';
 import 'package:flutter_engineer_codecheck/ui/widgets/templates/day_night_template.dart';
 
@@ -23,7 +24,8 @@ class _RepositoryDetailPageState extends State<RepositoryDetailPage> {
   @override
   Widget build(BuildContext context) {
     final repositoryData = widget.data;
-    final description = repositoryData.repositoryDescription() ?? '';
+    final description =
+        repositoryData.repositoryDescription() ?? StringResources.kEmpty;
     return DayNightTemplate(children: [
       // オーナー画像
       Hero(
@@ -43,10 +45,22 @@ class _RepositoryDetailPageState extends State<RepositoryDetailPage> {
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          RepositoryDetailColumn('Star', repositoryData.countStar()),
-          RepositoryDetailColumn('Watcher', repositoryData.countWatcher()),
-          RepositoryDetailColumn('Fork', repositoryData.countFork()),
-          RepositoryDetailColumn('Issue', repositoryData.countIssue()),
+          RepositoryDetailColumn(
+            StringResources.kStar,
+            repositoryData.countStar(),
+          ),
+          RepositoryDetailColumn(
+            StringResources.kWatchers,
+            repositoryData.countWatcher(),
+          ),
+          RepositoryDetailColumn(
+            StringResources.kForks,
+            repositoryData.countFork(),
+          ),
+          RepositoryDetailColumn(
+            StringResources.kIssues,
+            repositoryData.countIssue(),
+          ),
         ],
       ),
       const SizedBox(

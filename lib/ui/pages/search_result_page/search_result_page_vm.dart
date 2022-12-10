@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_engineer_codecheck/domain/entities/git_repository_data.dart';
+import 'package:flutter_engineer_codecheck/domain/string_resources.dart';
 import 'package:flutter_engineer_codecheck/ui/pages/repository_detail_page/repository_detail_page.dart';
 import 'package:flutter_engineer_codecheck/ui/pages/search_result_page/search_result_notifier.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -29,7 +30,7 @@ class SearchResultPageVm {
   }
 
   /// 検索キーワード
-  String _keyword = '';
+  String _keyword = StringResources.kEmpty;
 
   /// ソート方法
   SortMethod _sortMethod = SortMethod.bestMatch;
