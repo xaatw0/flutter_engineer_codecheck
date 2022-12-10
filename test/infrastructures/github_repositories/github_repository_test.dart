@@ -46,21 +46,21 @@ main() async {
 
     // スター
     expect(repository.getSearchUrl('keyword1', 1, SortMethod.starAsc),
-        'https://api.github.com/search/repositories?q=keyword1&page=1&sort=star&order=asc');
+        'https://api.github.com/search/repositories?q=keyword1&page=1&sort=stars&order=asc');
     expect(repository.getSearchUrl('keyword2', 2, SortMethod.starDesc),
-        'https://api.github.com/search/repositories?q=keyword2&page=2&sort=star&order=desc');
+        'https://api.github.com/search/repositories?q=keyword2&page=2&sort=stars&order=desc');
 
     // フォーク
     expect(repository.getSearchUrl('keyword1', 1, SortMethod.forkAsc),
-        'https://api.github.com/search/repositories?q=keyword1&page=1&sort=fork&order=asc');
+        'https://api.github.com/search/repositories?q=keyword1&page=1&sort=forks&order=asc');
     expect(repository.getSearchUrl('keyword2', 2, SortMethod.forkDesc),
-        'https://api.github.com/search/repositories?q=keyword2&page=2&sort=fork&order=desc');
+        'https://api.github.com/search/repositories?q=keyword2&page=2&sort=forks&order=desc');
 
     // 更新日時
     expect(repository.getSearchUrl('keyword1', 1, SortMethod.recentlyUpdated),
-        'https://api.github.com/search/repositories?q=keyword1&page=1&sort=update&order=asc');
+        'https://api.github.com/search/repositories?q=keyword1&page=1&sort=updated&order=desc');
     expect(
         repository.getSearchUrl('keyword2', 2, SortMethod.leastRecentlyUpdate),
-        'https://api.github.com/search/repositories?q=keyword2&page=2&sort=update&order=desc');
+        'https://api.github.com/search/repositories?q=keyword2&page=2&sort=updated&order=asc');
   });
 }

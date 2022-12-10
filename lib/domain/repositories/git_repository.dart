@@ -6,22 +6,24 @@ enum SortMethod {
   bestMatch,
 
   /// スターが多い順
-  starAsc,
-
-  /// スターが少ない順
   starDesc,
 
+  /// スターが少ない順
+  starAsc,
+
   /// フォークが多い順
-  forkAsc,
+  forkDesc,
 
   /// フォークが少ない順
-  forkDesc,
+  forkAsc,
 
   /// 更新日時が新しい順
   recentlyUpdated,
 
   /// 更新日時が古い順
-  leastRecentlyUpdate,
+  leastRecentlyUpdate;
+
+  String toJson() => toString();
 }
 
 /// Gitからデータを取得するためのレポジトリクラス (Gitのソース解離のレポジトリと間違えやすい)。

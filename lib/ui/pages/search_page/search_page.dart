@@ -41,8 +41,12 @@ class _SearchPageState extends ConsumerState<SearchPage> {
               ),
             ),
             SearchTextField(
-                onSubmitted: (String keyword) =>
-                    _vm.onSearch(keyword, context)),
+              onSubmitted: (String keyword) => _vm.onSearch(keyword, context),
+              onSelectSortMethod: () {
+                _vm.onSelectSortMethod(context);
+              },
+            ),
+            Row()
           ],
         ),
       ),

@@ -5,6 +5,7 @@ import 'package:flutter_engineer_codecheck/ui/pages/search_result_page/search_re
 
 import 'package:go_router/go_router.dart';
 import '../domain/entities/git_repository_data.dart';
+import '../domain/repositories/git_repository.dart';
 
 /// アプリ全体の遷移用のルート設定
 final router = GoRouter(
@@ -23,11 +24,16 @@ final router = GoRouter(
       path: SearchResultPage.path,
       pageBuilder: (BuildContext context, GoRouterState? state) {
         final keyword = state?.params[SearchResultPage.kKeyword]?.toString();
+        final sortMethod = state?.extra;
 
-        return keyword != null && keyword.isNotEmpty
+        return keyword != null &&
+                keyword.isNotEmpty &&
+                sortMethod != null &&
+                sortMethod is SortMethod
             ? MaterialPage(
                 child: SearchResultPage(
                   keyword: keyword,
+                  sortMethod: sortMethod,
                 ),
               )
             : const MaterialPage(

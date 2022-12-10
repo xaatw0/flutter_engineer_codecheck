@@ -36,20 +36,20 @@ class GithubRepository implements GitRepository {
     'asc': [
       SortMethod.starAsc,
       SortMethod.forkAsc,
-      SortMethod.recentlyUpdated,
+      SortMethod.leastRecentlyUpdate
     ],
     'desc': [
       SortMethod.starDesc,
       SortMethod.forkDesc,
-      SortMethod.leastRecentlyUpdate
+      SortMethod.recentlyUpdated,
     ],
   };
 
   /// 「検索結果の表示順」のソートの方法とパラメータのキーワードとの対応表
   static const kMapSort = <String, List<SortMethod>>{
-    'star': [SortMethod.starAsc, SortMethod.starDesc],
-    'fork': [SortMethod.forkAsc, SortMethod.forkDesc],
-    'update': [
+    'stars': [SortMethod.starAsc, SortMethod.starDesc],
+    'forks': [SortMethod.forkAsc, SortMethod.forkDesc],
+    'updated': [
       SortMethod.recentlyUpdated,
       SortMethod.leastRecentlyUpdate,
     ],
@@ -61,10 +61,7 @@ class GithubRepository implements GitRepository {
     int page = 1,
     SortMethod sortMethod = SortMethod.bestMatch,
   }) async {
-    // TODO 並び順、ページ数などへの対応
-    final uri = kApiUrl
-        .replaceFirst(kParamKeyword, keyword)
-        .replaceFirst(kParamPage, page.toString());
+    final uri = getSearchUrl(keyword, page, sortMethod);
     final apiUri = Uri.parse(uri);
     http.Response response = await http.get(apiUri);
     return fromJson(response.body).toList();
