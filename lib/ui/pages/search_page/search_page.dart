@@ -4,6 +4,7 @@ import 'package:flutter_engineer_codecheck/ui/widgets/templates/day_night_templa
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../widgets/atoms/github_icon.dart';
 import '../../widgets/molecules/search_text_field.dart';
+import '../../widgets/organisms/moving_fadein_animation.dart';
 
 /// 検索用のトップページのView
 class SearchPage extends ConsumerStatefulWidget {
@@ -32,9 +33,11 @@ class _SearchPageState extends ConsumerState<SearchPage> {
           children: [
             Padding(
               padding: const EdgeInsets.all(24.0),
-              child: GithubIcon(
-                size: MediaQuery.of(context).size.height / 4,
-                isDarkMode: _vm.isDarkMode,
+              child: MovingFadeinAnimation(
+                child: GithubIcon(
+                  size: MediaQuery.of(context).size.height / 4,
+                  isDarkMode: _vm.isDarkMode,
+                ),
               ),
             ),
             SearchTextField(
