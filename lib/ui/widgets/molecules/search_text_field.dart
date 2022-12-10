@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// 検索用のテキストフィールド
 class SearchTextField extends StatelessWidget {
@@ -24,7 +25,8 @@ class SearchTextField extends StatelessWidget {
           icon: const Icon(Icons.sort),
           onPressed: onSelectSortMethod,
         ),
-        hintText: '検索キーワード',
+        // 空白時(初期状態)でTextFiledに入力されている文字
+        hintText: AppLocalizations.of(context).searchInGithub,
         hintStyle: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.normal,

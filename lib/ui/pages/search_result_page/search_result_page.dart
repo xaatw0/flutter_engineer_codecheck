@@ -5,6 +5,7 @@ import 'package:flutter_engineer_codecheck/ui/widgets/templates/day_night_templa
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading_animations/loading_animations.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../widgets/organisms/search_result_list_view.dart';
 
 /// 検索結果を表示するためのページのView
@@ -44,7 +45,7 @@ class _SearchResultPageState extends ConsumerState<SearchResultPage> {
   @override
   Widget build(BuildContext context) {
     return DayNightTemplate(
-      title: '[${widget.keyword}]の検索',
+      title: '${AppLocalizations.of(context).searchResult} [${widget.keyword}]',
       children: [
         Expanded(
             child: _vm.getRepositoryData.when(

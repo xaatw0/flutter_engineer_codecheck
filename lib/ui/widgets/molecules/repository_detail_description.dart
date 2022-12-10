@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_engineer_codecheck/domain/string_resources.dart';
 
 /// レポジトリの詳細を表示する画面のDescription部分のWidget
 class RepositoryDetailDescription extends StatelessWidget {
@@ -15,7 +16,7 @@ class RepositoryDetailDescription extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            'Description',
+            StringResources.kDescription,
             textAlign: TextAlign.left,
             style: Theme.of(context).textTheme.titleLarge,
           ),
