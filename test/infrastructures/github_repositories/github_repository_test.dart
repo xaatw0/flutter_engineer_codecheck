@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter_engineer_codecheck/domain/repositories/git_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../lib/infrastructures/github_repositories/github_repository.dart';
@@ -32,5 +33,34 @@ main() async {
     // ページ2の最初は多分「Flutter」ではない
     final page2 = await repository.search('flutter', page: 2);
     expect(page2.first.repositoryName(), isNot('flutter'));
+  });
+
+  test('getSearchUrl', () async {
+    final repository = GithubRepository();
+
+    // キーワードとページ
+    expect(repository.getSearchUrl('keyword1', 1, SortMethod.bestMatch),
+        'https://api.github.com/search/repositories?q=keyword1&page=1');
+    expect(repository.getSearchUrl('keyword2', 2, SortMethod.bestMatch),
+        'https://api.github.com/search/repositories?q=keyword2&page=2');
+
+    // スター
+    expect(repository.getSearchUrl('keyword1', 1, SortMethod.starAsc),
+        'https://api.github.com/search/repositories?q=keyword1&page=1&sort=stars&order=asc');
+    expect(repository.getSearchUrl('keyword2', 2, SortMethod.starDesc),
+        'https://api.github.com/search/repositories?q=keyword2&page=2&sort=stars&order=desc');
+
+    // フォーク
+    expect(repository.getSearchUrl('keyword1', 1, SortMethod.forkAsc),
+        'https://api.github.com/search/repositories?q=keyword1&page=1&sort=forks&order=asc');
+    expect(repository.getSearchUrl('keyword2', 2, SortMethod.forkDesc),
+        'https://api.github.com/search/repositories?q=keyword2&page=2&sort=forks&order=desc');
+
+    // 更新日時
+    expect(repository.getSearchUrl('keyword1', 1, SortMethod.recentlyUpdated),
+        'https://api.github.com/search/repositories?q=keyword1&page=1&sort=updated&order=desc');
+    expect(
+        repository.getSearchUrl('keyword2', 2, SortMethod.leastRecentlyUpdate),
+        'https://api.github.com/search/repositories?q=keyword2&page=2&sort=updated&order=asc');
   });
 }

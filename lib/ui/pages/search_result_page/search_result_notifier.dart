@@ -12,9 +12,11 @@ class SearchResultNotifier
   final GitRepository repository;
 
   /// データの読込
-  Future<void> fetch(String keyword, int page, bool isLoadMore) async {
+  Future<void> fetch(
+      String keyword, int page, bool isLoadMore, SortMethod sortMethod) async {
     state = await AsyncValue.guard(() async {
-      final newData = await repository.search(keyword, page: page);
+      final newData =
+          await repository.search(keyword, page: page, sortMethod: sortMethod);
 
       // 同じIDがレポジトリがある場合、追加しない
       // (検索中に順位が入れ替わったケースを想定。その場合、抜けるレポジトリがあるのか)
@@ -28,7 +30,7 @@ class SearchResultNotifier
       state ==
       const AsyncLoading<List<GitRepositoryData>>().copyWithPrevious(state);
 
-  void load(String keyword, int page, isLoadMoreData) {
+  void load(String keyword, int page, isLoadMoreData, SortMethod sortMethod) {
     // ローディング中にローディングしないようにする
     if (isLoading()) {
       return;
@@ -38,6 +40,6 @@ class SearchResultNotifier
     state =
         const AsyncLoading<List<GitRepositoryData>>().copyWithPrevious(state);
 
-    fetch(keyword, page, isLoadMoreData);
+    fetch(keyword, page, isLoadMoreData, sortMethod);
   }
 }

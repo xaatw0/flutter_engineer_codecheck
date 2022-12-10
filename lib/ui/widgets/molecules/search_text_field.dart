@@ -5,16 +5,25 @@ class SearchTextField extends StatelessWidget {
   const SearchTextField({
     Key? key,
     required this.onSubmitted,
+    required this.onSelectSortMethod,
   }) : super(key: key);
 
   /// キーボードの検索ボタン押下時のファンクション
   final void Function(String value) onSubmitted;
+  final void Function() onSelectSortMethod;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       decoration: InputDecoration(
+        // TextField左端の虫眼鏡のアイコン(飾り)
         prefixIcon: const Icon(Icons.search),
+
+        // TextField右端のソート方法選択のアイコン
+        suffixIcon: IconButton(
+          icon: const Icon(Icons.sort),
+          onPressed: onSelectSortMethod,
+        ),
         hintText: '検索キーワード',
         hintStyle: TextStyle(
             fontSize: 14,
