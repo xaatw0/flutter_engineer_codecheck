@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_engineer_codecheck/domain/string_resources.dart';
 
 import '../../../domain/entities/git_repository_data.dart';
 import '../atoms/owner_image.dart';
@@ -27,7 +28,7 @@ class RepositoryDataCard extends StatelessWidget {
         ),
         // レポジトリの概要
         subtitle: Text(
-          data.repositoryDescription() ?? '',
+          data.repositoryDescription() ?? StringResources.kEmpty,
           style: const TextStyle(fontSize: 10, color: Color(0xff818181)),
         ),
         // 右隅 画像と数字

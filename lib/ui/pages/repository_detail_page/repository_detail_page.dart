@@ -24,7 +24,8 @@ class _RepositoryDetailPageState extends State<RepositoryDetailPage> {
   @override
   Widget build(BuildContext context) {
     final repositoryData = widget.data;
-    final description = repositoryData.repositoryDescription() ?? '';
+    final description =
+        repositoryData.repositoryDescription() ?? StringResources.kEmpty;
     return DayNightTemplate(children: [
       // オーナー画像
       Hero(
