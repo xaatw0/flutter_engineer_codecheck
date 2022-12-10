@@ -12,8 +12,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, child) => MaterialApp.router(
-        title: 'Flutter Demo',
-
         // テーマ
         themeMode: ref.watch(AppTheme.themeMode),
         theme: AppTheme.lightTheme,
