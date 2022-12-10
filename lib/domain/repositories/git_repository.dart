@@ -3,26 +3,30 @@ import '../entities/git_repository_data.dart';
 /// Gitの検索結果の表示順
 enum SortMethod {
   /// ベストマッチ順
-  bestMatch,
+  bestMatch('Best match'),
 
   /// スターが多い順
-  starDesc,
+  starDesc('Most stars'),
 
   /// スターが少ない順
-  starAsc,
+  starAsc('Fewest stars'),
 
   /// フォークが多い順
-  forkDesc,
+  forkDesc('Most forks'),
 
   /// フォークが少ない順
-  forkAsc,
+  forkAsc('Fewest forks'),
 
   /// 更新日時が新しい順
-  recentlyUpdated,
+  recentlyUpdated('Recently updated'),
 
   /// 更新日時が古い順
-  leastRecentlyUpdate;
+  leastRecentlyUpdate('Least recently updated');
 
+  const SortMethod(this.title);
+
+  /// 画面に表示するタイトル
+  final String title;
   String toJson() => toString();
 }
 
