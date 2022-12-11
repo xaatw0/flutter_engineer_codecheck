@@ -102,7 +102,7 @@ void main() {
     await utility.loadJapaneseFont();
   });
 
-  testGoldens('RepositoryDataCard', (WidgetTester tester) async {
+  testGoldens('RepositoryDataCard devices', (WidgetTester tester) async {
     for (final device in utility.devices) {
       await tester.pumpWidgetBuilder(
           ProviderScope(
@@ -116,5 +116,65 @@ void main() {
           surfaceSize: device.size);
       await screenMatchesGolden(tester, 'RepositoryDataCard_${device.name}');
     }
+  });
+
+  testGoldens('RepositoryDataCard bestmatch', (WidgetTester tester) async {
+    const sortMethod = SortMethod.bestMatch;
+    await tester.pumpWidgetBuilder(
+        ProviderScope(
+          overrides: [
+            sortMethodProvider.overrideWith(
+              (ref) => SortMethodLogic(sortMethod),
+            ),
+          ],
+          child: target(),
+        ),
+        surfaceSize: utility.devices.first.size);
+    await screenMatchesGolden(tester, 'RepositoryDataCard_${sortMethod.name}');
+  });
+
+  testGoldens('RepositoryDataCard stars', (WidgetTester tester) async {
+    const sortMethod = SortMethod.starAsc;
+    await tester.pumpWidgetBuilder(
+        ProviderScope(
+          overrides: [
+            sortMethodProvider.overrideWith(
+              (ref) => SortMethodLogic(sortMethod),
+            ),
+          ],
+          child: target(),
+        ),
+        surfaceSize: utility.devices.first.size);
+    await screenMatchesGolden(tester, 'RepositoryDataCard_${sortMethod.name}');
+  });
+
+  testGoldens('RepositoryDataCard forks', (WidgetTester tester) async {
+    const sortMethod = SortMethod.forkAsc;
+    await tester.pumpWidgetBuilder(
+        ProviderScope(
+          overrides: [
+            sortMethodProvider.overrideWith(
+              (ref) => SortMethodLogic(sortMethod),
+            ),
+          ],
+          child: target(),
+        ),
+        surfaceSize: utility.devices.first.size);
+    await screenMatchesGolden(tester, 'RepositoryDataCard_${sortMethod.name}');
+  });
+
+  testGoldens('RepositoryDataCard updated', (WidgetTester tester) async {
+    const sortMethod = SortMethod.recentlyUpdated;
+    await tester.pumpWidgetBuilder(
+        ProviderScope(
+          overrides: [
+            sortMethodProvider.overrideWith(
+              (ref) => SortMethodLogic(sortMethod),
+            ),
+          ],
+          child: target(),
+        ),
+        surfaceSize: utility.devices.first.size);
+    await screenMatchesGolden(tester, 'RepositoryDataCard_${sortMethod.name}');
   });
 }
