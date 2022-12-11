@@ -3,9 +3,11 @@ import 'package:flutter_engineer_codecheck/ui/widgets/atoms/owner_image.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 
+import '../../golden_test_utility.dart';
+
 Widget target() => MaterialApp(
       home: Column(
-        children: [
+        children: const [
           OwnerImage(
             url: 'test',
             size: 32,
@@ -19,11 +21,12 @@ Widget target() => MaterialApp(
     );
 
 void main() {
+  final utility = GoldenTestUtility();
   testGoldens('OwnerImage', (WidgetTester tester) async {
-    await loadAppFonts();
-
-    const size6 = Size(375, 667);
-    await tester.pumpWidgetBuilder(target(), surfaceSize: size6);
+    await tester.pumpWidgetBuilder(
+      target(),
+      surfaceSize: utility.devices.first.size,
+    );
     await screenMatchesGolden(tester, 'OwnerImage');
   });
 }

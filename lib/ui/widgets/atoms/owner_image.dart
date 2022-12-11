@@ -14,7 +14,10 @@ class OwnerImage extends StatelessWidget {
     this.size,
   }) : super(key: key);
 
+  /// レポジトリの持ち主の画像のURL
   final String url;
+
+  /// 画像のサイズ
   final double? size;
 
   @override
