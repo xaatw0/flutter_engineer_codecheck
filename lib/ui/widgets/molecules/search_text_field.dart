@@ -22,7 +22,11 @@ class SearchTextField extends StatelessWidget {
 
         // TextField右端のソート方法選択のアイコン
         suffixIcon: IconButton(
-          icon: const Icon(Icons.sort),
+          icon: Icon(
+            Icons.sort,
+            size: 32.0,
+            color: Theme.of(context).colorScheme.secondary,
+          ),
           onPressed: onSelectSortMethod,
         ),
         // 空白時(初期状態)でTextFiledに入力されている文字
