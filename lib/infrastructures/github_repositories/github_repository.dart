@@ -32,6 +32,7 @@ class GithubRepository implements GitRepository {
       '$kApiUrlForBestMatch&sort=$kParamSort&order=$kParamOrder';
 
   /// 「検索結果の表示順」のソートの並び順とパラメータのキーワードとの対応表
+  /// asc,descはGithub特有のため、SortMethodではなく、本クラスに入れる
   static const kMapOrder = <String, List<SortMethod>>{
     'asc': [
       SortMethod.starAsc,
@@ -46,6 +47,7 @@ class GithubRepository implements GitRepository {
   };
 
   /// 「検索結果の表示順」のソートの方法とパラメータのキーワードとの対応表
+  /// start, forks, updatedは、Github特有のため、SortMethodではなく、本クラスに入れる
   static const kMapSort = <String, List<SortMethod>>{
     'stars': [SortMethod.starAsc, SortMethod.starDesc],
     'forks': [SortMethod.forkAsc, SortMethod.forkDesc],
