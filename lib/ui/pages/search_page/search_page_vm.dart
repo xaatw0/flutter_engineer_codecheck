@@ -19,6 +19,10 @@ class SearchPageVm {
     _ref = ref;
   }
 
+  /// 画面が縦向きか判断する(true:縦向き false:横向き)
+  bool isPortrait(BuildContext context) =>
+      MediaQuery.of(context).orientation == Orientation.portrait;
+
   /// キーボードが表示されているか取得する(true:表示 false:非表示)
   bool isKeyboardShown(BuildContext context) =>
       0.0 < MediaQuery.of(context).viewInsets.bottom;

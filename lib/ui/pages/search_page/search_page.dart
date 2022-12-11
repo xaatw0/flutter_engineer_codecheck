@@ -29,19 +29,31 @@ class _SearchPageState extends ConsumerState<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    // 画面が横向きの場合、キーボードと入力欄が被る可能性が高い。
+    // そのため、横向きでキーボード表示時は、アイコンを消して、Padding を小さくする
+    final isGithubIconShown = _vm.isPortrait(context) ||
+        (!_vm.isKeywordAvailable && !_vm.isKeyboardShown(context));
     return Scaffold(
       body: SafeArea(
         child: DayNightTemplate(
+          isAppBarShown: isGithubIconShown,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: MovingFadeinAnimation(
-                child: GithubIcon(
-                  size: MediaQuery.of(context).size.height / 4,
-                  isDarkMode: _vm.isDarkMode,
+            // Githubのアイコン
+            Visibility(
+              visible: _vm.isPortrait(context) ||
+                  (!_vm.isKeywordAvailable && !_vm.isKeyboardShown(context)),
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: MovingFadeinAnimation(
+                  child: GithubIcon(
+                    size: MediaQuery.of(context).size.height / 4,
+                    isDarkMode: _vm.isDarkMode,
+                  ),
                 ),
               ),
             ),
+
+            // 検索のキーワード入力
             SearchTextField(
               onChangeKeyword: _vm.onChangeKeyword,
               onSubmitted: (_) => _vm.onSearch(context),
@@ -49,7 +61,8 @@ class _SearchPageState extends ConsumerState<SearchPage> {
             ),
             const SizedBox(height: 32),
 
-            // 検索ボタン(アプリでは、キーボードが非表示でキーワードが入力済みの時のみ表示される)
+            // 検索ボタン
+            // アプリでは、キーボードが非表示でキーワードが入力済みの時のみ表示される
             Visibility(
               visible: kIsWeb ||
                   (_vm.isKeywordAvailable && !_vm.isKeyboardShown(context)),
