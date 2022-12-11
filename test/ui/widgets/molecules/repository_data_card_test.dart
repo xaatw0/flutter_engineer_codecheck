@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_engineer_codecheck/domain/entities/git_repository_data.dart';
+import 'package:flutter_engineer_codecheck/domain/repositories/git_repository.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/count_fork.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/count_issue.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/count_star.dart';
@@ -11,7 +12,10 @@ import 'package:flutter_engineer_codecheck/domain/value_objects/repository_descr
 import 'package:flutter_engineer_codecheck/domain/value_objects/repository_id.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/repository_name.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/repository_updated_time.dart';
+import 'package:flutter_engineer_codecheck/ui/pages/search_result_page/search_result_page_vm.dart';
+import 'package:flutter_engineer_codecheck/ui/pages/search_result_page/sort_method_logic.dart';
 import 'package:flutter_engineer_codecheck/ui/widgets/molecules/repository_data_card.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 
@@ -78,7 +82,16 @@ void main() {
     await loadAppFonts();
     const size6 = Size(375, 667);
 
-    await tester.pumpWidgetBuilder(target(), surfaceSize: size6);
+    await tester.pumpWidgetBuilder(
+        ProviderScope(
+          overrides: [
+            sortMethodProvider.overrideWith(
+              (ref) => SortMethodLogic(SortMethod.bestMatch),
+            ),
+          ],
+          child: target(),
+        ),
+        surfaceSize: size6);
     await screenMatchesGolden(tester, 'OwnerImage');
   });
 }

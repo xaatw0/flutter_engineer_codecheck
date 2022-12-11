@@ -12,7 +12,9 @@ import '../../../domain/repositories/git_repository.dart';
 
 /// 選択したソート方法に基づき、RepositoryDataCard のアイコンと表示する項目を管理するロジックのProvider。
 /// 選択したソート方法をこのクラスで設定するため、ここに定義している。
-final sortMethodProvider = StateProvider((ref) => SortMethodLogic());
+final sortMethodProvider = StateProvider(
+  (ref) => SortMethodLogic(SortMethod.bestMatch),
+);
 
 /// 剣客結果を表示するページのViewModel
 class SearchResultPageVm {
@@ -58,7 +60,7 @@ class SearchResultPageVm {
     _page = _gitRepository.getFirstPageIndex();
     _sortMethod = sortMethod;
     _fetch(_keyword, _page, false, _sortMethod);
-    _ref.read(sortMethodProvider).setSortMethod(sortMethod);
+    _ref.read(sortMethodProvider.notifier).state = SortMethodLogic(sortMethod);
   }
 
   /// [_keyword]を検索キーワードにして、[_page]ページ目の GitRepositoryのデータを取得する。
