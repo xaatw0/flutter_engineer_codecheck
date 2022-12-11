@@ -21,6 +21,8 @@ main() async {
         'https://avatars.githubusercontent.com/u/14101776?v=4');
     expect(result.items[0].description,
         'Flutter makes it easy and fast to build beautiful apps for mobile and beyond');
+    expect(result.items[0].createdAt, '2015-03-06T22:54:58Z');
+    expect(result.items[0].updatedAt, '2022-12-06T23:38:33Z');
 
     expect(result.items[29].name, 'flutter_wanandroid');
   });

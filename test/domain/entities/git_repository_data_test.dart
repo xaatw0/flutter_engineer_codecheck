@@ -5,9 +5,11 @@ import 'package:flutter_engineer_codecheck/domain/value_objects/count_star.dart'
 import 'package:flutter_engineer_codecheck/domain/value_objects/count_watcher.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/owner_icon_url.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/project_language.dart';
+import 'package:flutter_engineer_codecheck/domain/value_objects/repository_created_time.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/repository_description.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/repository_id.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/repository_name.dart';
+import 'package:flutter_engineer_codecheck/domain/value_objects/repository_updated_time.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 main() {
@@ -22,6 +24,8 @@ main() {
       countWatcher: CountWatcher(2),
       countFork: CountFork(3),
       countIssue: CountIssue(4),
+      createTime: RepositoryCreateTime(DateTime(2022, 10, 1)),
+      updateTime: RepositoryUpdateTime(DateTime(2022, 10, 2)),
     );
 
     expect(target.repositoryId(), 123);
@@ -34,5 +38,8 @@ main() {
     expect(target.countWatcher(), 2);
     expect(target.countFork(), 3);
     expect(target.countIssue(), 4);
+
+    expect(target.createTime(), DateTime(2022, 10, 1));
+    expect(target.updateTime(), DateTime(2022, 10, 2));
   });
 }

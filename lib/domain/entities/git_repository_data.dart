@@ -4,11 +4,14 @@ import 'package:flutter_engineer_codecheck/domain/value_objects/count_star.dart'
 import 'package:flutter_engineer_codecheck/domain/value_objects/count_watcher.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/owner_icon_url.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/project_language.dart';
+import 'package:flutter_engineer_codecheck/domain/value_objects/repository_created_time.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/repository_description.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/repository_id.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/repository_name.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../value_objects/repository_updated_time.dart';
 
 part 'git_repository_data.freezed.dart';
 part 'git_repository_data.g.dart';
@@ -44,6 +47,12 @@ class GitRepositoryData with _$GitRepositoryData {
 
     /// 該当リポジトリのIssue 数
     @CountIssueConverter() required CountIssue countIssue,
+
+    /// 該当レポジトリの作成日時
+    @RepositoryCreateTimeConverter() required RepositoryCreateTime createTime,
+
+    /// 該当レポジトリの更新日時
+    @RepositoryUpdateTimeConverter() required RepositoryUpdateTime updateTime,
   }) = _GitRepositoryData;
 
   factory GitRepositoryData.fromJson(Map<String, dynamic> json) =>
