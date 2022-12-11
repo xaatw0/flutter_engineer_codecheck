@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading_animations/loading_animations.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../widgets/atoms/not_found_result.dart';
 import '../../widgets/organisms/search_result_list_view.dart';
 
 /// 検索結果を表示するためのページのView
@@ -59,10 +60,12 @@ class _SearchResultPageState extends ConsumerState<SearchResultPage> {
               }
               return isReachScrollEnd;
             },
-            child: SearchResultListView(
-              data: data,
-              onTapped: _vm.onRepositoryTapped,
-            ),
+            child: data.isEmpty
+                ? const NotFoundResult()
+                : SearchResultListView(
+                    data: data,
+                    onTapped: _vm.onRepositoryTapped,
+                  ),
           ),
         )),
       ]),
