@@ -8,11 +8,11 @@ class DayNightTemplate extends StatelessWidget {
   const DayNightTemplate({
     Key? key,
     this.title,
-    required this.children,
+    required this.child,
     this.isAppBarShown = true,
   }) : super(key: key);
 
-  final List<Widget> children;
+  final Widget child;
   final String? title;
 
   /// アップバーを表示するか(true:表示 false:非表示)
@@ -31,11 +31,7 @@ class DayNightTemplate extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              ...children,
-            ],
-          ),
+          child: child,
         ),
       ),
     );

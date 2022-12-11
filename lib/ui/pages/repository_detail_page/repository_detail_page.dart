@@ -26,7 +26,8 @@ class _RepositoryDetailPageState extends State<RepositoryDetailPage> {
     final repositoryData = widget.data;
     final description =
         repositoryData.repositoryDescription() ?? StringResources.kEmpty;
-    return DayNightTemplate(children: [
+    return DayNightTemplate(
+        child: Column(children: [
       // オーナー画像
       Hero(
         tag: OwnerImage.kHeroKey + widget.data.repositoryId().toString(),
@@ -71,6 +72,6 @@ class _RepositoryDetailPageState extends State<RepositoryDetailPage> {
         visible: description.isNotEmpty,
         child: RepositoryDetailDescription(description: description),
       ),
-    ]);
+    ]));
   }
 }

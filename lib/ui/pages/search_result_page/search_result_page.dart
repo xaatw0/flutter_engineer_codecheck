@@ -46,7 +46,7 @@ class _SearchResultPageState extends ConsumerState<SearchResultPage> {
   Widget build(BuildContext context) {
     return DayNightTemplate(
       title: '${AppLocalizations.of(context).searchResult} [${widget.keyword}]',
-      children: [
+      child: Column(children: [
         Expanded(
             child: _vm.getRepositoryData.when(
           error: (error, _) => Text(error.toString()),
@@ -65,7 +65,7 @@ class _SearchResultPageState extends ConsumerState<SearchResultPage> {
             ),
           ),
         )),
-      ],
+      ]),
     );
   }
 }

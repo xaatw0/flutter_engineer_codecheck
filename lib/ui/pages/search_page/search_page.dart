@@ -37,7 +37,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
       body: SafeArea(
         child: DayNightTemplate(
           isAppBarShown: isGithubIconShown,
-          children: [
+          child: Column(children: [
             // Githubのアイコン
             Visibility(
               visible: _vm.isPortrait(context) ||
@@ -86,7 +86,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                 ),
               ),
             ),
-          ],
+          ]),
         ),
       ),
     );
