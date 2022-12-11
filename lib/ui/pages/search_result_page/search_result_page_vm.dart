@@ -3,11 +3,16 @@ import 'package:flutter_engineer_codecheck/domain/entities/git_repository_data.d
 import 'package:flutter_engineer_codecheck/domain/string_resources.dart';
 import 'package:flutter_engineer_codecheck/ui/pages/repository_detail_page/repository_detail_page.dart';
 import 'package:flutter_engineer_codecheck/ui/pages/search_result_page/search_result_notifier.dart';
+import 'package:flutter_engineer_codecheck/ui/pages/search_result_page/sort_method_logic.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../domain/repositories/git_repository.dart';
+
+/// 選択したソート方法に基づき、RepositoryDataCard のアイコンと表示する項目を管理するロジックのProvider。
+/// 選択したソート方法をこのクラスで設定するため、ここに定義している。
+final sortMethodProvider = StateProvider((ref) => SortMethodLogic());
 
 /// 剣客結果を表示するページのViewModel
 class SearchResultPageVm {
@@ -47,12 +52,13 @@ class SearchResultPageVm {
         .fetch(keyword, page, isLoadMore, sortMethod);
   }
 
-  /// [keyword]で初めて検索をする
+  /// [keyword]で初めて検索をする。[sortMethod]でソート方法を指定する
   void onLoad(String keyword, SortMethod sortMethod) {
     _keyword = keyword;
     _page = _gitRepository.getFirstPageIndex();
     _sortMethod = sortMethod;
     _fetch(_keyword, _page, false, _sortMethod);
+    _ref.read(sortMethodProvider).setSortMethod(sortMethod);
   }
 
   /// [_keyword]を検索キーワードにして、[_page]ページ目の GitRepositoryのデータを取得する。

@@ -1,6 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_engineer_codecheck/domain/string_resources.dart';
+import 'package:flutter_engineer_codecheck/ui/pages/search_result_page/search_result_page_vm.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../domain/entities/git_repository_data.dart';
 import '../atoms/owner_image.dart';
@@ -40,11 +42,13 @@ class RepositoryDataCard extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
         ),
         // 右隅 画像と数字
-        trailing: Column(
-          children: [
-            Icon(Icons.star),
-            Text(data.countStar().toString()),
-          ],
+        trailing: Consumer(
+          builder: (context, ref, child) => Column(
+            children: [
+              Icon(ref.read(sortMethodProvider).getIcon()),
+              Text(ref.read(sortMethodProvider).getValue()(data)),
+            ],
+          ),
         ),
       ),
     );
