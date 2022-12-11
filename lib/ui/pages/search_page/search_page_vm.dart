@@ -19,13 +19,28 @@ class SearchPageVm {
     _ref = ref;
   }
 
+  /// キーボードが表示されているか取得する(true:表示 false:非表示)
+  bool isKeyboardShown(BuildContext context) =>
+      0.0 < MediaQuery.of(context).viewInsets.bottom;
+
+  /// キーワードが入力されているか取得する(true:入力あり false:入力なし)
+  bool get isKeywordAvailable => _keyword.isNotEmpty;
+
   /// 選択されたソート方法
   SortMethod _selectedSortMethod = SortMethod.bestMatch;
 
+  /// 入力された検索キーワード
+  String _keyword = '';
+
+  /// キーワードの入力時にキーワードを記録する
+  void onChangeKeyword(String keyword) {
+    _keyword = keyword;
+  }
+
   /// 検索を実施する
-  void onSearch(String keyword, BuildContext context) {
+  void onSearch(BuildContext context) {
     final url = SearchResultPage.path
-        .replaceFirst(':${SearchResultPage.kKeyword}', keyword);
+        .replaceFirst(':${SearchResultPage.kKeyword}', _keyword);
     GoRouter.of(context).push(url, extra: _selectedSortMethod);
   }
 
