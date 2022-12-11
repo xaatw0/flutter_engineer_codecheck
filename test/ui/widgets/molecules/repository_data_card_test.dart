@@ -19,6 +19,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 
+import '../../golden_test_utility.dart';
+
 Widget target() => MaterialApp(
       home: Column(
         children: [
@@ -73,25 +75,46 @@ Widget target() => MaterialApp(
               updateTime: RepositoryUpdateTime(DateTime(2014, 5, 6)),
             ),
           ),
+          RepositoryDataCard(
+            data: GitRepositoryData(
+              repositoryId: RepositoryId(31792824),
+              repositoryName: RepositoryName('あいうえお'),
+              ownerIconUrl:
+                  OwnerIconUrl('OwnerIconUrl1aaaaaaaaaaaaaaaaaaaaaaaaaaa'),
+              projectLanguage:
+                  ProjectLanguage('Dartaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'),
+              repositoryDescription: RepositoryDescription('かきくけこ'),
+              countStar: CountStar(146985),
+              countWatcher: CountWatcher(146985),
+              countFork: CountFork(23912),
+              countIssue: CountIssue(11313),
+              createTime: RepositoryCreateTime(DateTime(2011, 2, 3)),
+              updateTime: RepositoryUpdateTime(DateTime(2014, 5, 6)),
+            ),
+          ),
         ],
       ),
     );
 
 void main() {
-  testGoldens('RepositoryDataCard', (WidgetTester tester) async {
-    await loadAppFonts();
-    const size6 = Size(375, 667);
+  final utility = GoldenTestUtility();
+  setUpAll(() async {
+    await utility.loadJapaneseFont();
+  });
 
-    await tester.pumpWidgetBuilder(
-        ProviderScope(
-          overrides: [
-            sortMethodProvider.overrideWith(
-              (ref) => SortMethodLogic(SortMethod.bestMatch),
-            ),
-          ],
-          child: target(),
-        ),
-        surfaceSize: size6);
-    await screenMatchesGolden(tester, 'OwnerImage');
+  testGoldens('RepositoryDataCard', (WidgetTester tester) async {
+    for (final device in utility.devices) {
+      await tester.pumpWidgetBuilder(
+          ProviderScope(
+            overrides: [
+              sortMethodProvider.overrideWith(
+                (ref) => SortMethodLogic(SortMethod.bestMatch),
+              ),
+            ],
+            child: target(),
+          ),
+          surfaceSize: device.size);
+      await screenMatchesGolden(tester, 'RepositoryDataCard_${device.name}');
+    }
   });
 }
