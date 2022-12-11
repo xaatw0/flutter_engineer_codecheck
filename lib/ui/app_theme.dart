@@ -15,9 +15,9 @@ class AppTheme {
   /// ライトモード時のテーマ
   static final lightTheme = ThemeData(
     useMaterial3: true,
-    brightness: Brightness.light,
     scaffoldBackgroundColor: Colors.grey.shade100,
     colorScheme: ColorScheme.fromSwatch(
+      brightness: Brightness.light,
       primarySwatch: Colors.grey,
       accentColor: Colors.orangeAccent,
     ),
@@ -27,9 +27,12 @@ class AppTheme {
   /// ダークモード時のテーマ
   static final dartTheme = ThemeData(
     useMaterial3: true,
-    brightness: Brightness.dark,
-    primarySwatch: Colors.grey,
     scaffoldBackgroundColor: Colors.grey.shade900,
     appBarTheme: appBarTheme,
+    colorScheme: ColorScheme.fromSwatch(
+      brightness: Brightness.dark,
+      primarySwatch: Colors.grey,
+      accentColor: Colors.orangeAccent,
+    ),
   );
 }
