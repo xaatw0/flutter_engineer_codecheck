@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_engineer_codecheck/domain/string_resources.dart';
 
@@ -22,14 +23,21 @@ class RepositoryDataCard extends StatelessWidget {
             tag: OwnerImage.kHeroKey + data.repositoryId().toString(),
             child: OwnerImage(url: data.ownerIconUrl())),
         // レポジトリ名
-        title: Text(
-          data.repositoryName(),
-          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+        title: Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: AutoSizeText(
+            data.repositoryName(),
+            style: Theme.of(context).textTheme.titleMedium,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
         // レポジトリの概要
-        subtitle: Text(
+        subtitle: AutoSizeText(
           data.repositoryDescription() ?? StringResources.kEmpty,
-          style: const TextStyle(fontSize: 10, color: Color(0xff818181)),
+          style: Theme.of(context).textTheme.bodySmall,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
         ),
         // 右隅 画像と数字
         trailing: Column(

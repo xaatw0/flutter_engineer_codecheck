@@ -44,6 +44,23 @@ Widget target() => MaterialApp(
               countIssue: CountIssue(11313),
             ),
           ),
+          RepositoryDataCard(
+            data: GitRepositoryData(
+              repositoryId: RepositoryId(31792824),
+              repositoryName: RepositoryName(
+                  'flutteraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'),
+              ownerIconUrl:
+                  OwnerIconUrl('OwnerIconUrl1aaaaaaaaaaaaaaaaaaaaaaaaaaa'),
+              projectLanguage:
+                  ProjectLanguage('Dartaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'),
+              repositoryDescription: RepositoryDescription(
+                  'Flutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyond'),
+              countStar: CountStar(146985),
+              countWatcher: CountWatcher(146985),
+              countFork: CountFork(23912),
+              countIssue: CountIssue(11313),
+            ),
+          ),
         ],
       ),
     );
