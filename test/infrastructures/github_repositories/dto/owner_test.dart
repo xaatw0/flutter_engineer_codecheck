@@ -4,7 +4,7 @@ import 'dart:convert';
 
 void main() {
   test('conver json to Owner', () async {
-    String jsonData = '''
+    final jsonData = '''
     {
         "login": "flutter",
         "id": 14101776,

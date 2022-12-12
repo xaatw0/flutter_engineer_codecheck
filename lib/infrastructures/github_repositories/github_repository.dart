@@ -65,7 +65,7 @@ class GithubRepository implements GitRepository {
   }) async {
     final uri = getSearchUrl(keyword, page, sortMethod);
     final apiUri = Uri.parse(uri);
-    http.Response response = await http.get(apiUri);
+    final response = await http.get(apiUri);
     return fromJson(response.body).toList();
   }
 

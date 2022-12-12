@@ -56,7 +56,8 @@ class _SearchResultPageState extends ConsumerState<SearchResultPage> {
               loading: () => LoadingRotating.square(),
               data: (data) => NotificationListener<ScrollEndNotification>(
                 onNotification: (ScrollEndNotification notification) {
-                  bool isReachScrollEnd = notification.metrics.extentAfter == 0;
+                  final isReachScrollEnd =
+                      notification.metrics.extentAfter == 0;
                   if (isReachScrollEnd) {
                     _vm.onLoadMore();
                   }
