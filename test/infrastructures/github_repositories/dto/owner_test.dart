@@ -1,6 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter_engineer_codecheck/infrastructures/github_repositories/dto/owner.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'dart:convert';
 
 void main() {
   test('conver json to Owner', () async {
