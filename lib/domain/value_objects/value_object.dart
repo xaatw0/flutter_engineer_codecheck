@@ -8,11 +8,13 @@ abstract class ValueObject<T> {
 
   @override
   bool operator ==(Object other) {
-    if (other.runtimeType == runtimeType) {
-      return (other as ValueObject).value == value;
+    if (identical(this, other)) {
+      return true;
     }
 
-    return false;
+    return other.runtimeType == runtimeType &&
+        other is ValueObject &&
+        other.value == value;
   }
 
   @override
