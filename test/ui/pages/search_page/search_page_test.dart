@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_engineer_codecheck/ui/app_theme.dart' as AppTheme;
+import 'package:flutter_engineer_codecheck/ui/app_theme.dart' as app_theme;
 import 'package:flutter_engineer_codecheck/ui/pages/search_page/search_page.dart';
 import 'package:flutter_engineer_codecheck/ui/pages/search_page/search_page_vm.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -36,10 +36,10 @@ void main() async {
     final target = MaterialApp(
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      theme: AppTheme.lightTheme,
+      theme: app_theme.lightTheme,
       home: ProviderScope(
         overrides: [
-          AppTheme.themeMode.overrideWith(
+          app_theme.themeMode.overrideWith(
             (ref) => ThemeMode.light,
           ),
         ],
@@ -60,10 +60,10 @@ void main() async {
     final target = MaterialApp(
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      theme: AppTheme.dartTheme,
+      theme: app_theme.dartTheme,
       home: ProviderScope(
         overrides: [
-          AppTheme.themeMode.overrideWith(
+          app_theme.themeMode.overrideWith(
             (ref) => ThemeMode.dark,
           ),
         ],
@@ -119,11 +119,11 @@ void main() async {
       final target = MaterialApp(
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
-        theme: AppTheme.lightTheme,
+        theme: app_theme.lightTheme,
         locale: locale,
         home: ProviderScope(
           overrides: [
-            AppTheme.themeMode.overrideWith(
+            app_theme.themeMode.overrideWith(
               (ref) => ThemeMode.light,
             ),
           ],
@@ -149,10 +149,10 @@ void main() async {
     final target = MaterialApp(
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      theme: AppTheme.lightTheme,
+      theme: app_theme.lightTheme,
       home: ProviderScope(
         overrides: [
-          AppTheme.themeMode.overrideWith(
+          app_theme.themeMode.overrideWith(
             (ref) => ThemeMode.light,
           ),
         ],
@@ -179,10 +179,10 @@ void main() async {
     final target = MaterialApp(
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      theme: AppTheme.lightTheme,
+      theme: app_theme.lightTheme,
       home: ProviderScope(
         overrides: [
-          AppTheme.themeMode.overrideWith(
+          app_theme.themeMode.overrideWith(
             (ref) => ThemeMode.light,
           ),
         ],

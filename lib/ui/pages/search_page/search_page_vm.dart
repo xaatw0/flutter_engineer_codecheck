@@ -1,7 +1,7 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_engineer_codecheck/domain/repositories/git_repository.dart';
-import 'package:flutter_engineer_codecheck/ui/app_theme.dart' as AppTheme;
+import 'package:flutter_engineer_codecheck/ui/app_theme.dart' as app_theme;
 import 'package:flutter_engineer_codecheck/ui/pages/search_result_page/search_result_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,7 +12,7 @@ class SearchPageVm {
   late WidgetRef _ref;
 
   /// テーマがダークモードになっているか
-  bool get isDarkMode => _ref.watch(AppTheme.themeMode) == ThemeMode.dark;
+  bool get isDarkMode => _ref.watch(app_theme.themeMode) == ThemeMode.dark;
 
   /// RiverpodのWidgetRefをVM内で共有する
   void setRef(WidgetRef ref) {

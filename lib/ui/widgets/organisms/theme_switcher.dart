@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_engineer_codecheck/ui/app_theme.dart' as AppTheme;
+import 'package:flutter_engineer_codecheck/ui/app_theme.dart' as app_theme;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -19,12 +19,12 @@ class _ThemeSwitcherState extends ConsumerState<ThemeSwitcher> {
 
   @override
   Widget build(BuildContext context) {
-    final assetPath = ref.watch(AppTheme.themeMode) == ThemeMode.light
+    final assetPath = ref.watch(app_theme.themeMode) == ThemeMode.light
         ? Assets.images.dayIcon
         : Assets.images.nightIcon;
     return IconButton(
       onPressed: () {
-        ref.read(AppTheme.themeMode.notifier).update(
+        ref.read(app_theme.themeMode.notifier).update(
               (state) =>
                   state == ThemeMode.light ? ThemeMode.dark : ThemeMode.light,
             );
