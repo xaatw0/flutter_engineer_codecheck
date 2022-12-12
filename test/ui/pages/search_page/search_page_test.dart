@@ -8,8 +8,9 @@ import 'package:get_it/get_it.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import '../../golden_test_utility.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../golden_test_utility.dart';
 
 @GenerateNiceMocks([MockSpec<SearchPageVm>()])
 import 'search_page_test.mocks.dart';
