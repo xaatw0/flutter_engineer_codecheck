@@ -55,8 +55,8 @@ class GoldenTestUtility {
   Future<void> loadJapaneseFont() async {
     final fontFile = File('test/assets/NotoSansJP-Regular.otf');
     final fontData = await fontFile.readAsBytes();
-    final fontLoader = FontLoader('Roboto');
-    fontLoader.addFont(Future.value(ByteData.view(fontData.buffer)));
+    final fontLoader = FontLoader('Roboto')
+      ..addFont(Future.value(ByteData.view(fontData.buffer)));
     await fontLoader.load();
     await loadAppFonts();
   }
