@@ -21,7 +21,7 @@ class RepositoryDetailDescription extends StatelessWidget {
             style: Theme.of(context).textTheme.titleLarge,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32.0),
+            padding: const EdgeInsets.symmetric(horizontal: 32),
             child: Text(
               description,
               textAlign: TextAlign.left,

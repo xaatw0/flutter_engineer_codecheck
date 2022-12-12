@@ -34,7 +34,7 @@ class _RepositoryDetailPageState extends State<RepositoryDetailPage> {
           tag: OwnerImage.kHeroKey + widget.data.repositoryId().toString(),
           child: OwnerClip(repositoryData.ownerIconUrl),
         ),
-        const SizedBox(height: 20.0),
+        const SizedBox(height: 20),
         // レポジトリ名
         Center(
           child: Text(
@@ -42,7 +42,7 @@ class _RepositoryDetailPageState extends State<RepositoryDetailPage> {
             style: Theme.of(context).textTheme.displaySmall,
           ),
         ),
-        const SizedBox(height: 20.0),
+        const SizedBox(height: 20),
         // Star, Wather, Fork, Issue の一覧
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -66,7 +66,7 @@ class _RepositoryDetailPageState extends State<RepositoryDetailPage> {
           ],
         ),
         const SizedBox(
-          height: 20.0,
+          height: 20,
         ),
         // 詳細説明
         Visibility(

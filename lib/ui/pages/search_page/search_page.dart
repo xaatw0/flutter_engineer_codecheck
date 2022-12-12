@@ -43,7 +43,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
             Visibility(
               visible: isGithubIconShown,
               child: Padding(
-                padding: const EdgeInsets.all(24.0),
+                padding: const EdgeInsets.all(24),
                 child: MovingFadeinAnimation(
                   child: GithubIcon(
                     size: MediaQuery.of(context).size.height / 4,
@@ -74,7 +74,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                   ),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8),
                   child: Text(
                     AppLocalizations.of(context).search,
                     style: Theme.of(context).textTheme.titleMedium!.merge(
