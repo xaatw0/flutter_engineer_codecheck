@@ -7,7 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 main() async {
   test('convert json to Result', () async {
     // 同じフォルダにあるFlutterで検索した結果のJsonファイルを読み込む
-    final filePath =
+    const filePath =
         'test/infrastructures/github_repositories/dto/result_test.txt';
     final file = File(filePath);
     expect(file.existsSync(), true);

@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class SearchResultNotifier
     extends StateNotifier<AsyncValue<List<GitRepositoryData>>> {
   SearchResultNotifier(this.repository)
-      : super(const AsyncLoading<List<GitRepositoryData>>()) {}
+      : super(const AsyncLoading<List<GitRepositoryData>>());
 
   final GitRepository repository;
 

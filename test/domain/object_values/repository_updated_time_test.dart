@@ -31,7 +31,7 @@ void main() async {
   test('basic', () async {});
 
   test('converter', () async {
-    final converter = RepositoryCreateTimeConverter();
+    const converter = RepositoryCreateTimeConverter();
     expect(converter.fromJson('2022-12-06T18:37:57Z')(),
         DateTime(2022, 12, 6, 18 + 9, 37, 57).toUtc());
     expect(

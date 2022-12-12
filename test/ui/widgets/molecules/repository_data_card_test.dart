@@ -31,7 +31,7 @@ Widget target() => MaterialApp(
               ownerIconUrl: OwnerIconUrl('OwnerIconUrl'),
               projectLanguage: ProjectLanguage('projectLanguage'),
               repositoryDescription:
-                  RepositoryDescription('repositoryDescription'),
+                  const RepositoryDescription('repositoryDescription'),
               countStar: CountStar(1),
               countWatcher: CountWatcher(2),
               countFork: CountFork(3),
@@ -46,7 +46,7 @@ Widget target() => MaterialApp(
               repositoryName: RepositoryName('flutter'),
               ownerIconUrl: OwnerIconUrl('OwnerIconUrl1'),
               projectLanguage: ProjectLanguage('Dart'),
-              repositoryDescription: RepositoryDescription(
+              repositoryDescription: const RepositoryDescription(
                   'Flutter makes it easy and fast to build beautiful apps for mobile and beyond'),
               countStar: CountStar(146985),
               countWatcher: CountWatcher(146985),
@@ -65,7 +65,7 @@ Widget target() => MaterialApp(
                   OwnerIconUrl('OwnerIconUrl1aaaaaaaaaaaaaaaaaaaaaaaaaaa'),
               projectLanguage:
                   ProjectLanguage('Dartaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'),
-              repositoryDescription: RepositoryDescription(
+              repositoryDescription: const RepositoryDescription(
                   'Flutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyond'),
               countStar: CountStar(146985),
               countWatcher: CountWatcher(146985),
@@ -83,7 +83,7 @@ Widget target() => MaterialApp(
                   OwnerIconUrl('OwnerIconUrl1aaaaaaaaaaaaaaaaaaaaaaaaaaa'),
               projectLanguage:
                   ProjectLanguage('Dartaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'),
-              repositoryDescription: RepositoryDescription('かきくけこ'),
+              repositoryDescription: const RepositoryDescription('かきくけこ'),
               countStar: CountStar(146985),
               countWatcher: CountWatcher(146985),
               countFork: CountFork(23912),

@@ -8,7 +8,7 @@ import '../../../gen/assets.gen.dart';
 
 /// ライトテーマとダークテーマの切り替えボタン
 class ThemeSwitcher extends ConsumerStatefulWidget {
-  ThemeSwitcher({Key? key}) : super(key: key);
+  const ThemeSwitcher({Key? key}) : super(key: key);
 
   @override
   ConsumerState<ThemeSwitcher> createState() => _ThemeSwitcherState();

@@ -10,7 +10,7 @@ import 'dart:convert';
 
 main() async {
   test('convert json to Item', () async {
-    final jsonData = r'''
+    const jsonData = r'''
      {
       "id": 31792824,
       "node_id": "MDEwOlJlcG9zaXRvcnkzMTc5MjgyNA==",

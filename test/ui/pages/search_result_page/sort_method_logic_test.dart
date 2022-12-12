@@ -22,7 +22,7 @@ main() async {
     repositoryName: RepositoryName('repositoryName'),
     ownerIconUrl: OwnerIconUrl('OwnerIconUrl'),
     projectLanguage: ProjectLanguage('projectLanguage'),
-    repositoryDescription: RepositoryDescription('repositoryDescription'),
+    repositoryDescription: const RepositoryDescription('repositoryDescription'),
     countStar: CountStar(1),
     countWatcher: CountWatcher(2),
     countFork: CountFork(3),

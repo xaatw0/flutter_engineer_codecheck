@@ -1,13 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter_engineer_codecheck/domain/repositories/git_repository.dart';
+import 'package:flutter_engineer_codecheck/infrastructures/github_repositories/github_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import '../../../lib/infrastructures/github_repositories/github_repository.dart';
 
 main() async {
   test('fromJson', () async {
-    final filePath =
+    const filePath =
         'test/infrastructures/github_repositories/dto/result_test.txt';
     final file = File(filePath);
     expect(file.existsSync(), true);

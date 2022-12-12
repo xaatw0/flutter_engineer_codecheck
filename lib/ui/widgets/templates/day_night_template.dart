@@ -25,7 +25,7 @@ class DayNightTemplate extends StatelessWidget {
       appBar: isAppBarShown
           ? AppBar(
               title: Text(title ?? StringResources.kEmpty),
-              actions: [ThemeSwitcher()],
+              actions: const [ThemeSwitcher()],
             )
           : null,
       body: SafeArea(

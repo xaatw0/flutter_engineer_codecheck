@@ -42,7 +42,7 @@ main() async {
             (ref) => ThemeMode.light,
           ),
         ],
-        child: SearchPage(),
+        child: const SearchPage(),
       ),
     );
 
@@ -66,7 +66,7 @@ main() async {
             (ref) => ThemeMode.dark,
           ),
         ],
-        child: SearchPage(),
+        child: const SearchPage(),
       ),
     );
 
@@ -126,7 +126,7 @@ main() async {
               (ref) => ThemeMode.light,
             ),
           ],
-          child: SearchPage(),
+          child: const SearchPage(),
         ),
       );
 
@@ -155,7 +155,7 @@ main() async {
             (ref) => ThemeMode.light,
           ),
         ],
-        child: SearchPage(),
+        child: const SearchPage(),
       ),
     );
 
@@ -166,5 +166,36 @@ main() async {
     await tester.pumpAndSettle();
     verify(mockVm.onSelectSortMethod(any)).called(1);
     await screenMatchesGolden(tester, 'SearchPage_tap_sort_icon');
+  });
+
+  testGoldens('SearchPage hide theme-switcher and github icon',
+      (WidgetTester tester) async {
+    when(mockVm.isDarkMode).thenReturn(false);
+
+    // キーボードが表示されているときにTrueになる
+    when(mockVm.isKeywordAvailable).thenReturn(true);
+
+    final target = MaterialApp(
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      theme: AppTheme.lightTheme,
+      home: ProviderScope(
+        overrides: [
+          AppTheme.themeMode.overrideWith(
+            (ref) => ThemeMode.light,
+          ),
+        ],
+        child: const SearchPage(),
+      ),
+    );
+
+    for (final device in utility.devices) {
+      await tester.pumpWidgetBuilder(target, surfaceSize: device.size);
+      await tester.pumpAndSettle();
+      await screenMatchesGolden(
+          tester,
+          'SearchPage_keyboard'
+          '_${device.name}');
+    }
   });
 }
