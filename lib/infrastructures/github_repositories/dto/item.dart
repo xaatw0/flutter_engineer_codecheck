@@ -24,7 +24,7 @@ part 'item.g.dart';
 
 /// GithubApiで取得するデータのitemsのリストに対応するデータ
 class Item with _$Item {
-  const Item._(); //メソッド不要の場合、削除
+  //メソッド不要の場合、削除
 
   @JsonSerializable(
     fieldRename: FieldRename.snake,
@@ -63,6 +63,8 @@ class Item with _$Item {
     /// レポジトリの更新日時
     required String updatedAt,
   }) = _Item;
+
+  const Item._();
 
   factory Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);
 

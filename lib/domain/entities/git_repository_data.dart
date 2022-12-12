@@ -18,7 +18,7 @@ part 'git_repository_data.g.dart';
 
 @freezed
 class GitRepositoryData with _$GitRepositoryData {
-  const GitRepositoryData._(); //メソッド不要の場合、削除
+  //メソッド不要の場合、削除
   const factory GitRepositoryData({
     /// 該当リポジトリのリポジトリID
     @RepositoryIdConverter() required RepositoryId repositoryId,
@@ -54,6 +54,8 @@ class GitRepositoryData with _$GitRepositoryData {
     /// 該当レポジトリの更新日時
     @RepositoryUpdateTimeConverter() required RepositoryUpdateTime updateTime,
   }) = _GitRepositoryData;
+
+  const GitRepositoryData._();
 
   factory GitRepositoryData.fromJson(Map<String, dynamic> json) =>
       _$GitRepositoryDataFromJson(json);

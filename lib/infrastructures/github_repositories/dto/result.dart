@@ -10,8 +10,6 @@ part 'result.g.dart';
 
 /// GithubApiで取得するデータのトップに対応するデータ
 class Result with _$Result {
-  const Result._();
-
   @JsonSerializable(
     fieldRename: FieldRename.snake,
   )
@@ -20,6 +18,8 @@ class Result with _$Result {
     required bool incompleteResults,
     required List<Item> items,
   }) = _Result;
+
+  const Result._();
 
   factory Result.fromJson(Map<String, dynamic> json) => _$ResultFromJson(json);
 }

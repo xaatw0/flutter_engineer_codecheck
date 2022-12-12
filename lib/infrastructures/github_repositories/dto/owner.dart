@@ -8,7 +8,6 @@ part 'owner.g.dart';
 
 /// GithubApiで取得するデータのownerに対応するデータ
 class Owner with _$Owner {
-  const Owner._();
   @JsonSerializable(
     fieldRename: FieldRename.snake,
   )
@@ -16,6 +15,8 @@ class Owner with _$Owner {
     /// 顔のURL
     required String avatarUrl,
   }) = _Owner;
+
+  const Owner._();
 
   factory Owner.fromJson(Map<String, dynamic> json) => _$OwnerFromJson(json);
 }

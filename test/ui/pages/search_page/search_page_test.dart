@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_engineer_codecheck/ui/app_theme.dart' as AppTheme;
 import 'package:flutter_engineer_codecheck/ui/pages/search_page/search_page.dart';
 import 'package:flutter_engineer_codecheck/ui/pages/search_page/search_page_vm.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../golden_test_utility.dart';
 
