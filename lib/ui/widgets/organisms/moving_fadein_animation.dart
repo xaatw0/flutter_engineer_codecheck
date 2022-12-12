@@ -17,11 +17,12 @@ class _MovingFadeinAnimationState extends State<MovingFadeinAnimation>
     with TickerProviderStateMixin<MovingFadeinAnimation> {
   // 300ミリ秒でアニメーションが実施される。
   late final AnimationController _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(
-        milliseconds: 300,
-      ),
-      value: 0.0);
+    vsync: this,
+    duration: const Duration(
+      milliseconds: 300,
+    ),
+    value: 0.0,
+  );
 
   // フェードインのアニメーション
   late final Animation<double> _fadeInAnimation =
@@ -36,10 +37,12 @@ class _MovingFadeinAnimationState extends State<MovingFadeinAnimation>
   late final Animation<Offset> _offsetAnimation = Tween<Offset>(
     begin: const Offset(0.0, 0.5),
     end: Offset.zero,
-  ).animate(CurvedAnimation(
-    parent: _controller,
-    curve: Curves.elasticIn,
-  ));
+  ).animate(
+    CurvedAnimation(
+      parent: _controller,
+      curve: Curves.elasticIn,
+    ),
+  );
 
   @override
   void initState() {

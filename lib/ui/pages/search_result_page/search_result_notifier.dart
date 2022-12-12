@@ -13,7 +13,11 @@ class SearchResultNotifier
 
   /// データの読込
   Future<void> fetch(
-      String keyword, int page, bool isLoadMore, SortMethod sortMethod) async {
+    String keyword,
+    int page,
+    bool isLoadMore,
+    SortMethod sortMethod,
+  ) async {
     state = await AsyncValue.guard(() async {
       final newData =
           await repository.search(keyword, page: page, sortMethod: sortMethod);
@@ -31,7 +35,11 @@ class SearchResultNotifier
       const AsyncLoading<List<GitRepositoryData>>().copyWithPrevious(state);
 
   void load(
-      String keyword, int page, bool isLoadMoreData, SortMethod sortMethod) {
+    String keyword,
+    int page,
+    bool isLoadMoreData,
+    SortMethod sortMethod,
+  ) {
     // ローディング中にローディングしないようにする
     if (isLoading()) {
       return;

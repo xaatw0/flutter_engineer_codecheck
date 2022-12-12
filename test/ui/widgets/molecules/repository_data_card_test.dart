@@ -47,7 +47,8 @@ Widget target() => MaterialApp(
               ownerIconUrl: OwnerIconUrl('OwnerIconUrl1'),
               projectLanguage: ProjectLanguage('Dart'),
               repositoryDescription: const RepositoryDescription(
-                  'Flutter makes it easy and fast to build beautiful apps for mobile and beyond'),
+                'Flutter makes it easy and fast to build beautiful apps for mobile and beyond',
+              ),
               countStar: CountStar(146985),
               countWatcher: CountWatcher(146985),
               countFork: CountFork(23912),
@@ -60,13 +61,15 @@ Widget target() => MaterialApp(
             data: GitRepositoryData(
               repositoryId: RepositoryId(31792824),
               repositoryName: RepositoryName(
-                  'flutteraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'),
+                'flutteraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+              ),
               ownerIconUrl:
                   OwnerIconUrl('OwnerIconUrl1aaaaaaaaaaaaaaaaaaaaaaaaaaa'),
               projectLanguage:
                   ProjectLanguage('Dartaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'),
               repositoryDescription: const RepositoryDescription(
-                  'Flutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyond'),
+                'Flutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyond',
+              ),
               countStar: CountStar(146985),
               countWatcher: CountWatcher(146985),
               countFork: CountFork(23912),
@@ -105,15 +108,16 @@ void main() {
   testGoldens('RepositoryDataCard devices', (WidgetTester tester) async {
     for (final device in utility.devices) {
       await tester.pumpWidgetBuilder(
-          ProviderScope(
-            overrides: [
-              sortMethodProvider.overrideWith(
-                (ref) => SortMethodLogic(SortMethod.bestMatch),
-              ),
-            ],
-            child: target(),
-          ),
-          surfaceSize: device.size);
+        ProviderScope(
+          overrides: [
+            sortMethodProvider.overrideWith(
+              (ref) => SortMethodLogic(SortMethod.bestMatch),
+            ),
+          ],
+          child: target(),
+        ),
+        surfaceSize: device.size,
+      );
       await screenMatchesGolden(tester, 'RepositoryDataCard_${device.name}');
     }
   });
@@ -121,60 +125,64 @@ void main() {
   testGoldens('RepositoryDataCard bestmatch', (WidgetTester tester) async {
     const sortMethod = SortMethod.bestMatch;
     await tester.pumpWidgetBuilder(
-        ProviderScope(
-          overrides: [
-            sortMethodProvider.overrideWith(
-              (ref) => SortMethodLogic(sortMethod),
-            ),
-          ],
-          child: target(),
-        ),
-        surfaceSize: utility.devices.first.size);
+      ProviderScope(
+        overrides: [
+          sortMethodProvider.overrideWith(
+            (ref) => SortMethodLogic(sortMethod),
+          ),
+        ],
+        child: target(),
+      ),
+      surfaceSize: utility.devices.first.size,
+    );
     await screenMatchesGolden(tester, 'RepositoryDataCard_${sortMethod.name}');
   });
 
   testGoldens('RepositoryDataCard stars', (WidgetTester tester) async {
     const sortMethod = SortMethod.starAsc;
     await tester.pumpWidgetBuilder(
-        ProviderScope(
-          overrides: [
-            sortMethodProvider.overrideWith(
-              (ref) => SortMethodLogic(sortMethod),
-            ),
-          ],
-          child: target(),
-        ),
-        surfaceSize: utility.devices.first.size);
+      ProviderScope(
+        overrides: [
+          sortMethodProvider.overrideWith(
+            (ref) => SortMethodLogic(sortMethod),
+          ),
+        ],
+        child: target(),
+      ),
+      surfaceSize: utility.devices.first.size,
+    );
     await screenMatchesGolden(tester, 'RepositoryDataCard_${sortMethod.name}');
   });
 
   testGoldens('RepositoryDataCard forks', (WidgetTester tester) async {
     const sortMethod = SortMethod.forkAsc;
     await tester.pumpWidgetBuilder(
-        ProviderScope(
-          overrides: [
-            sortMethodProvider.overrideWith(
-              (ref) => SortMethodLogic(sortMethod),
-            ),
-          ],
-          child: target(),
-        ),
-        surfaceSize: utility.devices.first.size);
+      ProviderScope(
+        overrides: [
+          sortMethodProvider.overrideWith(
+            (ref) => SortMethodLogic(sortMethod),
+          ),
+        ],
+        child: target(),
+      ),
+      surfaceSize: utility.devices.first.size,
+    );
     await screenMatchesGolden(tester, 'RepositoryDataCard_${sortMethod.name}');
   });
 
   testGoldens('RepositoryDataCard updated', (WidgetTester tester) async {
     const sortMethod = SortMethod.recentlyUpdated;
     await tester.pumpWidgetBuilder(
-        ProviderScope(
-          overrides: [
-            sortMethodProvider.overrideWith(
-              (ref) => SortMethodLogic(sortMethod),
-            ),
-          ],
-          child: target(),
-        ),
-        surfaceSize: utility.devices.first.size);
+      ProviderScope(
+        overrides: [
+          sortMethodProvider.overrideWith(
+            (ref) => SortMethodLogic(sortMethod),
+          ),
+        ],
+        child: target(),
+      ),
+      surfaceSize: utility.devices.first.size,
+    );
     await screenMatchesGolden(tester, 'RepositoryDataCard_${sortMethod.name}');
   });
 }

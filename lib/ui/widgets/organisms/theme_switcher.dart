@@ -25,8 +25,10 @@ class _ThemeSwitcherState extends ConsumerState<ThemeSwitcher> {
         : Assets.images.nightIcon;
     return IconButton(
       onPressed: () {
-        ref.read(AppTheme.themeMode.notifier).update((state) =>
-            state == ThemeMode.light ? ThemeMode.dark : ThemeMode.light);
+        ref.read(AppTheme.themeMode.notifier).update(
+              (state) =>
+                  state == ThemeMode.light ? ThemeMode.dark : ThemeMode.light,
+            );
       },
       icon: SvgPicture.asset(
         assetPath,

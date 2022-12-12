@@ -48,7 +48,11 @@ class SearchResultPageVm {
   /// [keyword]を検索キーワードにして、[page]ページ目の GitRepositoryのデータを取得する。
   /// [isLoadMore] false: 初回取得 true:2回目以降の取得
   void _fetch(
-      String keyword, int page, bool isLoadMore, SortMethod sortMethod) {
+    String keyword,
+    int page,
+    bool isLoadMore,
+    SortMethod sortMethod,
+  ) {
     _ref
         .read(_searchResultProvider.notifier)
         .fetch(keyword, page, isLoadMore, sortMethod);

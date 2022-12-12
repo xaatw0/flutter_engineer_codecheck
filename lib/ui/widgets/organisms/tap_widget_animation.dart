@@ -23,11 +23,12 @@ class _TapWidgetAnimationState extends State<TapWidgetAnimation>
     with TickerProviderStateMixin<TapWidgetAnimation> {
   // 100ミリ秒でアニメーションが実施される。
   late final AnimationController _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(
-        milliseconds: 100,
-      ),
-      value: 1.0);
+    vsync: this,
+    duration: const Duration(
+      milliseconds: 100,
+    ),
+    value: 1.0,
+  );
 
   // 最初が1で最後に0.95になるようにする。つまり、100%の大きさを95%の大きさに変化させる。
   late final Animation<double> _easeInAnimation =

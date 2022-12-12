@@ -57,8 +57,12 @@ class SearchPageVm {
       actions:
           // ソート方法の一覧から回答候補一覧を作る
           SortMethod.values
-              .map((method) => AlertDialogAction<SortMethod>(
-                  key: method, label: method.title))
+              .map(
+                (method) => AlertDialogAction<SortMethod>(
+                  key: method,
+                  label: method.title,
+                ),
+              )
               .toList(),
     );
 

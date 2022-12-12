@@ -24,9 +24,10 @@ class OwnerClip extends StatelessWidget {
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 5,
-                blurRadius: 8),
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 8,
+            ),
           ],
           gradient: const LinearGradient(
             begin: Alignment.topLeft,

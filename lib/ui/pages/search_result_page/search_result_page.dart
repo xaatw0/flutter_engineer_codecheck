@@ -48,28 +48,31 @@ class _SearchResultPageState extends ConsumerState<SearchResultPage> {
   Widget build(BuildContext context) {
     return DayNightTemplate(
       title: '${AppLocalizations.of(context).searchResult} [${widget.keyword}]',
-      child: Column(children: [
-        Expanded(
+      child: Column(
+        children: [
+          Expanded(
             child: _vm.getRepositoryData.when(
-          error: (error, _) => Text(error.toString()),
-          loading: () => LoadingRotating.square(),
-          data: (data) => NotificationListener<ScrollEndNotification>(
-            onNotification: (ScrollEndNotification notification) {
-              bool isReachScrollEnd = notification.metrics.extentAfter == 0;
-              if (isReachScrollEnd) {
-                _vm.onLoadMore();
-              }
-              return isReachScrollEnd;
-            },
-            child: data.isEmpty
-                ? const NotFoundResult()
-                : SearchResultListView(
-                    data: data,
-                    onTapped: _vm.onRepositoryTapped,
-                  ),
+              error: (error, _) => Text(error.toString()),
+              loading: () => LoadingRotating.square(),
+              data: (data) => NotificationListener<ScrollEndNotification>(
+                onNotification: (ScrollEndNotification notification) {
+                  bool isReachScrollEnd = notification.metrics.extentAfter == 0;
+                  if (isReachScrollEnd) {
+                    _vm.onLoadMore();
+                  }
+                  return isReachScrollEnd;
+                },
+                child: data.isEmpty
+                    ? const NotFoundResult()
+                    : SearchResultListView(
+                        data: data,
+                        onTapped: _vm.onRepositoryTapped,
+                      ),
+              ),
+            ),
           ),
-        )),
-      ]),
+        ],
+      ),
     );
   }
 }
