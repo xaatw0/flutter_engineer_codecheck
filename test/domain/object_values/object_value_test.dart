@@ -9,7 +9,7 @@ class StringValueObject extends ValueObject<String> {
   StringValueObject(super.value);
 }
 
-main() {
+void main() {
   test('int', () async {
     final target = IntValueObject(100);
     expect(target.toString(), 'IntValueObject[100]');

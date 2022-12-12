@@ -16,7 +16,7 @@ import 'package:flutter_engineer_codecheck/domain/value_objects/repository_id.da
 import 'package:flutter_engineer_codecheck/domain/value_objects/repository_name.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/repository_updated_time.dart';
 
-main() async {
+void main() async {
   final gitRepositoryData = GitRepositoryData(
     repositoryId: RepositoryId(123),
     repositoryName: RepositoryName('repositoryName'),

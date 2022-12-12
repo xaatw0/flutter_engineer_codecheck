@@ -14,7 +14,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 @GenerateNiceMocks([MockSpec<SearchPageVm>()])
 import 'search_page_test.mocks.dart';
 
-main() async {
+void main() async {
   final utility = GoldenTestUtility();
   final mockVm = MockSearchPageVm();
   GetIt.I.registerSingleton<SearchPageVm>(mockVm);

@@ -92,7 +92,7 @@ class GithubRepository implements GitRepository {
   }
 
   Iterable<GitRepositoryData> fromJson(String jsonData) {
-    final map = json.decode(jsonData);
+    final map = json.decode(jsonData) as Map<String, dynamic>;
     final result = Result.fromJson(map);
     return result.items.map((item) => item.toGitRepositoryData());
   }

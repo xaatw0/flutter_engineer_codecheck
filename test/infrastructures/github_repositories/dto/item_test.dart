@@ -8,7 +8,7 @@ import 'package:flutter_engineer_codecheck/infrastructures/github_repositories/d
 import 'package:flutter_test/flutter_test.dart';
 import 'dart:convert';
 
-main() async {
+void main() async {
   test('convert json to Item', () async {
     const jsonData = r'''
      {

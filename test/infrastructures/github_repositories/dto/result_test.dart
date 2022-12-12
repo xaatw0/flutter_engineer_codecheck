@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:flutter_engineer_codecheck/infrastructures/github_repositories/dto/result.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-main() async {
+void main() async {
   test('convert json to Result', () async {
     // 同じフォルダにあるFlutterで検索した結果のJsonファイルを読み込む
     const filePath =

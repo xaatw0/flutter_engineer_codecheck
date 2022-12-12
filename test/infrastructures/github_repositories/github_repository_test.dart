@@ -4,7 +4,7 @@ import 'package:flutter_engineer_codecheck/domain/repositories/git_repository.da
 import 'package:flutter_engineer_codecheck/infrastructures/github_repositories/github_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-main() async {
+void main() async {
   test('fromJson', () async {
     const filePath =
         'test/infrastructures/github_repositories/dto/result_test.txt';

@@ -12,7 +12,7 @@ import 'package:flutter_engineer_codecheck/domain/value_objects/repository_name.
 import 'package:flutter_engineer_codecheck/domain/value_objects/repository_updated_time.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-main() {
+void main() {
   test('basic', () async {
     final target = GitRepositoryData(
       repositoryId: RepositoryId(123),
