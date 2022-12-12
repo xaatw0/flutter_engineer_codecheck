@@ -1,7 +1,7 @@
 /// ValueObject の基底クラス
 abstract class ValueObject<T> {
-  final T value;
   const ValueObject(this.value);
+  final T value;
   T call() {
     return value;
   }
