@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 /// 対象のWidgetを押すと、少し小さくなって、それから元の大きさになるアニメーションを実施する。
 /// アニメーション後、[onTap]が実施される。
 class TapWidgetAnimation extends StatefulWidget {
-  const TapWidgetAnimation({Key? key, required this.child, this.onTap})
-      : super(key: key);
+  const TapWidgetAnimation({
+    super.key,
+    required this.child,
+    this.onTap,
+  });
 
   /// アニメーションするWidget
   final Widget child;

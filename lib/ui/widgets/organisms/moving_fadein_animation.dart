@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 /// 画像を動かしながら、フェードインするアニメーション
 class MovingFadeinAnimation extends StatefulWidget {
-  const MovingFadeinAnimation({required this.child, Key? key})
-      : super(key: key);
+  const MovingFadeinAnimation({
+    required this.child,
+    super.key,
+  });
 
   /// アニメーションするWidget
   final Widget child;

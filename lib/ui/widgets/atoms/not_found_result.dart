@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 /// 検索結果がなかったときに残念顔を表示するWidget
 class NotFoundResult extends StatelessWidget {
   const NotFoundResult({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   static const _kFace = '(≥o≤)';
 

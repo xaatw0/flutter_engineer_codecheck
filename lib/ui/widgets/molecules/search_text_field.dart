@@ -4,11 +4,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 /// 検索用のテキストフィールド
 class SearchTextField extends StatelessWidget {
   const SearchTextField({
-    Key? key,
+    super.key,
     required this.onChangeKeyword,
     required this.onSubmitted,
     required this.onSelectSortMethod,
-  }) : super(key: key);
+  });
 
   /// キーワードが更新されたときのファンクション
   final void Function(String value) onChangeKeyword;

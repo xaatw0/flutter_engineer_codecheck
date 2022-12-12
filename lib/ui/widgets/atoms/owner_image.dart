@@ -9,10 +9,10 @@ class OwnerImage extends StatelessWidget {
   static const kHeroKey = 'image_';
 
   const OwnerImage({
-    Key? key,
+    super.key,
     required this.url,
     this.size,
-  }) : super(key: key);
+  });
 
   /// レポジトリの持ち主の画像のURL
   final String url;

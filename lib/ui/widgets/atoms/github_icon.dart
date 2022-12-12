@@ -7,10 +7,10 @@ import '../../../gen/assets.gen.dart';
 /// [size]で高さを指定する
 class GithubIcon extends StatelessWidget {
   const GithubIcon({
-    Key? key,
+    super.key,
     required this.size,
     required this.isDarkMode,
-  }) : super(key: key);
+  });
 
   final double size;
   final bool isDarkMode;

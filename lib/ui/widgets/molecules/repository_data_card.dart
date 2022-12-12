@@ -10,9 +10,9 @@ import '../atoms/owner_image.dart';
 /// レポジトリの情報を表示するカード
 class RepositoryDataCard extends StatelessWidget {
   const RepositoryDataCard({
-    Key? key,
+    super.key,
     required this.data,
-  }) : super(key: key);
+  });
 
   final GitRepositoryData data;
 

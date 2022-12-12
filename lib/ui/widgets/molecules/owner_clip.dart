@@ -8,8 +8,8 @@ import '../atoms/owner_image.dart';
 class OwnerClip extends StatelessWidget {
   const OwnerClip(
     this.url, {
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final OwnerIconUrl url;
 
