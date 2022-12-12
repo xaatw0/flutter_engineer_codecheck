@@ -28,7 +28,7 @@ class SortMethodLogic {
       SortMethod.forkAsc,
       SortMethod.forkDesc
     ],
-    (data) => _dateFormat.format(data.updateTime()).toString(): [
+    (data) => _dateFormat.format(data.updateTime()): [
       SortMethod.recentlyUpdated,
       SortMethod.leastRecentlyUpdate
     ],
