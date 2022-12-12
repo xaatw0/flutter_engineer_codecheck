@@ -15,6 +15,7 @@ class SearchPageVm {
   bool get isDarkMode => _ref.watch(app_theme.themeMode) == ThemeMode.dark;
 
   /// RiverpodのWidgetRefをVM内で共有する
+  // ignore: use_setters_to_change_properties
   void setRef(WidgetRef ref) {
     _ref = ref;
   }
@@ -37,6 +38,7 @@ class SearchPageVm {
   String _keyword = '';
 
   /// キーワードの入力時にキーワードを記録する
+  // ignore: use_setters_to_change_properties
   void onChangeKeyword(String keyword) {
     _keyword = keyword;
   }

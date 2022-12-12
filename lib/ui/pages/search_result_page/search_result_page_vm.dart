@@ -32,6 +32,7 @@ class SearchResultPageVm {
       _ref.watch(_searchResultProvider);
 
   late final WidgetRef _ref;
+  // ignore: use_setters_to_change_properties
   void setRef(WidgetRef ref) {
     _ref = ref;
   }
