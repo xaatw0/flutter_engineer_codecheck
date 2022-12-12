@@ -27,53 +27,56 @@ class _RepositoryDetailPageState extends State<RepositoryDetailPage> {
     final description =
         repositoryData.repositoryDescription() ?? StringResources.kEmpty;
     return DayNightTemplate(
-        child: SingleChildScrollView(
-      child: Column(children: [
-        // オーナー画像
-        Hero(
-          tag: OwnerImage.kHeroKey + widget.data.repositoryId().toString(),
-          child: OwnerClip(repositoryData.ownerIconUrl),
-        ),
-        const SizedBox(height: 20.0),
-        // レポジトリ名
-        Center(
-          child: Text(
-            repositoryData.repositoryName(),
-            style: Theme.of(context).textTheme.displaySmall,
-          ),
-        ),
-        const SizedBox(height: 20.0),
-        // Star, Wather, Fork, Issue の一覧
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      child: SingleChildScrollView(
+        child: Column(
           children: [
-            RepositoryDetailColumn(
-              StringResources.kStar,
-              repositoryData.countStar(),
+            // オーナー画像
+            Hero(
+              tag: OwnerImage.kHeroKey + widget.data.repositoryId().toString(),
+              child: OwnerClip(repositoryData.ownerIconUrl),
             ),
-            RepositoryDetailColumn(
-              StringResources.kWatchers,
-              repositoryData.countWatcher(),
+            const SizedBox(height: 20),
+            // レポジトリ名
+            Center(
+              child: Text(
+                repositoryData.repositoryName(),
+                style: Theme.of(context).textTheme.displaySmall,
+              ),
             ),
-            RepositoryDetailColumn(
-              StringResources.kForks,
-              repositoryData.countFork(),
+            const SizedBox(height: 20),
+            // Star, Wather, Fork, Issue の一覧
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                RepositoryDetailColumn(
+                  StringResources.kStar,
+                  repositoryData.countStar(),
+                ),
+                RepositoryDetailColumn(
+                  StringResources.kWatchers,
+                  repositoryData.countWatcher(),
+                ),
+                RepositoryDetailColumn(
+                  StringResources.kForks,
+                  repositoryData.countFork(),
+                ),
+                RepositoryDetailColumn(
+                  StringResources.kIssues,
+                  repositoryData.countIssue(),
+                ),
+              ],
             ),
-            RepositoryDetailColumn(
-              StringResources.kIssues,
-              repositoryData.countIssue(),
+            const SizedBox(
+              height: 20,
+            ),
+            // 詳細説明
+            Visibility(
+              visible: description.isNotEmpty,
+              child: RepositoryDetailDescription(description: description),
             ),
           ],
         ),
-        const SizedBox(
-          height: 20.0,
-        ),
-        // 詳細説明
-        Visibility(
-          visible: description.isNotEmpty,
-          child: RepositoryDetailDescription(description: description),
-        ),
-      ]),
-    ));
+      ),
+    );
   }
 }

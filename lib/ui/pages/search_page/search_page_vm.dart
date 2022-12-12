@@ -1,20 +1,21 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_engineer_codecheck/domain/repositories/git_repository.dart';
-import 'package:flutter_engineer_codecheck/ui/app_theme.dart';
+import 'package:flutter_engineer_codecheck/ui/app_theme.dart' as app_theme;
 import 'package:flutter_engineer_codecheck/ui/pages/search_result_page/search_result_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// 検索用のトップページのViewModel
 class SearchPageVm {
   late WidgetRef _ref;
 
   /// テーマがダークモードになっているか
-  bool get isDarkMode => _ref.watch(AppTheme.themeMode) == ThemeMode.dark;
+  bool get isDarkMode => _ref.watch(app_theme.themeMode) == ThemeMode.dark;
 
   /// RiverpodのWidgetRefをVM内で共有する
+  // ignore: use_setters_to_change_properties
   void setRef(WidgetRef ref) {
     _ref = ref;
   }
@@ -37,6 +38,7 @@ class SearchPageVm {
   String _keyword = '';
 
   /// キーワードの入力時にキーワードを記録する
+  // ignore: use_setters_to_change_properties
   void onChangeKeyword(String keyword) {
     _keyword = keyword;
   }
@@ -57,8 +59,12 @@ class SearchPageVm {
       actions:
           // ソート方法の一覧から回答候補一覧を作る
           SortMethod.values
-              .map((method) => AlertDialogAction<SortMethod>(
-                  key: method, label: method.title))
+              .map(
+                (method) => AlertDialogAction<SortMethod>(
+                  key: method,
+                  label: method.title,
+                ),
+              )
               .toList(),
     );
 

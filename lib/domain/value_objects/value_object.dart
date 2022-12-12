@@ -1,18 +1,20 @@
 /// ValueObject の基底クラス
 abstract class ValueObject<T> {
-  final T value;
   const ValueObject(this.value);
+  final T value;
   T call() {
     return value;
   }
 
   @override
   bool operator ==(Object other) {
-    if (other.runtimeType == runtimeType) {
-      return (other as ValueObject).value == value;
+    if (identical(this, other)) {
+      return true;
     }
 
-    return false;
+    return other.runtimeType == runtimeType &&
+        other is ValueObject &&
+        other.value == value;
   }
 
   @override

@@ -25,18 +25,24 @@ void main() async {
     );
 
     final formatter = DateFormat('yyyy-MM-ddTHH:mm:ss');
-    expect(formatter.format(DateTime(2022, 12, 6, 18, 37, 57)),
-        '2022-12-06T18:37:57');
+    expect(
+      formatter.format(DateTime(2022, 12, 6, 18, 37, 57)),
+      '2022-12-06T18:37:57',
+    );
   });
   test('basic', () async {});
 
   test('converter', () async {
-    final converter = RepositoryCreateTimeConverter();
-    expect(converter.fromJson('2022-12-06T18:37:57Z')(),
-        DateTime(2022, 12, 6, 18 + 9, 37, 57).toUtc());
+    const converter = RepositoryCreateTimeConverter();
     expect(
-        converter.toJson(
-            RepositoryCreateTime(DateTime(2022, 12, 6, 18 + 9, 37, 57))),
-        '2022-12-06 18:37:57.000Z');
+      converter.fromJson('2022-12-06T18:37:57Z')(),
+      DateTime(2022, 12, 6, 18 + 9, 37, 57).toUtc(),
+    );
+    expect(
+      converter.toJson(
+        RepositoryCreateTime(DateTime(2022, 12, 6, 18 + 9, 37, 57)),
+      ),
+      '2022-12-06 18:37:57.000Z',
+    );
   });
 }

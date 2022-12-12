@@ -12,7 +12,7 @@ class RepositoryDetailColumn extends StatelessWidget {
   final String title;
   final int value;
 
-  static final formatter = NumberFormat("#,###");
+  static final formatter = NumberFormat('#,###');
 
   @override
   Widget build(BuildContext context) {

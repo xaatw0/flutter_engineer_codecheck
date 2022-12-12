@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_engineer_codecheck/domain/repositories/git_repository.dart';
 import 'package:flutter_engineer_codecheck/ui/pages/search_result_page/search_result_page_vm.dart';
 import 'package:flutter_engineer_codecheck/ui/widgets/templates/day_night_template.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading_animations/loading_animations.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../widgets/atoms/not_found_result.dart';
 import '../../widgets/organisms/search_result_list_view.dart';
 
@@ -48,28 +48,32 @@ class _SearchResultPageState extends ConsumerState<SearchResultPage> {
   Widget build(BuildContext context) {
     return DayNightTemplate(
       title: '${AppLocalizations.of(context).searchResult} [${widget.keyword}]',
-      child: Column(children: [
-        Expanded(
+      child: Column(
+        children: [
+          Expanded(
             child: _vm.getRepositoryData.when(
-          error: (error, _) => Text(error.toString()),
-          loading: () => LoadingRotating.square(),
-          data: (data) => NotificationListener<ScrollEndNotification>(
-            onNotification: (ScrollEndNotification notification) {
-              bool isReachScrollEnd = notification.metrics.extentAfter == 0;
-              if (isReachScrollEnd) {
-                _vm.onLoadMore();
-              }
-              return isReachScrollEnd;
-            },
-            child: data.isEmpty
-                ? const NotFoundResult()
-                : SearchResultListView(
-                    data: data,
-                    onTapped: _vm.onRepositoryTapped,
-                  ),
+              error: (error, _) => Text(error.toString()),
+              loading: LoadingRotating.square,
+              data: (data) => NotificationListener<ScrollEndNotification>(
+                onNotification: (ScrollEndNotification notification) {
+                  final isReachScrollEnd =
+                      notification.metrics.extentAfter == 0;
+                  if (isReachScrollEnd) {
+                    _vm.onLoadMore();
+                  }
+                  return isReachScrollEnd;
+                },
+                child: data.isEmpty
+                    ? const NotFoundResult()
+                    : SearchResultListView(
+                        data: data,
+                        onTapped: _vm.onRepositoryTapped,
+                      ),
+              ),
+            ),
           ),
-        )),
-      ]),
+        ],
+      ),
     );
   }
 }

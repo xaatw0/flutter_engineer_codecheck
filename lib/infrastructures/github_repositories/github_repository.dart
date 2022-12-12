@@ -65,7 +65,7 @@ class GithubRepository implements GitRepository {
   }) async {
     final uri = getSearchUrl(keyword, page, sortMethod);
     final apiUri = Uri.parse(uri);
-    http.Response response = await http.get(apiUri);
+    final response = await http.get(apiUri);
     return fromJson(response.body).toList();
   }
 
@@ -92,7 +92,7 @@ class GithubRepository implements GitRepository {
   }
 
   Iterable<GitRepositoryData> fromJson(String jsonData) {
-    final map = json.decode(jsonData);
+    final map = json.decode(jsonData) as Map<String, dynamic>;
     final result = Result.fromJson(map);
     return result.items.map((item) => item.toGitRepositoryData());
   }

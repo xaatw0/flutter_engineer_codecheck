@@ -7,13 +7,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class SearchResultNotifier
     extends StateNotifier<AsyncValue<List<GitRepositoryData>>> {
   SearchResultNotifier(this.repository)
-      : super(const AsyncLoading<List<GitRepositoryData>>()) {}
+      : super(const AsyncLoading<List<GitRepositoryData>>());
 
   final GitRepository repository;
 
   /// データの読込
   Future<void> fetch(
-      String keyword, int page, bool isLoadMore, SortMethod sortMethod) async {
+    String keyword,
+    int page,
+    SortMethod sortMethod, {
+    required bool isLoadMoreData,
+  }) async {
     state = await AsyncValue.guard(() async {
       final newData =
           await repository.search(keyword, page: page, sortMethod: sortMethod);
@@ -22,7 +26,7 @@ class SearchResultNotifier
       // (検索中に順位が入れ替わったケースを想定。その場合、抜けるレポジトリがあるのか)
       final existIds = state.value?.map((e) => e.repositoryId) ?? [];
       newData.removeWhere((e) => existIds.contains(e.repositoryId));
-      return [if (isLoadMore) ...state.value ?? [], ...newData];
+      return [if (isLoadMoreData) ...state.value ?? [], ...newData];
     });
   }
 
@@ -30,7 +34,12 @@ class SearchResultNotifier
       state ==
       const AsyncLoading<List<GitRepositoryData>>().copyWithPrevious(state);
 
-  void load(String keyword, int page, isLoadMoreData, SortMethod sortMethod) {
+  void load(
+    String keyword,
+    int page,
+    SortMethod sortMethod, {
+    required bool isLoadMoreData,
+  }) {
     // ローディング中にローディングしないようにする
     if (isLoading()) {
       return;
@@ -40,6 +49,6 @@ class SearchResultNotifier
     state =
         const AsyncLoading<List<GitRepositoryData>>().copyWithPrevious(state);
 
-    fetch(keyword, page, isLoadMoreData, sortMethod);
+    fetch(keyword, page, sortMethod, isLoadMoreData: isLoadMoreData);
   }
 }

@@ -7,10 +7,10 @@ import '../molecules/repository_data_card.dart';
 /// レポジトリの検索結果を表示するためのListView
 class SearchResultListView extends StatelessWidget {
   const SearchResultListView({
-    Key? key,
+    super.key,
     required this.data,
     this.onTapped,
-  }) : super(key: key);
+  });
 
   final List<GitRepositoryData> data;
   final void Function(BuildContext context, GitRepositoryData data)? onTapped;

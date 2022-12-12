@@ -1,10 +1,11 @@
-import 'package:flutter_engineer_codecheck/infrastructures/github_repositories/dto/owner.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'dart:convert';
 
-main() {
+import 'package:flutter_engineer_codecheck/infrastructures/github_repositories/dto/owner.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+void main() {
   test('conver json to Owner', () async {
-    String jsonData = '''
+    const jsonData = '''
     {
         "login": "flutter",
         "id": 14101776,
@@ -27,9 +28,11 @@ main() {
       }
       ''';
 
-    final map = json.decode(jsonData);
+    final map = json.decode(jsonData) as Map<String, dynamic>;
     final result = Owner.fromJson(map);
-    expect(result.avatarUrl,
-        'https://avatars.githubusercontent.com/u/14101776?v=4');
+    expect(
+      result.avatarUrl,
+      'https://avatars.githubusercontent.com/u/14101776?v=4',
+    );
   });
 }

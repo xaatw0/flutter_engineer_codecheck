@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_engineer_codecheck/domain/value_objects/count_fork.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/count_issue.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/count_star.dart';
@@ -6,11 +8,10 @@ import 'package:flutter_engineer_codecheck/domain/value_objects/project_language
 import 'package:flutter_engineer_codecheck/domain/value_objects/repository_name.dart';
 import 'package:flutter_engineer_codecheck/infrastructures/github_repositories/dto/item.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'dart:convert';
 
-main() async {
+void main() async {
   test('convert json to Item', () async {
-    final jsonData = r'''
+    const jsonData = r'''
      {
       "id": 31792824,
       "node_id": "MDEwOlJlcG9zaXRvcnkzMTc5MjgyNA==",
@@ -140,7 +141,7 @@ main() async {
     }
     ''';
 
-    final map = json.decode(jsonData);
+    final map = json.decode(jsonData) as Map<String, dynamic>;
     final result = Item.fromJson(map);
 
     expect(result.id, 31792824);

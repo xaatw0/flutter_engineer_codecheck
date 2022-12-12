@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_engineer_codecheck/ui/app_theme.dart' as app_theme;
 import 'package:flutter_engineer_codecheck/ui/router.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'app_theme.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// テーマの設定と切り替え。
 class MyApp extends StatelessWidget {
@@ -13,9 +13,9 @@ class MyApp extends StatelessWidget {
     return Consumer(
       builder: (context, ref, child) => MaterialApp.router(
         // テーマ
-        themeMode: ref.watch(AppTheme.themeMode),
-        theme: AppTheme.lightTheme,
-        darkTheme: AppTheme.dartTheme,
+        themeMode: ref.watch(app_theme.themeMode),
+        theme: app_theme.lightTheme,
+        darkTheme: app_theme.dartTheme,
 
         // GoRouter
         routerDelegate: router.routerDelegate,

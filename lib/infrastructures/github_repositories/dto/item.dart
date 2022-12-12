@@ -1,10 +1,6 @@
-import 'package:flutter_engineer_codecheck/domain/value_objects/repository_created_time.dart';
-import 'package:flutter_engineer_codecheck/domain/value_objects/repository_description.dart';
-import 'package:flutter_engineer_codecheck/domain/value_objects/repository_updated_time.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:flutter/foundation.dart';
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_engineer_codecheck/domain/entities/git_repository_data.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/count_fork.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/count_issue.dart';
@@ -12,8 +8,13 @@ import 'package:flutter_engineer_codecheck/domain/value_objects/count_star.dart'
 import 'package:flutter_engineer_codecheck/domain/value_objects/count_watcher.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/owner_icon_url.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/project_language.dart';
-import 'package:flutter_engineer_codecheck/domain/value_objects/repository_name.dart';
+import 'package:flutter_engineer_codecheck/domain/value_objects/repository_created_time.dart';
+import 'package:flutter_engineer_codecheck/domain/value_objects/repository_description.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/repository_id.dart';
+import 'package:flutter_engineer_codecheck/domain/value_objects/repository_name.dart';
+import 'package:flutter_engineer_codecheck/domain/value_objects/repository_updated_time.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
 import 'owner.dart';
 
 part 'item.freezed.dart';
@@ -23,7 +24,7 @@ part 'item.g.dart';
 
 /// GithubApiで取得するデータのitemsのリストに対応するデータ
 class Item with _$Item {
-  const Item._(); //メソッド不要の場合、削除
+  //メソッド不要の場合、削除
 
   @JsonSerializable(
     fieldRename: FieldRename.snake,
@@ -63,6 +64,8 @@ class Item with _$Item {
     required String updatedAt,
   }) = _Item;
 
+  const Item._();
+
   factory Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);
 
   GitRepositoryData toGitRepositoryData() {
@@ -87,7 +90,7 @@ class ItemConverter implements JsonConverter<Item, String> {
 
   @override
   Item fromJson(String jsonData) {
-    return Item.fromJson(json.decode(jsonData));
+    return Item.fromJson(json.decode(jsonData) as Map<String, dynamic>);
   }
 
   @override

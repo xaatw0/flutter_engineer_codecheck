@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_engineer_codecheck/domain/entities/git_repository_data.dart';
 import 'package:intl/intl.dart';
@@ -8,6 +7,8 @@ import '../../../domain/repositories/git_repository.dart';
 /// ソート方法に関連するロジックがまとめてある。
 /// ソート方法に応じたアイコンとレポジトリのデータを取得するファンクションが取得できる。
 class SortMethodLogic {
+  SortMethodLogic(this._sortMethod);
+
   /// アイコンとソート方法のマップ
   final _mapIcons = <IconData, List<SortMethod>>{
     Icons.star: [SortMethod.bestMatch, SortMethod.starAsc, SortMethod.starDesc],
@@ -27,13 +28,11 @@ class SortMethodLogic {
       SortMethod.forkAsc,
       SortMethod.forkDesc
     ],
-    (data) => _dateFormat.format(data.updateTime()).toString(): [
+    (data) => _dateFormat.format(data.updateTime()): [
       SortMethod.recentlyUpdated,
       SortMethod.leastRecentlyUpdate
     ],
   };
-
-  SortMethodLogic(this._sortMethod);
 
   /// ソート方法
   final SortMethod _sortMethod;

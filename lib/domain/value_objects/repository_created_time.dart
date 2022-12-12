@@ -14,7 +14,7 @@ class RepositoryCreateTimeConverter
   RepositoryCreateTime fromJson(String jsonData) {
     try {
       return RepositoryCreateTime(DateTime.parse(jsonData));
-    } catch (e) {
+    } on Exception catch (_) {
       throw FormatException('日付のフォーマットが異なる: $jsonData');
     }
   }

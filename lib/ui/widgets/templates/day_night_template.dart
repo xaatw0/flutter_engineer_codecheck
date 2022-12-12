@@ -6,11 +6,11 @@ import '../../../domain/string_resources.dart';
 /// ライトテーマとダークテーマの切り替えボタンのあるテンプレート。
 class DayNightTemplate extends StatelessWidget {
   const DayNightTemplate({
-    Key? key,
+    super.key,
     this.title,
     required this.child,
     this.isAppBarShown = true,
-  }) : super(key: key);
+  });
 
   final Widget child;
   final String? title;
@@ -25,12 +25,12 @@ class DayNightTemplate extends StatelessWidget {
       appBar: isAppBarShown
           ? AppBar(
               title: Text(title ?? StringResources.kEmpty),
-              actions: [ThemeSwitcher()],
+              actions: const [ThemeSwitcher()],
             )
           : null,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16),
           child: child,
         ),
       ),

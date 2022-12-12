@@ -12,19 +12,20 @@ import 'package:flutter_engineer_codecheck/domain/value_objects/repository_name.
 import 'package:flutter_engineer_codecheck/domain/value_objects/repository_updated_time.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-main() {
+void main() {
   test('basic', () async {
     final target = GitRepositoryData(
       repositoryId: RepositoryId(123),
       repositoryName: RepositoryName('repositoryName'),
       ownerIconUrl: OwnerIconUrl('OwnerIconUrl'),
       projectLanguage: ProjectLanguage('projectLanguage'),
-      repositoryDescription: RepositoryDescription('repositoryDescription'),
+      repositoryDescription:
+          const RepositoryDescription('repositoryDescription'),
       countStar: CountStar(1),
       countWatcher: CountWatcher(2),
       countFork: CountFork(3),
       countIssue: CountIssue(4),
-      createTime: RepositoryCreateTime(DateTime(2022, 10, 1)),
+      createTime: RepositoryCreateTime(DateTime(2022, 10)),
       updateTime: RepositoryUpdateTime(DateTime(2022, 10, 2)),
     );
 
@@ -39,7 +40,7 @@ main() {
     expect(target.countFork(), 3);
     expect(target.countIssue(), 4);
 
-    expect(target.createTime(), DateTime(2022, 10, 1));
+    expect(target.createTime(), DateTime(2022, 10));
     expect(target.updateTime(), DateTime(2022, 10, 2));
   });
 }

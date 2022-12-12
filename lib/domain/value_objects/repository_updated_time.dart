@@ -14,7 +14,7 @@ class RepositoryUpdateTimeConverter
   RepositoryUpdateTime fromJson(String jsonData) {
     try {
       return RepositoryUpdateTime(DateTime.parse(jsonData));
-    } catch (e) {
+    } on Exception catch (_) {
       throw FormatException('日付のフォーマットが異なる: $jsonData');
     }
   }

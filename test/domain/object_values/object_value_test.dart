@@ -5,11 +5,15 @@ class IntValueObject extends ValueObject<int> {
   IntValueObject(super.value);
 }
 
+class IntValueAnotherObject extends ValueObject<int> {
+  IntValueAnotherObject(super.value);
+}
+
 class StringValueObject extends ValueObject<String> {
   StringValueObject(super.value);
 }
 
-main() {
+void main() {
   test('int', () async {
     final target = IntValueObject(100);
     expect(target.toString(), 'IntValueObject[100]');
@@ -26,5 +30,17 @@ main() {
     expect(target.value, 'abc');
 
     expect(StringValueObject('ABC')(), 'ABC');
+  });
+
+  test('compare', () {
+    final value1 = IntValueObject(1);
+    final value1_ = IntValueObject(1);
+    final value2 = IntValueObject(2);
+    final value3 = IntValueAnotherObject(1);
+
+    expect(value1, value1_);
+    expect(value1 == value1_, true);
+    expect(value1 == value2, false);
+    expect(value1 == value3, false);
   });
 }

@@ -32,6 +32,7 @@ class SearchResultPageVm {
       _ref.watch(_searchResultProvider);
 
   late final WidgetRef _ref;
+  // ignore: use_setters_to_change_properties
   void setRef(WidgetRef ref) {
     _ref = ref;
   }
@@ -46,12 +47,16 @@ class SearchResultPageVm {
   int _page = 0;
 
   /// [keyword]を検索キーワードにして、[page]ページ目の GitRepositoryのデータを取得する。
-  /// [isLoadMore] false: 初回取得 true:2回目以降の取得
+  /// [isLoadMoreData] false: 初回取得 true:2回目以降の取得
   void _fetch(
-      String keyword, int page, bool isLoadMore, SortMethod sortMethod) {
+    String keyword,
+    int page,
+    SortMethod sortMethod,
+    bool isLoadMoreData,
+  ) {
     _ref
         .read(_searchResultProvider.notifier)
-        .fetch(keyword, page, isLoadMore, sortMethod);
+        .fetch(keyword, page, sortMethod, isLoadMoreData: isLoadMoreData);
   }
 
   /// [keyword]で初めて検索をする。[sortMethod]でソート方法を指定する。
@@ -60,7 +65,7 @@ class SearchResultPageVm {
     _keyword = keyword;
     _page = _gitRepository.getFirstPageIndex();
     _sortMethod = sortMethod;
-    _fetch(_keyword, _page, false, _sortMethod);
+    _fetch(_keyword, _page, _sortMethod, false);
 
     return () => _ref.read(sortMethodProvider.notifier).state =
         SortMethodLogic(sortMethod);
@@ -70,7 +75,7 @@ class SearchResultPageVm {
   void onLoadMore() {
     _page++;
     if (!_ref.read(_searchResultProvider.notifier).isLoading()) {
-      _fetch(_keyword, _page, true, _sortMethod);
+      _fetch(_keyword, _page, _sortMethod, true);
     }
   }
 

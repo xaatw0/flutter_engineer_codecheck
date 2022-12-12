@@ -4,9 +4,9 @@ import 'package:flutter_engineer_codecheck/domain/string_resources.dart';
 /// レポジトリの詳細を表示する画面のDescription部分のWidget
 class RepositoryDetailDescription extends StatelessWidget {
   const RepositoryDetailDescription({
-    Key? key,
+    super.key,
     required this.description,
-  }) : super(key: key);
+  });
 
   final String description;
 
@@ -21,7 +21,7 @@ class RepositoryDetailDescription extends StatelessWidget {
             style: Theme.of(context).textTheme.titleLarge,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32.0),
+            padding: const EdgeInsets.symmetric(horizontal: 32),
             child: Text(
               description,
               textAlign: TextAlign.left,
