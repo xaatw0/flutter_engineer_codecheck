@@ -4,6 +4,7 @@ import 'package:flutter_engineer_codecheck/ui/pages/search_page/search_page_vm.d
 import 'package:flutter_engineer_codecheck/ui/widgets/templates/day_night_template.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get_it/get_it.dart';
 import '../../widgets/atoms/github_icon.dart';
 import '../../widgets/molecules/search_text_field.dart';
 import '../../widgets/organisms/moving_fadein_animation.dart';
@@ -19,7 +20,7 @@ class SearchPage extends ConsumerStatefulWidget {
 }
 
 class _SearchPageState extends ConsumerState<SearchPage> {
-  final _vm = SearchPageVm();
+  final _vm = GetIt.I.get<SearchPageVm>();
 
   @override
   void initState() {
@@ -40,8 +41,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
           child: Column(children: [
             // Githubのアイコン
             Visibility(
-              visible: _vm.isPortrait(context) ||
-                  (!_vm.isKeywordAvailable && !_vm.isKeyboardShown(context)),
+              visible: isGithubIconShown,
               child: Padding(
                 padding: const EdgeInsets.all(24.0),
                 child: MovingFadeinAnimation(

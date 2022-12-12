@@ -1,4 +1,6 @@
+import 'package:flutter_engineer_codecheck/domain/value_objects/repository_created_time.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/repository_description.dart';
+import 'package:flutter_engineer_codecheck/domain/value_objects/repository_updated_time.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
 import 'dart:convert';
@@ -53,6 +55,12 @@ class Item with _$Item {
 
     /// フォーク数
     required int forks,
+
+    /// レポジトリの作成日時
+    required String createdAt,
+
+    /// レポジトリの更新日時
+    required String updatedAt,
   }) = _Item;
 
   factory Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);
@@ -68,6 +76,8 @@ class Item with _$Item {
       countWatcher: CountWatcher(watchers),
       countFork: CountFork(forks),
       countIssue: CountIssue(openIssues),
+      createTime: const RepositoryCreateTimeConverter().fromJson(createdAt),
+      updateTime: const RepositoryUpdateTimeConverter().fromJson(updatedAt),
     );
   }
 }
