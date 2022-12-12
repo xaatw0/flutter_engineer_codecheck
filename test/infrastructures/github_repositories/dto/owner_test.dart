@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('conver json to Owner', () async {
-    final jsonData = '''
+    const jsonData = '''
     {
         "login": "flutter",
         "id": 14101776,
