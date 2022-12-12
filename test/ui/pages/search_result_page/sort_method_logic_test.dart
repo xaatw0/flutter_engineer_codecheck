@@ -1,9 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_engineer_codecheck/domain/entities/git_repository_data.dart';
 import 'package:flutter_engineer_codecheck/domain/repositories/git_repository.dart';
-import 'package:flutter_engineer_codecheck/ui/pages/search_result_page/sort_method_logic.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter/material.dart';
-
 import 'package:flutter_engineer_codecheck/domain/value_objects/count_fork.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/count_issue.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/count_star.dart';
@@ -15,6 +12,8 @@ import 'package:flutter_engineer_codecheck/domain/value_objects/repository_descr
 import 'package:flutter_engineer_codecheck/domain/value_objects/repository_id.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/repository_name.dart';
 import 'package:flutter_engineer_codecheck/domain/value_objects/repository_updated_time.dart';
+import 'package:flutter_engineer_codecheck/ui/pages/search_result_page/sort_method_logic.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() async {
   final gitRepositoryData = GitRepositoryData(

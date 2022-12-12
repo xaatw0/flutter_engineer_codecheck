@@ -2,9 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_engineer_codecheck/ui/pages/search_page/search_page_vm.dart';
 import 'package:flutter_engineer_codecheck/ui/widgets/templates/day_night_template.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
+
 import '../../widgets/atoms/github_icon.dart';
 import '../../widgets/molecules/search_text_field.dart';
 import '../../widgets/organisms/moving_fadein_animation.dart';

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_engineer_codecheck/domain/repositories/git_repository.dart';
 import 'package:flutter_engineer_codecheck/ui/app_theme.dart';
 import 'package:flutter_engineer_codecheck/ui/pages/search_result_page/search_result_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// 検索用のトップページのViewModel
 class SearchPageVm {
