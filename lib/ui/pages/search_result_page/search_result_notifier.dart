@@ -30,7 +30,8 @@ class SearchResultNotifier
       state ==
       const AsyncLoading<List<GitRepositoryData>>().copyWithPrevious(state);
 
-  void load(String keyword, int page, isLoadMoreData, SortMethod sortMethod) {
+  void load(
+      String keyword, int page, bool isLoadMoreData, SortMethod sortMethod) {
     // ローディング中にローディングしないようにする
     if (isLoading()) {
       return;
