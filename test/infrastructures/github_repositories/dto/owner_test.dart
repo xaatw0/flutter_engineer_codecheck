@@ -27,7 +27,7 @@ main() {
       }
       ''';
 
-    final map = json.decode(jsonData);
+    final map = json.decode(jsonData) as Map<String, dynamic>;
     final result = Owner.fromJson(map);
     expect(result.avatarUrl,
         'https://avatars.githubusercontent.com/u/14101776?v=4');

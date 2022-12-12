@@ -140,7 +140,7 @@ main() async {
     }
     ''';
 
-    final map = json.decode(jsonData);
+    final map = json.decode(jsonData) as Map<String, dynamic>;
     final result = Item.fromJson(map);
 
     expect(result.id, 31792824);

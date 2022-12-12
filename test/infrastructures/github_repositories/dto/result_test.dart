@@ -12,7 +12,8 @@ main() async {
     final file = File(filePath);
     expect(file.existsSync(), true);
 
-    final result = Result.fromJson(json.decode(file.readAsStringSync()));
+    final result = Result.fromJson(
+        json.decode(file.readAsStringSync()) as Map<String, dynamic>);
     expect(result.totalCount, 455887);
     expect(result.items.length, 30);
     expect(result.items[0].name, 'flutter');

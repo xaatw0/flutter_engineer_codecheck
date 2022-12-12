@@ -87,7 +87,7 @@ class ItemConverter implements JsonConverter<Item, String> {
 
   @override
   Item fromJson(String jsonData) {
-    return Item.fromJson(json.decode(jsonData));
+    return Item.fromJson(json.decode(jsonData) as Map<String, dynamic>);
   }
 
   @override
