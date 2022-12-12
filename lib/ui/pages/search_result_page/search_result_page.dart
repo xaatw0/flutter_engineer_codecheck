@@ -11,7 +11,7 @@ import '../../widgets/organisms/search_result_list_view.dart';
 
 /// 検索結果を表示するためのページのView
 class SearchResultPage extends ConsumerStatefulWidget {
-  SearchResultPage({
+  const SearchResultPage({
     super.key,
     required this.keyword,
     required this.sortMethod,
@@ -40,7 +40,8 @@ class _SearchResultPageState extends ConsumerState<SearchResultPage> {
   void initState() {
     super.initState();
     _vm.setRef(ref);
-    _vm.onLoad(widget.keyword, widget.sortMethod);
+    final funcAfterInit = _vm.onLoad(widget.keyword, widget.sortMethod);
+    WidgetsBinding.instance.addPostFrameCallback((_) => funcAfterInit);
   }
 
   @override

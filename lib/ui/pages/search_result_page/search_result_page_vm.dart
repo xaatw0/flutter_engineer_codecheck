@@ -54,13 +54,16 @@ class SearchResultPageVm {
         .fetch(keyword, page, isLoadMore, sortMethod);
   }
 
-  /// [keyword]で初めて検索をする。[sortMethod]でソート方法を指定する
-  void onLoad(String keyword, SortMethod sortMethod) {
+  /// [keyword]で初めて検索をする。[sortMethod]でソート方法を指定する。
+  /// ロードが完了後実施したいファンクションを返す。
+  void Function() onLoad(String keyword, SortMethod sortMethod) {
     _keyword = keyword;
     _page = _gitRepository.getFirstPageIndex();
     _sortMethod = sortMethod;
     _fetch(_keyword, _page, false, _sortMethod);
-    _ref.read(sortMethodProvider.notifier).state = SortMethodLogic(sortMethod);
+
+    return () => _ref.read(sortMethodProvider.notifier).state =
+        SortMethodLogic(sortMethod);
   }
 
   /// [_keyword]を検索キーワードにして、[_page]ページ目の GitRepositoryのデータを取得する。
