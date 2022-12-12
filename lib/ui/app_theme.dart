@@ -17,7 +17,6 @@ final lightTheme = ThemeData(
   useMaterial3: true,
   scaffoldBackgroundColor: Colors.grey.shade100,
   colorScheme: ColorScheme.fromSwatch(
-    brightness: Brightness.light,
     primarySwatch: Colors.grey,
     accentColor: Colors.orangeAccent,
   ),

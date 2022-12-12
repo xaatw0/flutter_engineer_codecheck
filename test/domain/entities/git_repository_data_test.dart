@@ -25,7 +25,7 @@ void main() {
       countWatcher: CountWatcher(2),
       countFork: CountFork(3),
       countIssue: CountIssue(4),
-      createTime: RepositoryCreateTime(DateTime(2022, 10, 1)),
+      createTime: RepositoryCreateTime(DateTime(2022, 10)),
       updateTime: RepositoryUpdateTime(DateTime(2022, 10, 2)),
     );
 
@@ -40,7 +40,7 @@ void main() {
     expect(target.countFork(), 3);
     expect(target.countIssue(), 4);
 
-    expect(target.createTime(), DateTime(2022, 10, 1));
+    expect(target.createTime(), DateTime(2022, 10));
     expect(target.updateTime(), DateTime(2022, 10, 2));
   });
 }

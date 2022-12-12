@@ -34,12 +34,10 @@ class GoldenTestUtility {
 
   // PC
   /// デスクトップブラウザ
-  static const webDesktop =
-      Device(name: 'desktop', size: Size(1920, 1080), devicePixelRatio: 1);
+  static const webDesktop = Device(name: 'desktop', size: Size(1920, 1080));
 
   /// ラップトップブラウザ
-  static const webLaptop =
-      Device(name: 'laptop', size: Size(1536, 864), devicePixelRatio: 1);
+  static const webLaptop = Device(name: 'laptop', size: Size(1536, 864));
 
   // デバイスの一覧
   List<Device> get devices => [

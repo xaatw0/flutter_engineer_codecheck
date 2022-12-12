@@ -26,7 +26,7 @@ void main() async {
     expect(result.first.repositoryName(), 'flutter');
 
     // ページ1の最初は公式だし、多分「flutter」。
-    final page1 = await repository.search('flutter', page: 1);
+    final page1 = await repository.search('flutter');
     expect(page1.first.repositoryName(), 'flutter');
 
     // ページ2の最初は多分「Flutter」ではない
