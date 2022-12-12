@@ -44,7 +44,7 @@ class _MovingFadeinAnimationState extends State<MovingFadeinAnimation>
     super.initState();
 
     // 起動してから少し置いてからアニメーションが始まる
-    Future.delayed(const Duration(milliseconds: 100)).then((_) {
+    Future<void>.delayed(const Duration(milliseconds: 100)).then((_) {
       _controller.forward();
     });
   }
