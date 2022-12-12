@@ -25,7 +25,7 @@ void main() async {
     );
     expect(
       result.items[0].description,
-      'Flutter makes it easy and fast to build beautiful apps for mobile and beyond',
+      'Flutter makes it easy and fast to build beautiful apps for mobile and beyond', // ignore: lines_longer_than_80_chars
     );
     expect(result.items[0].createdAt, '2015-03-06T22:54:58Z');
     expect(result.items[0].updatedAt, '2022-12-06T23:38:33Z');
