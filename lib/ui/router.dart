@@ -14,7 +14,7 @@ final router = GoRouter(
     GoRoute(
       path: SearchPage.path,
       pageBuilder: (BuildContext context, GoRouterState? state) {
-        return const MaterialPage(
+        return const MaterialPage<void>(
           child: SearchPage(),
         );
       },
@@ -30,13 +30,13 @@ final router = GoRouter(
                 keyword.isNotEmpty &&
                 sortMethod != null &&
                 sortMethod is SortMethod
-            ? MaterialPage(
+            ? MaterialPage<void>(
                 child: SearchResultPage(
                   keyword: keyword,
                   sortMethod: sortMethod,
                 ),
               )
-            : const MaterialPage(
+            : const MaterialPage<void>(
                 child: SearchPage(),
               );
       },
@@ -47,9 +47,9 @@ final router = GoRouter(
       pageBuilder: (BuildContext context, GoRouterState? state) {
         final data = state?.extra;
         if (data != null && data is GitRepositoryData) {
-          return MaterialPage(child: RepositoryDetailPage(data));
+          return MaterialPage<void>(child: RepositoryDetailPage(data));
         } else {
-          return const MaterialPage(child: SearchPage());
+          return const MaterialPage<void>(child: SearchPage());
         }
       },
     )
