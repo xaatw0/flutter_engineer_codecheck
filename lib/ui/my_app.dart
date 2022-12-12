@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_engineer_codecheck/ui/app_theme.dart' as AppTheme;
 import 'package:flutter_engineer_codecheck/ui/router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'app_theme.dart';
 
 /// テーマの設定と切り替え。
 class MyApp extends StatelessWidget {

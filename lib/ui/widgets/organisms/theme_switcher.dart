@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_engineer_codecheck/ui/app_theme.dart';
+import 'package:flutter_engineer_codecheck/ui/app_theme.dart' as AppTheme;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
