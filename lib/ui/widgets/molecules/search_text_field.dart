@@ -30,7 +30,7 @@ class SearchTextField extends StatelessWidget {
         suffixIcon: IconButton(
           icon: Icon(
             Icons.sort,
-            size: 32.0,
+            size: 32,
             color: Theme.of(context).colorScheme.secondary,
           ),
           onPressed: onSelectSortMethod,

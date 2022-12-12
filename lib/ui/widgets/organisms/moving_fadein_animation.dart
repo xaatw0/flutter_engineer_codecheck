@@ -15,18 +15,24 @@ class MovingFadeinAnimation extends StatefulWidget {
 
 class _MovingFadeinAnimationState extends State<MovingFadeinAnimation>
     with TickerProviderStateMixin<MovingFadeinAnimation> {
-  // 300ミリ秒でアニメーションが実施される。
+  /// フェードインアニメーションの値の初期値
+  static const fadeBeginValue = 0.0;
+
+  /// フェードインアニメーションの値の終了値
+  static const fadeEndValue = 1.0;
+
+  /// 300ミリ秒でアニメーションが実施される。
   late final AnimationController _controller = AnimationController(
     vsync: this,
     duration: const Duration(
       milliseconds: 300,
     ),
-    value: 0.0,
+    value: fadeBeginValue,
   );
 
   // フェードインのアニメーション
   late final Animation<double> _fadeInAnimation =
-      Tween(begin: 0.0, end: 1.0).animate(
+      Tween(begin: fadeBeginValue, end: fadeEndValue).animate(
     CurvedAnimation(
       parent: _controller,
       curve: Curves.easeIn,
@@ -35,7 +41,7 @@ class _MovingFadeinAnimationState extends State<MovingFadeinAnimation>
 
   // 移動するアニメーション
   late final Animation<Offset> _offsetAnimation = Tween<Offset>(
-    begin: const Offset(0.0, 0.5),
+    begin: const Offset(0, 0.5),
     end: Offset.zero,
   ).animate(
     CurvedAnimation(

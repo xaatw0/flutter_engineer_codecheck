@@ -27,7 +27,7 @@ class RepositoryDataCard extends StatelessWidget {
         ),
         // レポジトリ名
         title: Padding(
-          padding: const EdgeInsets.all(4.0),
+          padding: const EdgeInsets.all(4),
           child: AutoSizeText(
             data.repositoryName(),
             style: Theme.of(context).textTheme.titleMedium,
