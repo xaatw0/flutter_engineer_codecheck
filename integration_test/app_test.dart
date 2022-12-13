@@ -45,21 +45,23 @@ void main() {
   // 2ページ目のモックデータの最初のデータのname
   const startOfPage2Name = 'startOfPage2';
 
-  when(mockClient.get(Uri.parse(url1))).thenAnswer(
-    (_) async => http.Response(result.flutter1, 200, headers: {
-      HttpHeaders.contentTypeHeader: 'application/json; charset=utf-8',
-    }),
-  );
-  when(mockClient.get(Uri.parse(url2))).thenAnswer(
-    (_) async => http.Response(result.flutter2, 200, headers: {
-      HttpHeaders.contentTypeHeader: 'application/json; charset=utf-8',
-    }),
-  );
-  when(mockClient.get(Uri.parse(urlNoResult))).thenAnswer(
-    (_) async => http.Response(result.noResult, 200, headers: {
-      HttpHeaders.contentTypeHeader: 'application/json; charset=utf-8',
-    }),
-  );
+  // ダミーデータの設定
+  http.Response getDummyResponse(String result) {
+    return http.Response(
+      result,
+      200,
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json; charset=utf-8'
+      },
+    );
+  }
+
+  when(mockClient.get(Uri.parse(url1)))
+      .thenAnswer((_) async => getDummyResponse(result.flutter1));
+  when(mockClient.get(Uri.parse(url2)))
+      .thenAnswer((_) async => getDummyResponse(result.flutter2));
+  when(mockClient.get(Uri.parse(urlNoResult)))
+      .thenAnswer((_) async => getDummyResponse(result.noResult));
 
   testWidgets('start', (WidgetTester tester) async {
     GetIt.I.registerSingleton<http.Client>(mockClient);
