@@ -8,6 +8,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import 'github_repository_test.mocks.dart';
+import 'mock_result.dart' as result;
 
 @GenerateMocks([http.Client])
 void main() async {
@@ -105,12 +106,23 @@ void main() async {
         'https://api.github.com/search/repositories?q=flutter&page=1');
 
     final client = MockClient();
-    when(client.get(uri))
-        .thenAnswer((_) async => http.Response(file.readAsStringSync(), 200));
+    when(client.get(uri)).thenAnswer(
+      (_) async => http.Response(file.readAsStringSync(), 200),
+    );
 
     final repository = GithubRepository();
     final result = await repository.search('flutter');
     expect(result.length, 30);
     expect(result[0].repositoryName(), 'flutter');
+  });
+
+  test('file and member', () async {
+    const filePath =
+        'test/infrastructures/github_repositories/dto/result_test.txt';
+    final file = File(filePath);
+    expect(file.existsSync(), true);
+
+    final fileData = file.readAsStringSync();
+    expect(fileData.replaceAll('\r', ''), result.flutter1);
   });
 }
