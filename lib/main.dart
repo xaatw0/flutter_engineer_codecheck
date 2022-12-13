@@ -17,7 +17,6 @@ void main() {
   SystemChrome.setPreferredOrientations(
     orientations,
   );
-  print('orientations length: ${orientations.length} ${orientations[0].name}');
   runApp(
     const ProviderScope(
       child: MyApp(),
