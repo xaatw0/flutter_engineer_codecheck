@@ -103,7 +103,8 @@ void main() async {
     expect(file.existsSync(), true);
 
     final uri = Uri.parse(
-        'https://api.github.com/search/repositories?q=flutter&page=1');
+      'https://api.github.com/search/repositories?q=flutter&page=1',
+    );
 
     final client = MockClient();
     when(client.get(uri)).thenAnswer(

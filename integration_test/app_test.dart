@@ -150,23 +150,28 @@ void main() {
     expect(find.byType(RepositoryDataCard), findsNWidgets(10));
 
     await tester.drag(
-        find.byType(RepositoryDataCard).at(8), const Offset(0.0, -300));
+      find.byType(RepositoryDataCard).at(8),
+      const Offset(0, -300),
+    );
     await tester.pumpAndSettle();
     await binding.takeScreenshot('${orientation}_15_scrolling1');
 
     expect(find.byType(RepositoryDataCard), findsNWidgets(10));
     await tester.drag(
-        find.byType(RepositoryDataCard).at(8), const Offset(0.0, -300));
+      find.byType(RepositoryDataCard).at(8),
+      const Offset(0, -300),
+    );
     await tester.pumpAndSettle();
 
-    await binding.takeScreenshot('${orientation}_16_scrolling2');
+    await binding.takeScreenshot(
+      '${orientation}_16_scrolling2',
+    );
 
     // 1ページ目の最後のデータまでドラッグし続ける
     await tester.dragUntilVisible(
       find.text(endOfPage1Name),
       find.byType(SearchResultListView),
       const Offset(0, -50),
-      maxIteration: 50,
     );
 
     await tester.pumpAndSettle();

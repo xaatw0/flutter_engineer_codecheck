@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:integration_test/integration_test_driver_extended.dart';
 
 Future<void> main() async {
@@ -13,6 +14,8 @@ Future<void> main() async {
       },
     );
   } on Exception catch (e) {
-    print('Error occured: $e');
+    if (kDebugMode) {
+      print('Exception was thrown: $e');
+    }
   }
 }
