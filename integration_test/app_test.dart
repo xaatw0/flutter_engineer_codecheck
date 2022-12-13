@@ -36,6 +36,14 @@ void main() {
   // ファイルの確認とMockに設定
   const url1 = 'https://api.github.com/search/repositories?q=flutter&page=1';
   const url2 = 'https://api.github.com/search/repositories?q=flutter&page=2';
+  const urlNoResult =
+      'https://api.github.com/search/repositories?q=noResult&page=1';
+
+  // 1ページ目のモックデータの最後のデータのname
+  const endOfPage1Name = 'enfOfPage1';
+
+  // 2ページ目のモックデータの最初のデータのname
+  const startOfPage2Name = 'startOfPage2';
 
   when(mockClient.get(Uri.parse(url1))).thenAnswer(
     (_) async => http.Response(result.flutter1, 200, headers: {
@@ -44,6 +52,11 @@ void main() {
   );
   when(mockClient.get(Uri.parse(url2))).thenAnswer(
     (_) async => http.Response(result.flutter2, 200, headers: {
+      HttpHeaders.contentTypeHeader: 'application/json; charset=utf-8',
+    }),
+  );
+  when(mockClient.get(Uri.parse(urlNoResult))).thenAnswer(
+    (_) async => http.Response(result.noResult, 200, headers: {
       HttpHeaders.contentTypeHeader: 'application/json; charset=utf-8',
     }),
   );
@@ -81,15 +94,35 @@ void main() {
     await tester.pumpAndSettle();
     await binding.takeScreenshot('${orientation}_04_showKeyboard');
 
-    // 検索キーワードを入力
-    await tester.enterText(find.byType(TextField), 'flutter');
+    // 結果無し用の検索キーワードを入力
+    await tester.enterText(find.byType(TextField), 'noResult');
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_05_enterText');
+    await binding.takeScreenshot('${orientation}_05_enterNoResult');
 
     // Enter を入力
     await tester.testTextInput.receiveAction(TextInputAction.search);
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_06_enter');
+    await binding.takeScreenshot('${orientation}_06_resultPageWithNoResult');
+
+    // 検索結果無しを表示
+    await tester.tap(find.byIcon(Icons.arrow_back));
+    await tester.pumpAndSettle();
+    await binding.takeScreenshot('${orientation}_07_searchPage');
+
+    // 検索キーワードを入力
+    final textFinder = find.byType(TextField);
+    expect(textFinder, findsOneWidget);
+    await tester.tap(textFinder);
+    await tester.enterText(textFinder, 'flutter');
+    expect(find.text('noResult'), findsNothing);
+    expect(find.text('flutter'), findsOneWidget);
+    await tester.pumpAndSettle();
+    await binding.takeScreenshot('${orientation}_08_enterFlutter');
+
+    // Enter を入力して、Flutterの検索結果を表示
+    await tester.testTextInput.receiveAction(TextInputAction.search);
+    await tester.pumpAndSettle();
+    await binding.takeScreenshot('${orientation}_09_resultPageForFlutter');
 
     // Flutterの公式レポジトリのカードをタップ
     // (Flutterの公式レポジトリが検索のトップに来ていると想定→MOCKのため、必ずある)
@@ -128,12 +161,6 @@ void main() {
 
     await binding.takeScreenshot('${orientation}_16_scrolling2');
 
-    // 1ページ目のモックデータの最後のデータのname
-    const endOfPage1Name = 'enfOfPage1';
-
-    // 2ページ目のモックデータの最初のデータのname
-    const startOfPage2Name = 'startOfPage2';
-
     // 1ページ目の最後のデータまでドラッグし続ける
     await tester.dragUntilVisible(
       find.text(endOfPage1Name),
@@ -152,6 +179,11 @@ void main() {
     await binding.takeScreenshot('${orientation}_18_startOfPage2');
 
     expect(find.text(startOfPage2Name), findsOneWidget);
+
+    // 検索ページに戻る
+    await tester.tap(find.byIcon(Icons.arrow_back));
+    await tester.pumpAndSettle();
+    await binding.takeScreenshot('${orientation}_21_searchPageWithKeyword');
   });
 
   testWidgets('second time', (WidgetTester tester) async {
@@ -188,18 +220,35 @@ void main() {
     await tester.pumpAndSettle();
     await binding.takeScreenshot('${orientation}_04_showKeyboard');
 
-    // 検索キーワードを入力
-    await tester.enterText(find.byType(TextField), 'flutter');
+    // 結果無し用の検索キーワードを入力
+    await tester.enterText(find.byType(TextField), 'noResult');
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_05_enterText');
-
-    expect(find.byType(OutlinedButton), findsNothing);
-    expect(find.byType(GithubIcon), findsNothing);
+    await binding.takeScreenshot('${orientation}_05_enterNoResult');
 
     // Enter を入力
     await tester.testTextInput.receiveAction(TextInputAction.search);
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_06_enter');
+    await binding.takeScreenshot('${orientation}_06_resultPageWithNoResult');
+
+    // 検索結果無しを表示
+    await tester.tap(find.byIcon(Icons.arrow_back));
+    await tester.pumpAndSettle();
+    await binding.takeScreenshot('${orientation}_07_searchPage');
+
+    // 検索キーワードを入力
+    final textFinder = find.byType(TextField);
+    expect(textFinder, findsOneWidget);
+    await tester.tap(textFinder);
+    await tester.enterText(textFinder, 'flutter');
+    expect(find.text('noResult'), findsNothing);
+    expect(find.text('flutter'), findsOneWidget);
+    await tester.pumpAndSettle();
+    await binding.takeScreenshot('${orientation}_08_enterFlutter');
+
+    // Enter を入力して、Flutterの検索結果を表示
+    await tester.testTextInput.receiveAction(TextInputAction.search);
+    await tester.pumpAndSettle();
+    await binding.takeScreenshot('${orientation}_09_resultPageForFlutter');
 
     // Flutterの公式レポジトリのカードをタップ
     // (Flutterの公式レポジトリが検索のトップに来ていると想定→MOCKのため、必ずある)
@@ -222,5 +271,29 @@ void main() {
     await tester.tap(find.byType(ThemeSwitcher));
     await tester.pumpAndSettle();
     await binding.takeScreenshot('${orientation}_14_pageResultLight');
+
+    // 1ページ目の最後のデータまでドラッグし続ける
+    await tester.dragUntilVisible(
+      find.text(endOfPage1Name),
+      find.byType(SearchResultListView),
+      const Offset(0, -50),
+      maxIteration: 100,
+    );
+
+    await tester.pumpAndSettle();
+    await binding.takeScreenshot('${orientation}_17_endOfPage1');
+
+    // 1ページ目の最後のデータをドラッグすると、2ページ目のデータが読み込まれて表示される
+    await tester.drag(find.text(endOfPage1Name), const Offset(0, -300));
+    await Future<void>.delayed(const Duration(seconds: 1));
+    await tester.pumpAndSettle();
+    await binding.takeScreenshot('${orientation}_18_startOfPage2');
+
+    expect(find.text(startOfPage2Name), findsOneWidget);
+
+    // 検索ページに戻る
+    await tester.tap(find.byIcon(Icons.arrow_back));
+    await tester.pumpAndSettle();
+    await binding.takeScreenshot('${orientation}_21_searchPageWithKeyword');
   });
 }

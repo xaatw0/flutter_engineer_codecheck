@@ -1,3 +1,13 @@
+const noResult = r'''
+{
+  "total_count": 0,
+  "incomplete_results": false,
+  "items": [
+
+  ]
+}
+''';
+
 const flutter1 = r'''
 {
   "total_count": 458189,
