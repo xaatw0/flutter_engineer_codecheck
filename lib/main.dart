@@ -5,6 +5,7 @@ import 'package:flutter_engineer_codecheck/ui/my_app.dart';
 import 'package:flutter_engineer_codecheck/ui/pages/search_page/search_page_vm.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
+import 'package:http/http.dart' as http;
 
 /// 起点クラス
 void main() {
@@ -20,4 +21,5 @@ void main() {
 void initDI() {
   GetIt.I.registerSingleton<GitRepository>(GithubRepository());
   GetIt.I.registerSingleton<SearchPageVm>(SearchPageVm());
+  GetIt.I.registerSingleton<http.Client>(http.Client());
 }
