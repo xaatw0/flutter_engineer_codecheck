@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_engineer_codecheck/domain/repositories/git_repository.dart';
 import 'package:flutter_engineer_codecheck/infrastructures/github_repositories/github_repository.dart';
 import 'package:flutter_engineer_codecheck/ui/my_app.dart';
@@ -10,6 +11,13 @@ import 'package:http/http.dart' as http;
 /// 起点クラス
 void main() {
   initDI();
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final orientations = GetIt.I.get<List<DeviceOrientation>>();
+  SystemChrome.setPreferredOrientations(
+    orientations,
+  );
+  print('orientations length: ${orientations.length} ${orientations[0].name}');
   runApp(
     const ProviderScope(
       child: MyApp(),
@@ -21,5 +29,10 @@ void main() {
 void initDI() {
   GetIt.I.registerSingleton<GitRepository>(GithubRepository());
   GetIt.I.registerSingleton<SearchPageVm>(SearchPageVm());
-  GetIt.I.registerSingleton<http.Client>(http.Client());
+
+  // インテグレーションテストを実施するときは、すでに登録済のため、再登録はしない
+  if (!GetIt.I.isRegistered<List<DeviceOrientation>>()) {
+    GetIt.I.registerSingleton<http.Client>(http.Client());
+    GetIt.I.registerSingleton<List<DeviceOrientation>>([]);
+  }
 }
