@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:flutter_engineer_codecheck/main.dart' as app;
+import 'package:flutter_engineer_codecheck/ui/widgets/atoms/github_icon.dart';
 import 'package:flutter_engineer_codecheck/ui/widgets/molecules/repository_data_card.dart';
 import 'package:flutter_engineer_codecheck/ui/widgets/organisms/search_result_list_view.dart';
 import 'package:flutter_engineer_codecheck/ui/widgets/organisms/theme_switcher.dart';
@@ -91,7 +92,7 @@ void main() {
     await binding.takeScreenshot('${orientation}_06_enter');
 
     // Flutterの公式レポジトリのカードをタップ
-    // (Flutterの公式レポジトリが検索のトップに来ていると想定)
+    // (Flutterの公式レポジトリが検索のトップに来ていると想定→MOCKのため、必ずある)
     final flutter = find.text('flutter');
     await tester.tap(flutter);
     await tester.pumpAndSettle();
@@ -117,14 +118,10 @@ void main() {
 
     await tester.drag(
         find.byType(RepositoryDataCard).at(8), const Offset(0.0, -300));
-
-    // これは動く
     await tester.pumpAndSettle();
-
     await binding.takeScreenshot('${orientation}_15_scrolling1');
 
     expect(find.byType(RepositoryDataCard), findsNWidgets(10));
-
     await tester.drag(
         find.byType(RepositoryDataCard).at(8), const Offset(0.0, -300));
     await tester.pumpAndSettle();
@@ -162,12 +159,68 @@ void main() {
     GetIt.I.registerSingleton<List<DeviceOrientation>>(
       [DeviceOrientation.landscapeLeft],
     );
+    const orientation = 'landscape';
 
     // アプリを起動
     app.main();
 
     // 起動画面
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('2_00_justLaunched');
+    await binding.takeScreenshot('${orientation}_00_justLaunched');
+
+    await tester.pumpAndSettle();
+    await binding.takeScreenshot('${orientation}_01_logoShown');
+
+    // テーマを切り替えて、ダークモードにする
+    await tester.tap(find.byType(ThemeSwitcher));
+    await tester.pumpAndSettle();
+    await binding.takeScreenshot('${orientation}_02_darkMode');
+
+    // テーマを切り替えて、ライトモードにする
+    await tester.tap(find.byType(ThemeSwitcher));
+    await tester.pumpAndSettle();
+    await binding.takeScreenshot('${orientation}_03_lightMode');
+
+    expect(find.byType(GithubIcon), findsOneWidget);
+
+    // キーボードを表示
+    await tester.showKeyboard(find.byType(TextField));
+    await tester.pumpAndSettle();
+    await binding.takeScreenshot('${orientation}_04_showKeyboard');
+
+    // 検索キーワードを入力
+    await tester.enterText(find.byType(TextField), 'flutter');
+    await tester.pumpAndSettle();
+    await binding.takeScreenshot('${orientation}_05_enterText');
+
+    expect(find.byType(OutlinedButton), findsNothing);
+    expect(find.byType(GithubIcon), findsNothing);
+
+    // Enter を入力
+    await tester.testTextInput.receiveAction(TextInputAction.search);
+    await tester.pumpAndSettle();
+    await binding.takeScreenshot('${orientation}_06_enter');
+
+    // Flutterの公式レポジトリのカードをタップ
+    // (Flutterの公式レポジトリが検索のトップに来ていると想定→MOCKのため、必ずある)
+    final flutter = find.text('flutter');
+    await tester.tap(flutter);
+    await tester.pumpAndSettle();
+    await binding.takeScreenshot('${orientation}_11_repositoryDetail');
+
+    // テーマを切り替えて、ダークモードにする
+    await tester.tap(find.byType(ThemeSwitcher));
+    await tester.pumpAndSettle();
+    await binding.takeScreenshot('${orientation}_12_darkMode');
+
+    // 前のページに戻る
+    await tester.tap(find.byIcon(Icons.arrow_back));
+    await tester.pumpAndSettle();
+    await binding.takeScreenshot('${orientation}_13_pageResultDart');
+
+    // テーマを切り替えて、ライトモードにする
+    await tester.tap(find.byType(ThemeSwitcher));
+    await tester.pumpAndSettle();
+    await binding.takeScreenshot('${orientation}_14_pageResultLight');
   });
 }
