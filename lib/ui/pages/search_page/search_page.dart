@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_engineer_codecheck/ui/pages/search_page/search_page_vm.dart';
+import 'package:flutter_engineer_codecheck/ui/pages/search_page/visible_widget_logic.dart';
 import 'package:flutter_engineer_codecheck/ui/widgets/templates/day_night_template.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -33,17 +34,22 @@ class _SearchPageState extends ConsumerState<SearchPage> {
   Widget build(BuildContext context) {
     // 画面が横向きの場合、キーボードと入力欄が被る可能性が高い。
     // そのため、横向きでキーボード表示時は、アイコンを消して、Padding を小さくする
-    final isGithubIconShown = _vm.isPortrait(context) ||
-        (!_vm.isKeywordAvailable && !_vm.isKeyboardShown(context));
+    final visibleWidgetLogic = VisibleWidgetLogic(
+      isWeb: kIsWeb,
+      isPortrait: _vm.isPortrait(context),
+      isKeyboardShown: _vm.isKeyboardShown(context),
+      isTextInputted: _vm.isKeywordAvailable,
+    );
     return Scaffold(
       body: SafeArea(
         child: DayNightTemplate(
-          isAppBarShown: isGithubIconShown,
+          isAppBarShown: visibleWidgetLogic.hasPadding,
+          hasPadding: visibleWidgetLogic.hasPadding,
           child: Column(
             children: [
               // Githubのアイコン
               Visibility(
-                visible: isGithubIconShown,
+                visible: visibleWidgetLogic.isLogoVisible,
                 child: Padding(
                   padding: const EdgeInsets.all(24),
                   child: MovingFadeinAnimation(
@@ -66,8 +72,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
               // 検索ボタン
               // アプリでは、キーボードが非表示でキーワードが入力済みの時のみ表示される
               Visibility(
-                visible: kIsWeb ||
-                    (_vm.isKeywordAvailable && !_vm.isKeyboardShown(context)),
+                visible: visibleWidgetLogic.isButtonVisible,
                 child: OutlinedButton(
                   onPressed: () => _vm.onSearch(context),
                   style: OutlinedButton.styleFrom(

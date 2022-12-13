@@ -33,4 +33,9 @@ final dartTheme = ThemeData(
     primarySwatch: Colors.grey,
     accentColor: Colors.orangeAccent,
   ),
+  outlinedButtonTheme: OutlinedButtonThemeData(
+    style: OutlinedButton.styleFrom(
+      side: const BorderSide(color: Colors.grey),
+    ),
+  ),
 );

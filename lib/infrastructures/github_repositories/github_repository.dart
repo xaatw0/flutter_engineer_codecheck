@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_engineer_codecheck/domain/entities/git_repository_data.dart';
 import 'package:flutter_engineer_codecheck/domain/repositories/git_repository.dart';
+import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 
 import 'dto/result.dart';
@@ -65,7 +66,9 @@ class GithubRepository implements GitRepository {
   }) async {
     final uri = getSearchUrl(keyword, page, sortMethod);
     final apiUri = Uri.parse(uri);
-    final response = await http.get(apiUri);
+
+    final client = GetIt.I.get<http.Client>();
+    final response = await client.get(apiUri);
     return fromJson(response.body).toList();
   }
 

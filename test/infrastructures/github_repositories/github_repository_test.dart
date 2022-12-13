@@ -3,7 +3,14 @@ import 'dart:io';
 import 'package:flutter_engineer_codecheck/domain/repositories/git_repository.dart';
 import 'package:flutter_engineer_codecheck/infrastructures/github_repositories/github_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart' as http;
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 
+import 'github_repository_test.mocks.dart';
+import 'mock_result.dart' as result;
+
+@GenerateMocks([http.Client])
 void main() async {
   test('fromJson', () async {
     const filePath =
@@ -76,5 +83,47 @@ void main() async {
       repository.getSearchUrl('keyword2', 2, SortMethod.leastRecentlyUpdate),
       'https://api.github.com/search/repositories?q=keyword2&page=2&sort=updated&order=asc',
     );
+  });
+
+  test('mock', () async {
+    final client = MockClient();
+
+    final uri = Uri.parse('https://jsonplaceholder.typicode.com/albums/1');
+    when(client.get(uri)).thenAnswer((_) async => http.Response('ok', 200));
+
+    final result = await client.get(uri);
+    expect(result.body, 'ok');
+    expect(result.statusCode, 200);
+  });
+
+  test('mockdata from file', () async {
+    const filePath =
+        'test/infrastructures/github_repositories/dto/result_test.txt';
+    final file = File(filePath);
+    expect(file.existsSync(), true);
+
+    final uri = Uri.parse(
+      'https://api.github.com/search/repositories?q=flutter&page=1',
+    );
+
+    final client = MockClient();
+    when(client.get(uri)).thenAnswer(
+      (_) async => http.Response(file.readAsStringSync(), 200),
+    );
+
+    final repository = GithubRepository();
+    final result = await repository.search('flutter');
+    expect(result.length, 30);
+    expect(result[0].repositoryName(), 'flutter');
+  });
+
+  test('file and member', () async {
+    const filePath =
+        'test/infrastructures/github_repositories/dto/result_test.txt';
+    final file = File(filePath);
+    expect(file.existsSync(), true);
+
+    final fileData = file.readAsStringSync();
+    expect(fileData.replaceAll('\r', ''), result.flutter1);
   });
 }

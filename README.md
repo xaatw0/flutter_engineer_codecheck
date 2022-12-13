@@ -21,3 +21,4 @@ flutter gen-l10n
 
 flutter test
 flutter test --update-goldens
+flutter drive --driver=test_driver/integration_test.dart --target=integration_test/app_test.dart
