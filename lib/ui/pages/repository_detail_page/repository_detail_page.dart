@@ -39,44 +39,82 @@ class RepositoryDetailPage extends StatelessWidget {
   /// 表示する項目のWidgetのリスト
   final List<Widget> columns;
 
+  late final Widget gridView = GridView.builder(
+    shrinkWrap: true,
+    itemCount: columns.length,
+    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 2,
+      mainAxisExtent: 60,
+      crossAxisSpacing: 2,
+      mainAxisSpacing: 2,
+    ),
+    itemBuilder: (BuildContext context, int index) {
+      return columns[index];
+    },
+  );
+
   @override
   Widget build(BuildContext context) {
     final description =
         repositoryData.repositoryDescription() ?? StringResources.kEmpty;
     return DayNightTemplate(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            // オーナー画像
-            Hero(
-              tag: OwnerImage.kHeroKey +
-                  repositoryData.repositoryId().toString(),
-              child: OwnerClip(repositoryData.ownerIconUrl),
-            ),
-            const SizedBox(height: 20),
-            // レポジトリ名
-            Center(
-              child: Text(
-                repositoryData.repositoryName(),
-                style: Theme.of(context).textTheme.displaySmall,
+      child: OrientationBuilder(
+        builder: (BuildContext context, Orientation orientation) {
+          final isPortrait = orientation == Orientation.portrait;
+
+          return Column(
+            children: [
+              // レポジトリ名
+              Center(
+                child: Text(
+                  repositoryData.repositoryName(),
+                  style: Theme.of(context).textTheme.displaySmall,
+                ),
               ),
-            ),
-            const SizedBox(height: 20),
-            // Star, Wather, Fork, Issue の一覧
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: columns,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            // 詳細説明
-            Visibility(
-              visible: description.isNotEmpty,
-              child: RepositoryDetailDescription(description: description),
-            ),
-          ],
-        ),
+              SizedBox(height: isPortrait ? 20 : 10),
+              // オーナー画像
+              Row(
+                mainAxisAlignment: isPortrait
+                    ? MainAxisAlignment.center
+                    : MainAxisAlignment.start,
+                crossAxisAlignment: isPortrait
+                    ? CrossAxisAlignment.center
+                    : CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Hero(
+                      tag: OwnerImage.kHeroKey +
+                          repositoryData.repositoryId().toString(),
+                      child: OwnerClip(repositoryData.ownerIconUrl),
+                    ),
+                  ),
+                  Visibility(
+                    visible: !isPortrait,
+                    child: Expanded(flex: 2, child: gridView),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+
+              // Star, Watcher, Fork, Issue の一覧
+              Visibility(
+                visible: isPortrait,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: columns,
+                ),
+              ),
+              SizedBox(height: isPortrait ? 20 : 0),
+              // 詳細説明
+              Visibility(
+                visible: description.isNotEmpty,
+                child: SingleChildScrollView(
+                  child: RepositoryDetailDescription(description: description),
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
