@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_engineer_codecheck/domain/entities/git_repository_data.dart';
 import 'package:flutter_engineer_codecheck/domain/string_resources.dart';
@@ -46,10 +47,10 @@ class RepositoryDetailPage extends StatelessWidget {
     final description =
         repositoryData.repositoryDescription() ?? StringResources.kEmpty;
 
-    // 縦向きのときの表示項目の数。
-    // Widgetの場所で設定すると、縦向きの時に非表示になるので、データが取得できず例外になる。
+    //表示項目の一行の数。
+    // Widgetの場所で設定すると、向きで非表示になるので、データが取得できず例外になる。
     // そのため、ここで取得している。
-    final columsCountWhenPortrait = context.responsive<int>(2, sm: 4);
+    final columsCount = context.responsive<int>(2, sm: 4);
 
     return DayNightTemplate(
       child: OrientationBuilder(
@@ -60,9 +61,14 @@ class RepositoryDetailPage extends StatelessWidget {
             children: [
               // レポジトリ名
               Center(
-                child: Text(
+                child: AutoSizeText(
                   repositoryData.repositoryName(),
                   style: Theme.of(context).textTheme.displaySmall,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  minFontSize:
+                      // 最低でも項目の数字のフォントサイズ
+                      Theme.of(context).textTheme.titleLarge!.fontSize!,
                 ),
               ),
               SizedBox(height: isPortrait ? 20 : 10),
@@ -88,7 +94,7 @@ class RepositoryDetailPage extends StatelessWidget {
                       flex: 2,
                       child: RepositoryDataGridView(
                         columns: columns,
-                        axisCount: 2,
+                        axisCount: columsCount,
                       ),
                     ),
                   ),
@@ -101,7 +107,7 @@ class RepositoryDetailPage extends StatelessWidget {
                 visible: isPortrait,
                 child: RepositoryDataGridView(
                   columns: columns,
-                  axisCount: columsCountWhenPortrait,
+                  axisCount: columsCount,
                 ),
               ),
               SizedBox(height: isPortrait ? 20 : 0),

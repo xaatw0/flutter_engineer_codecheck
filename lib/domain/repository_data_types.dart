@@ -1,0 +1,12 @@
+export 'package:flutter_engineer_codecheck/domain/entities/git_repository_data.dart';
+export 'package:flutter_engineer_codecheck/domain/value_objects/count_fork.dart';
+export 'package:flutter_engineer_codecheck/domain/value_objects/count_issue.dart';
+export 'package:flutter_engineer_codecheck/domain/value_objects/count_star.dart';
+export 'package:flutter_engineer_codecheck/domain/value_objects/count_watcher.dart';
+export 'package:flutter_engineer_codecheck/domain/value_objects/owner_icon_url.dart';
+export 'package:flutter_engineer_codecheck/domain/value_objects/project_language.dart';
+export 'package:flutter_engineer_codecheck/domain/value_objects/repository_created_time.dart';
+export 'package:flutter_engineer_codecheck/domain/value_objects/repository_description.dart';
+export 'package:flutter_engineer_codecheck/domain/value_objects/repository_id.dart';
+export 'package:flutter_engineer_codecheck/domain/value_objects/repository_name.dart';
+export 'package:flutter_engineer_codecheck/domain/value_objects/repository_updated_time.dart';
