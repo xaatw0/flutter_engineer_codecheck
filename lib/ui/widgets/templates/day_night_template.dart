@@ -4,7 +4,7 @@ import 'package:flutter_engineer_codecheck/ui/widgets/organisms/theme_switcher.d
 import '../../../domain/string_resources.dart';
 
 /// ライトテーマとダークテーマの切り替えボタンのあるテンプレート。
-class DayNightTemplate extends StatefulWidget {
+class DayNightTemplate extends StatelessWidget {
   const DayNightTemplate({
     super.key,
     this.title,
@@ -26,19 +26,18 @@ class DayNightTemplate extends StatefulWidget {
   /// 標準のパディングをつけるか
   final bool hasPadding;
 
-  @override
-  State<DayNightTemplate> createState() => _DayNightTemplateState();
-}
-
-class _DayNightTemplateState extends State<DayNightTemplate> {
+  /// 標準のパディングの幅
   static const normalPaddingSize = 16.0;
+
+  /// 狭いパディングの幅
+  static const narrowPaddingSize = 4.0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: widget.isAppBarShown && widget.hasPadding
+      appBar: isAppBarShown && hasPadding
           ? AppBar(
-              title: Text(widget.title ?? StringResources.kEmpty),
+              title: Text(title ?? StringResources.kEmpty),
               actions: const [ThemeSwitcher()],
             )
           : null,
@@ -46,11 +45,11 @@ class _DayNightTemplateState extends State<DayNightTemplate> {
         child: Padding(
           padding: EdgeInsets.fromLTRB(
             normalPaddingSize,
-            widget.hasPadding ? normalPaddingSize : 4,
+            hasPadding ? normalPaddingSize : narrowPaddingSize,
             normalPaddingSize,
             0,
           ),
-          child: widget.child,
+          child: child,
         ),
       ),
     );
