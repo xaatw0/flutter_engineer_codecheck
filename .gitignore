@@ -48,3 +48,4 @@ app.*.map.json
 *.freezed.dart
 *.gen.dart
 *.mocks.dart
+/integration_test/screenshots/*.png
