@@ -4,7 +4,9 @@ import 'package:flutter_engineer_codecheck/domain/string_resources.dart';
 import 'package:flutter_engineer_codecheck/ui/widgets/atoms/owner_image.dart';
 import 'package:flutter_engineer_codecheck/ui/widgets/templates/day_night_template.dart';
 
+import '../../responsive.dart';
 import '../../widgets/molecules/owner_clip.dart';
+import '../../widgets/molecules/repository_data_grid_view.dart';
 import '../../widgets/molecules/repository_detail_column.dart';
 import '../../widgets/molecules/repository_detail_description.dart';
 
@@ -37,26 +39,18 @@ class RepositoryDetailPage extends StatelessWidget {
   final GitRepositoryData repositoryData;
 
   /// 表示する項目のWidgetのリスト
-  final List<Widget> columns;
-
-  late final Widget gridView = GridView.builder(
-    shrinkWrap: true,
-    itemCount: columns.length,
-    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-      crossAxisCount: 2,
-      mainAxisExtent: 60,
-      crossAxisSpacing: 2,
-      mainAxisSpacing: 2,
-    ),
-    itemBuilder: (BuildContext context, int index) {
-      return columns[index];
-    },
-  );
+  final List<RepositoryDetailColumn> columns;
 
   @override
   Widget build(BuildContext context) {
     final description =
         repositoryData.repositoryDescription() ?? StringResources.kEmpty;
+
+    // 縦向きのときの表示項目の数。
+    // Widgetの場所で設定すると、縦向きの時に非表示になるので、データが取得できず例外になる。
+    // そのため、ここで取得している。
+    final columsCountWhenPortrait = context.responsive<int>(2, sm: 4);
+
     return DayNightTemplate(
       child: OrientationBuilder(
         builder: (BuildContext context, Orientation orientation) {
@@ -90,7 +84,13 @@ class RepositoryDetailPage extends StatelessWidget {
                   ),
                   Visibility(
                     visible: !isPortrait,
-                    child: Expanded(flex: 2, child: gridView),
+                    child: Expanded(
+                      flex: 2,
+                      child: RepositoryDataGridView(
+                        columns: columns,
+                        axisCount: 2,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -99,9 +99,9 @@ class RepositoryDetailPage extends StatelessWidget {
               // Star, Watcher, Fork, Issue の一覧
               Visibility(
                 visible: isPortrait,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: columns,
+                child: RepositoryDataGridView(
+                  columns: columns,
+                  axisCount: columsCountWhenPortrait,
                 ),
               ),
               SizedBox(height: isPortrait ? 20 : 0),
