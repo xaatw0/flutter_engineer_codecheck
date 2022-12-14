@@ -24,7 +24,7 @@ final lightTheme = ThemeData(
 );
 
 /// ダークモード時のテーマ
-final dartTheme = ThemeData(
+final darkTheme = ThemeData(
   useMaterial3: true,
   scaffoldBackgroundColor: Colors.grey.shade900,
   appBarTheme: appBarTheme,
