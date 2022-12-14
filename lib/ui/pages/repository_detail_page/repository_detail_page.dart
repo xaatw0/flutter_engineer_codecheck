@@ -10,11 +10,34 @@ import '../../widgets/molecules/repository_detail_description.dart';
 
 /// レポジトリの詳細を表示するページ
 class RepositoryDetailPage extends StatelessWidget {
-  const RepositoryDetailPage(this.repositoryData, {super.key});
+  RepositoryDetailPage(this.repositoryData, {super.key})
+      : columns = [
+          RepositoryDetailColumn(
+            StringResources.kStar,
+            repositoryData.countStar(),
+          ),
+          RepositoryDetailColumn(
+            StringResources.kWatchers,
+            repositoryData.countWatcher(),
+          ),
+          RepositoryDetailColumn(
+            StringResources.kForks,
+            repositoryData.countFork(),
+          ),
+          RepositoryDetailColumn(
+            StringResources.kIssues,
+            repositoryData.countIssue(),
+          ),
+        ];
 
+  /// パス
   static const path = '/repository';
 
+  /// レポジトリの詳細情報
   final GitRepositoryData repositoryData;
+
+  /// 表示する項目のWidgetのリスト
+  final List<Widget> columns;
 
   @override
   Widget build(BuildContext context) {
@@ -42,24 +65,7 @@ class RepositoryDetailPage extends StatelessWidget {
             // Star, Wather, Fork, Issue の一覧
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                RepositoryDetailColumn(
-                  StringResources.kStar,
-                  repositoryData.countStar(),
-                ),
-                RepositoryDetailColumn(
-                  StringResources.kWatchers,
-                  repositoryData.countWatcher(),
-                ),
-                RepositoryDetailColumn(
-                  StringResources.kForks,
-                  repositoryData.countFork(),
-                ),
-                RepositoryDetailColumn(
-                  StringResources.kIssues,
-                  repositoryData.countIssue(),
-                ),
-              ],
+              children: columns,
             ),
             const SizedBox(
               height: 20,
