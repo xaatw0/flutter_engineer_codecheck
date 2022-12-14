@@ -9,21 +9,15 @@ import '../../widgets/molecules/repository_detail_column.dart';
 import '../../widgets/molecules/repository_detail_description.dart';
 
 /// レポジトリの詳細を表示するページ
-class RepositoryDetailPage extends StatefulWidget {
-  const RepositoryDetailPage(this.data, {super.key});
+class RepositoryDetailPage extends StatelessWidget {
+  const RepositoryDetailPage(this.repositoryData, {super.key});
 
   static const path = '/repository';
 
-  final GitRepositoryData data;
+  final GitRepositoryData repositoryData;
 
-  @override
-  State<RepositoryDetailPage> createState() => _RepositoryDetailPageState();
-}
-
-class _RepositoryDetailPageState extends State<RepositoryDetailPage> {
   @override
   Widget build(BuildContext context) {
-    final repositoryData = widget.data;
     final description =
         repositoryData.repositoryDescription() ?? StringResources.kEmpty;
     return DayNightTemplate(
@@ -32,7 +26,8 @@ class _RepositoryDetailPageState extends State<RepositoryDetailPage> {
           children: [
             // オーナー画像
             Hero(
-              tag: OwnerImage.kHeroKey + widget.data.repositoryId().toString(),
+              tag: OwnerImage.kHeroKey +
+                  repositoryData.repositoryId().toString(),
               child: OwnerClip(repositoryData.ownerIconUrl),
             ),
             const SizedBox(height: 20),
