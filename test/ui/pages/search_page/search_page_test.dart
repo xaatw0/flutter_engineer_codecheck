@@ -60,7 +60,7 @@ void main() async {
     final target = MaterialApp(
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      theme: app_theme.dartTheme,
+      theme: app_theme.darkTheme,
       home: ProviderScope(
         overrides: [
           app_theme.themeMode.overrideWith(

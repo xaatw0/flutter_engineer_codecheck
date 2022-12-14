@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
         // テーマ
         themeMode: ref.watch(app_theme.themeMode),
         theme: app_theme.lightTheme,
-        darkTheme: app_theme.dartTheme,
+        darkTheme: app_theme.darkTheme,
 
         // GoRouter
         routerDelegate: router.routerDelegate,
