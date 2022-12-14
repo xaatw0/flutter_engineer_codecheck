@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter_engineer_codecheck/domain/repositories/git_repository.dart';
 import 'package:flutter_engineer_codecheck/infrastructures/github_repositories/github_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -12,6 +13,10 @@ import 'mock_result.dart' as result;
 
 @GenerateMocks([http.Client])
 void main() async {
+  setUpAll(() {
+    GetIt.I.registerSingleton(http.Client());
+  });
+
   test('fromJson', () async {
     const filePath =
         'test/infrastructures/github_repositories/dto/result_test.txt';
@@ -23,6 +28,11 @@ void main() async {
 
     expect(result.length, 30);
     expect(result.first.repositoryName(), 'flutter');
+
+    // StartとWatcherの数が同じことを確認する
+    for (final data in result) {
+      expect(data.countStar(), data.countWatcher());
+    }
   });
 
   test('page', () async {
