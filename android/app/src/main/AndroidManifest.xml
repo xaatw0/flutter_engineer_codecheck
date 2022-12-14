@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="salon.flutter.flutter_engineer_codecheck">
    <application
-        android:label="flutter_engineer_codecheck"
+        android:label="Github Finder"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
