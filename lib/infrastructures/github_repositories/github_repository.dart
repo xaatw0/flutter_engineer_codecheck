@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_engineer_codecheck/domain/entities/git_repository_data.dart';
 import 'package:flutter_engineer_codecheck/domain/repositories/git_repository.dart';
 import 'package:get_it/get_it.dart';
@@ -69,7 +70,10 @@ class GithubRepository implements GitRepository {
 
     final client = GetIt.I.get<http.Client>();
     final response = await client.get(apiUri);
-    return fromJson(response.body).toList();
+    return compute<String, List<GitRepositoryData>>(
+      fromJson,
+      response.body,
+    );
   }
 
   /// キーワード、ページ、ソート条件に基づいた検索用のURLを発行する
@@ -94,10 +98,11 @@ class GithubRepository implements GitRepository {
     }
   }
 
-  Iterable<GitRepositoryData> fromJson(String jsonData) {
+  /// Web APIにて取得したデータをJSON処理してレポジトリの情報を返す
+  List<GitRepositoryData> fromJson(String jsonData) {
     final map = json.decode(jsonData) as Map<String, dynamic>;
     final result = Result.fromJson(map);
-    return result.items.map((item) => item.toGitRepositoryData());
+    return result.items.map((item) => item.toGitRepositoryData()).toList();
   }
 
   @override
