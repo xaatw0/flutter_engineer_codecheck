@@ -2,7 +2,7 @@ import 'package:flutter_engineer_codecheck/domain/value_objects/value_object.dar
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 /// レポジトリのURLを表すValueObject
-class RepositoryHtmlUrl extends ValueObject<String?> {
+class RepositoryHtmlUrl extends ValueObject<String> {
   const RepositoryHtmlUrl(super.value);
 }
 
