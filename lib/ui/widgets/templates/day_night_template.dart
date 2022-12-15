@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_engineer_codecheck/ui/widgets/organisms/theme_switcher.dart';
-
+import 'package:flutter_engineer_codecheck/ui/widgets/organisms/sun_and_moon_coin.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_engineer_codecheck/ui/app_theme.dart' as app_theme;
 import '../../../domain/string_resources.dart';
 
 /// ライトテーマとダークテーマの切り替えボタンのあるテンプレート。
@@ -32,13 +33,27 @@ class DayNightTemplate extends StatelessWidget {
   /// 狭いパディングの幅
   static const narrowPaddingSize = 4.0;
 
+  /// パッディング
+  static const paddingSize = 8.0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: isAppBarShown && hasPadding
           ? AppBar(
               title: Text(title ?? StringResources.kEmpty),
-              actions: const [ThemeSwitcher()],
+              actions: [
+                Consumer(builder: (_, WidgetRef ref, __) {
+                  return Padding(
+                    padding: EdgeInsets.all(paddingSize),
+                    child: SunAndMoonCoin(
+                      // パディングを増やすと、SVGの大きさが小さくなるっぽい
+                      size: 48 + paddingSize * 2,
+                      callback: (CoinStatus status) => changeTheme(ref, status),
+                    ),
+                  );
+                }),
+              ],
             )
           : null,
       body: SafeArea(
@@ -53,5 +68,10 @@ class DayNightTemplate extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void changeTheme(WidgetRef ref, CoinStatus status) {
+    ref.read(app_theme.themeMode.notifier).state =
+        status == CoinStatus.sun ? ThemeMode.light : ThemeMode.dark;
   }
 }
