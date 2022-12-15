@@ -49,6 +49,10 @@ class DayNightTemplate extends StatelessWidget {
                     return Padding(
                       padding: const EdgeInsets.all(paddingSize),
                       child: SunAndMoonCoin(
+                        initStatus:
+                            ref.read(app_theme.themeMode) == ThemeMode.light
+                                ? CoinStatus.sun
+                                : CoinStatus.moon,
                         // パディングを増やすと、SVGの大きさが小さくなるっぽい
                         size: 48 + paddingSize * 2,
                         callback: (CoinStatus status) =>
@@ -74,6 +78,7 @@ class DayNightTemplate extends StatelessWidget {
     );
   }
 
+  /// テーマモードを変更する
   void changeTheme(WidgetRef ref, CoinStatus status) {
     ref.read(app_theme.themeMode.notifier).state =
         status == CoinStatus.sun ? ThemeMode.light : ThemeMode.dark;
