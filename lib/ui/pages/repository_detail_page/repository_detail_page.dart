@@ -100,9 +100,10 @@ class RepositoryDetailPage extends StatelessWidget {
                             axisCount: columsCount,
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8),
                             child: GithubLauncher(
-                                repositoryData.repositoryHtmlUrl()),
+                              repositoryData.repositoryHtmlUrl(),
+                            ),
                           ),
                         ],
                       ),
@@ -122,7 +123,7 @@ class RepositoryDetailPage extends StatelessWidget {
               ),
               if (isPortrait)
                 Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8),
                   child: GithubLauncher(
                     repositoryData.repositoryHtmlUrl(),
                   ),
