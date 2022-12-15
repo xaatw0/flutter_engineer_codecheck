@@ -16,25 +16,25 @@ void main() async {
   setUpAll(() async {
     await utility.loadJapaneseFont();
   });
+  for (final theme in <ThemeMode>[ThemeMode.light, ThemeMode.dark]) {
+    testGoldens('RepositoryDetailPage short data ${theme.name}',
+        (WidgetTester tester) async {
+      final repositoryData = GitRepositoryData(
+        repositoryId: RepositoryId(123),
+        repositoryName: RepositoryName('repositoryName'),
+        ownerIconUrl: OwnerIconUrl('OwnerIconUrl'),
+        projectLanguage: ProjectLanguage('projectLanguage'),
+        repositoryDescription:
+            const RepositoryDescription('repositoryDescription'),
+        repositoryHtmlUrl: const RepositoryHtmlUrl('repositoryDescription'),
+        countStar: CountStar(1),
+        countWatcher: CountWatcher(2),
+        countFork: CountFork(3),
+        countIssue: CountIssue(4),
+        createTime: RepositoryCreateTime(DateTime(2011, 2, 3)),
+        updateTime: RepositoryUpdateTime(DateTime(2014, 5, 6)),
+      );
 
-  testGoldens('RepositoryDetailPage short data', (WidgetTester tester) async {
-    final repositoryData = GitRepositoryData(
-      repositoryId: RepositoryId(123),
-      repositoryName: RepositoryName('repositoryName'),
-      ownerIconUrl: OwnerIconUrl('OwnerIconUrl'),
-      projectLanguage: ProjectLanguage('projectLanguage'),
-      repositoryDescription:
-          const RepositoryDescription('repositoryDescription'),
-      repositoryHtmlUrl: const RepositoryHtmlUrl('repositoryDescription'),
-      countStar: CountStar(1),
-      countWatcher: CountWatcher(2),
-      countFork: CountFork(3),
-      countIssue: CountIssue(4),
-      createTime: RepositoryCreateTime(DateTime(2011, 2, 3)),
-      updateTime: RepositoryUpdateTime(DateTime(2014, 5, 6)),
-    );
-
-    for (final theme in <ThemeMode>[ThemeMode.light, ThemeMode.dark]) {
       final target = MaterialApp(
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
@@ -59,9 +59,8 @@ void main() async {
           'RepositoryDetailPage_short_${theme.name}_${device.name}',
         );
       }
-    }
-  });
-
+    });
+  }
   testGoldens('RepositoryDetailPage normal data', (WidgetTester tester) async {
     final repositoryData = GitRepositoryData(
       repositoryId: RepositoryId(31792824),
