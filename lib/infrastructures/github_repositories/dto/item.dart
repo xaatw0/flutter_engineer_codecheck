@@ -46,6 +46,9 @@ class Item with _$Item {
     /// フォーク数
     required int forks,
 
+    /// レポジトリのHtmlへのリンク
+    required String htmlUrl,
+
     /// レポジトリの作成日時
     required String createdAt,
 
