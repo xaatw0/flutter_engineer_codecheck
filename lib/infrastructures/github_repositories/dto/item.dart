@@ -71,6 +71,7 @@ class Item with _$Item {
       countWatcher: CountWatcher(watchers),
       countFork: CountFork(forks),
       countIssue: CountIssue(openIssues),
+      repositoryHtmlUrl: RepositoryHtmlUrl(htmlUrl),
       createTime: const RepositoryCreateTimeConverter().fromJson(createdAt),
       updateTime: const RepositoryUpdateTimeConverter().fromJson(updatedAt),
     );

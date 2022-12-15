@@ -11,6 +11,7 @@ void main() async {
     ownerIconUrl: OwnerIconUrl('OwnerIconUrl'),
     projectLanguage: ProjectLanguage('projectLanguage'),
     repositoryDescription: const RepositoryDescription('repositoryDescription'),
+    repositoryHtmlUrl: const RepositoryHtmlUrl('RepositoryHtmlUrl'),
     countStar: CountStar(1),
     countWatcher: CountWatcher(2),
     countFork: CountFork(3),
