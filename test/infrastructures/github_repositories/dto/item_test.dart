@@ -145,6 +145,7 @@ void main() async {
     expect(result.watchers, 146985);
     expect(result.openIssues, 11313);
     expect(result.forks, 23912);
+    expect(result.htmlUrl, 'https://github.com/flutter/flutter');
 
     final data = result.toGitRepositoryData();
     expect(data.repositoryName, RepositoryName('flutter'));

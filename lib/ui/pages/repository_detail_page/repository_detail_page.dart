@@ -10,6 +10,7 @@ import '../../widgets/molecules/owner_clip.dart';
 import '../../widgets/molecules/repository_data_grid_view.dart';
 import '../../widgets/molecules/repository_detail_column.dart';
 import '../../widgets/molecules/repository_detail_description.dart';
+import '../../widgets/organisms/github_launcher.dart';
 
 /// レポジトリの詳細を表示するページ
 class RepositoryDetailPage extends StatelessWidget {
@@ -92,9 +93,19 @@ class RepositoryDetailPage extends StatelessWidget {
                     visible: !isPortrait,
                     child: Expanded(
                       flex: 2,
-                      child: RepositoryDataGridView(
-                        columns: columns,
-                        axisCount: columsCount,
+                      child: Column(
+                        children: [
+                          RepositoryDataGridView(
+                            columns: columns,
+                            axisCount: columsCount,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: GithubLauncher(
+                              repositoryData.repositoryHtmlUrl(),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -110,6 +121,13 @@ class RepositoryDetailPage extends StatelessWidget {
                   axisCount: columsCount,
                 ),
               ),
+              if (isPortrait)
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: GithubLauncher(
+                    repositoryData.repositoryHtmlUrl(),
+                  ),
+                ),
               SizedBox(height: isPortrait ? 20 : 0),
               // 詳細説明
               Visibility(

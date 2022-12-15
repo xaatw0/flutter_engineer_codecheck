@@ -36,6 +36,9 @@ class GitRepositoryData with _$GitRepositoryData {
     /// 該当リポジトリのIssue 数
     @CountIssueConverter() required CountIssue countIssue,
 
+    /// 該当レポジトリのHtmlUrl
+    @RepositoryHtmlUrlConverter() required RepositoryHtmlUrl repositoryHtmlUrl,
+
     /// 該当レポジトリの作成日時
     @RepositoryCreateTimeConverter() required RepositoryCreateTime createTime,
 

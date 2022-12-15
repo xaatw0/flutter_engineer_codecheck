@@ -10,6 +10,7 @@ void main() {
       projectLanguage: ProjectLanguage('projectLanguage'),
       repositoryDescription:
           const RepositoryDescription('repositoryDescription'),
+      repositoryHtmlUrl: const RepositoryHtmlUrl('repositoryHtmlUrl'),
       countStar: CountStar(1),
       countWatcher: CountWatcher(2),
       countFork: CountFork(3),
@@ -23,6 +24,7 @@ void main() {
     expect(target.ownerIconUrl(), 'OwnerIconUrl');
     expect(target.projectLanguage(), 'projectLanguage');
     expect(target.repositoryDescription(), 'repositoryDescription');
+    expect(target.repositoryHtmlUrl(), 'repositoryHtmlUrl');
 
     expect(target.countStar(), 1);
     expect(target.countWatcher(), 2);

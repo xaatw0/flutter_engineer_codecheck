@@ -25,6 +25,7 @@ void main() async {
       projectLanguage: ProjectLanguage('projectLanguage'),
       repositoryDescription:
           const RepositoryDescription('repositoryDescription'),
+      repositoryHtmlUrl: const RepositoryHtmlUrl('repositoryDescription'),
       countStar: CountStar(1),
       countWatcher: CountWatcher(2),
       countFork: CountFork(3),
@@ -70,6 +71,8 @@ void main() async {
       repositoryDescription: const RepositoryDescription(
         'Flutter makes it easy and fast to build beautiful apps for mobile and beyond', // ignore: lines_longer_than_80_chars
       ),
+      repositoryHtmlUrl:
+          const RepositoryHtmlUrl('https://github.com/flutter/flutter'),
       countStar: CountStar(146985),
       countWatcher: CountWatcher(146985),
       countFork: CountFork(23912),
@@ -113,6 +116,8 @@ void main() async {
       repositoryDescription: const RepositoryDescription(
         'Flutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyondFlutter makes it easy and fast to build beautiful apps for mobile and beyond', // ignore: lines_longer_than_80_chars
       ),
+      repositoryHtmlUrl:
+          const RepositoryHtmlUrl('https://github.com/flutter/flutter'),
       countStar: CountStar(146985),
       countWatcher: CountWatcher(146985),
       countFork: CountFork(23912),

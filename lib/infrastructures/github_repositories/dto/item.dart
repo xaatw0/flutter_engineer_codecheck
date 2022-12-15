@@ -46,6 +46,9 @@ class Item with _$Item {
     /// フォーク数
     required int forks,
 
+    /// レポジトリのHtmlへのリンク
+    required String htmlUrl,
+
     /// レポジトリの作成日時
     required String createdAt,
 
@@ -68,6 +71,7 @@ class Item with _$Item {
       countWatcher: CountWatcher(watchers),
       countFork: CountFork(forks),
       countIssue: CountIssue(openIssues),
+      repositoryHtmlUrl: RepositoryHtmlUrl(htmlUrl),
       createTime: const RepositoryCreateTimeConverter().fromJson(createdAt),
       updateTime: const RepositoryUpdateTimeConverter().fromJson(updatedAt),
     );
