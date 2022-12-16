@@ -207,14 +207,16 @@ void main() async {
       supportedLocales: AppLocalizations.supportedLocales,
       theme: app_theme.lightTheme,
       home: ProviderScope(
-        child: Builder(builder: (BuildContext context) {
-          return OutlinedButton(
-            onPressed: () {
-              SearchPageVm().onSelectSortMethod(context);
-            },
-            child: const Text('Show sort method dialog'),
-          );
-        }),
+        child: Builder(
+          builder: (BuildContext context) {
+            return OutlinedButton(
+              onPressed: () {
+                SearchPageVm().onSelectSortMethod(context);
+              },
+              child: const Text('Show sort method dialog'),
+            );
+          },
+        ),
       ),
     );
 
@@ -241,14 +243,16 @@ void main() async {
       supportedLocales: AppLocalizations.supportedLocales,
       theme: app_theme.darkTheme,
       home: ProviderScope(
-        child: Builder(builder: (BuildContext context) {
-          return OutlinedButton(
-            onPressed: () {
-              SearchPageVm().onSelectSortMethod(context);
-            },
-            child: const Text('Show sort method dialog'),
-          );
-        }),
+        child: Builder(
+          builder: (BuildContext context) {
+            return OutlinedButton(
+              onPressed: () {
+                SearchPageVm().onSelectSortMethod(context);
+              },
+              child: const Text('Show sort method dialog'),
+            );
+          },
+        ),
       ),
     );
 
@@ -274,14 +278,16 @@ void main() async {
       supportedLocales: AppLocalizations.supportedLocales,
       theme: app_theme.darkTheme,
       home: ProviderScope(
-        child: Builder(builder: (BuildContext context) {
-          return OutlinedButton(
-            onPressed: () {
-              vm.onSelectSortMethod(context);
-            },
-            child: const Text('Show sort method dialog'),
-          );
-        }),
+        child: Builder(
+          builder: (BuildContext context) {
+            return OutlinedButton(
+              onPressed: () {
+                vm.onSelectSortMethod(context);
+              },
+              child: const Text('Show sort method dialog'),
+            );
+          },
+        ),
       ),
     );
 
@@ -304,14 +310,16 @@ void main() async {
       supportedLocales: AppLocalizations.supportedLocales,
       theme: app_theme.darkTheme,
       home: ProviderScope(
-        child: Builder(builder: (BuildContext context) {
-          return OutlinedButton(
-            onPressed: () {
-              vm.onSelectSortMethod(context);
-            },
-            child: const Text('Show sort method dialog'),
-          );
-        }),
+        child: Builder(
+          builder: (BuildContext context) {
+            return OutlinedButton(
+              onPressed: () {
+                vm.onSelectSortMethod(context);
+              },
+              child: const Text('Show sort method dialog'),
+            );
+          },
+        ),
       ),
     );
 
@@ -329,7 +337,9 @@ void main() async {
     await tester.tap(find.text(findText));
     await tester.pumpAndSettle();
     await screenMatchesGolden(
-        tester, 'SearchPage_showSortMedhodDialog_2mostForksTapped');
+      tester,
+      'SearchPage_showSortMedhodDialog_2mostForksTapped',
+    );
     await tester.tap(find.text('CANCEL'));
     await tester.pumpAndSettle();
 
@@ -337,22 +347,30 @@ void main() async {
     await tester.tap(find.byType(OutlinedButton));
     await tester.pumpAndSettle();
     await screenMatchesGolden(
-        tester, 'SearchPage_showSortMedhodDialog_3canceld');
+      tester,
+      'SearchPage_showSortMedhodDialog_3canceld',
+    );
 
     // MostFolksを選択して、OKを押す。次回の起動はMostFolksのはず。
     await tester.tap(find.text(findText));
     await tester.pumpAndSettle();
     await screenMatchesGolden(
-        tester, 'SearchPage_showSortMedhodDialog_4mostForksTappedAgain');
+      tester,
+      'SearchPage_showSortMedhodDialog_4mostForksTappedAgain',
+    );
     await tester.tap(find.text('OK'));
     await tester.pumpAndSettle();
     await screenMatchesGolden(
-        tester, 'SearchPage_showSortMedhodDialog_5dialogClosed');
+      tester,
+      'SearchPage_showSortMedhodDialog_5dialogClosed',
+    );
 
     // ダイアログを再起動すると、MostForksが初期値になっている
     await tester.tap(find.byType(OutlinedButton));
     await tester.pumpAndSettle();
     await screenMatchesGolden(
-        tester, 'SearchPage_showSortMedhodDialog_6mostFolksSelected');
+      tester,
+      'SearchPage_showSortMedhodDialog_6mostFolksSelected',
+    );
   });
 }
