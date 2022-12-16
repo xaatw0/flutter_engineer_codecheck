@@ -106,13 +106,15 @@ class GithubRepository implements GitRepository {
 
   /// Isolateを使ってJsonの処理をする。ただし、テストの場合はIsolateは使えない。
   Future<List<GitRepositoryData>> useIsolateIfPossible(String json) async {
-    if (Platform.environment.containsKey('FLUTTER_TEST')) {
-      return fromJson(json);
+    // Webもしくは、アプリ起動時(テストでない)
+    if (kIsWeb || !Platform.environment.containsKey('FLUTTER_TEST')) {
+      return compute<String, List<GitRepositoryData>>(
+        fromJson,
+        json,
+      );
     }
-    return compute<String, List<GitRepositoryData>>(
-      fromJson,
-      json,
-    );
+
+    return fromJson(json);
   }
 
   @override
