@@ -199,4 +199,160 @@ void main() async {
           '_${device.name}');
     }
   });
+
+  testGoldens('SearchPage: Show sort method dialog: devices',
+      (WidgetTester tester) async {
+    final target = MaterialApp(
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      theme: app_theme.lightTheme,
+      home: ProviderScope(
+        child: Builder(builder: (BuildContext context) {
+          return OutlinedButton(
+            onPressed: () {
+              SearchPageVm().onSelectSortMethod(context);
+            },
+            child: const Text('Show sort method dialog'),
+          );
+        }),
+      ),
+    );
+
+    for (final device in utility.devices) {
+      await tester.pumpWidgetBuilder(target, surfaceSize: device.size);
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byType(OutlinedButton));
+      await tester.pumpAndSettle();
+      await screenMatchesGolden(
+          tester,
+          'SearchPage_showSortMedhodDialog'
+          '_${device.name}');
+
+      await tester.tap(find.text('CANCEL'));
+      await tester.pumpAndSettle();
+    }
+  });
+
+  testGoldens('SearchPage: Show sort method dialog: darkTheme',
+      (WidgetTester tester) async {
+    final target = MaterialApp(
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      theme: app_theme.darkTheme,
+      home: ProviderScope(
+        child: Builder(builder: (BuildContext context) {
+          return OutlinedButton(
+            onPressed: () {
+              SearchPageVm().onSelectSortMethod(context);
+            },
+            child: const Text('Show sort method dialog'),
+          );
+        }),
+      ),
+    );
+
+    final device = utility.devices.first;
+    await tester.pumpWidgetBuilder(target, surfaceSize: device.size);
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byType(OutlinedButton));
+    await tester.pumpAndSettle();
+    await screenMatchesGolden(
+        tester,
+        'SearchPage_showSortMedhodDialog'
+        '_darkTheme');
+
+    await tester.tap(find.text('CANCEL'));
+    await tester.pumpAndSettle();
+  });
+
+  testGoldens('tap dialog menu', (WidgetTester tester) async {
+    final vm = SearchPageVm();
+    final target = MaterialApp(
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      theme: app_theme.darkTheme,
+      home: ProviderScope(
+        child: Builder(builder: (BuildContext context) {
+          return OutlinedButton(
+            onPressed: () {
+              vm.onSelectSortMethod(context);
+            },
+            child: const Text('Show sort method dialog'),
+          );
+        }),
+      ),
+    );
+
+    final device = utility.devices.first;
+    await tester.pumpWidgetBuilder(target, surfaceSize: device.size);
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byType(OutlinedButton));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Fewest forks'), findsOneWidget);
+    expect(find.text('Most forks'), findsOneWidget);
+  });
+
+  testGoldens('SearchPage: Show sort method dialog: Flow cancel->most flow',
+      (WidgetTester tester) async {
+    final vm = SearchPageVm();
+    final target = MaterialApp(
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      theme: app_theme.darkTheme,
+      home: ProviderScope(
+        child: Builder(builder: (BuildContext context) {
+          return OutlinedButton(
+            onPressed: () {
+              vm.onSelectSortMethod(context);
+            },
+            child: const Text('Show sort method dialog'),
+          );
+        }),
+      ),
+    );
+
+    final device = utility.devices.first;
+    await tester.pumpWidgetBuilder(target, surfaceSize: device.size);
+    await tester.pumpAndSettle();
+
+    const findText = 'Most forks';
+
+    // ダイアログを起動して、MostFolksを選択後、キャンセルする
+    // デフォルトのMost matchのままになる
+    await tester.tap(find.byType(OutlinedButton));
+    await tester.pumpAndSettle();
+    await screenMatchesGolden(tester, 'SearchPage_showSortMedhodDialog_1init');
+    await tester.tap(find.text(findText));
+    await tester.pumpAndSettle();
+    await screenMatchesGolden(
+        tester, 'SearchPage_showSortMedhodDialog_2mostForksTapped');
+    await tester.tap(find.text('CANCEL'));
+    await tester.pumpAndSettle();
+
+    // ダイアログを起動すると、Most Matchのままであることを確認する
+    await tester.tap(find.byType(OutlinedButton));
+    await tester.pumpAndSettle();
+    await screenMatchesGolden(
+        tester, 'SearchPage_showSortMedhodDialog_3canceld');
+
+    // MostFolksを選択して、OKを押す。次回の起動はMostFolksのはず。
+    await tester.tap(find.text(findText));
+    await tester.pumpAndSettle();
+    await screenMatchesGolden(
+        tester, 'SearchPage_showSortMedhodDialog_4mostForksTappedAgain');
+    await tester.tap(find.text('OK'));
+    await tester.pumpAndSettle();
+    await screenMatchesGolden(
+        tester, 'SearchPage_showSortMedhodDialog_5dialogClosed');
+
+    // ダイアログを再起動すると、MostForksが初期値になっている
+    await tester.tap(find.byType(OutlinedButton));
+    await tester.pumpAndSettle();
+    await screenMatchesGolden(
+        tester, 'SearchPage_showSortMedhodDialog_6mostFolksSelected');
+  });
 }

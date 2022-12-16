@@ -18,9 +18,10 @@ class RepositoryDataCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final icon = ref.read(sortMethodProvider).getIcon();
-    final iconName = ref.read(sortMethodProvider).getIconName();
-    final value = ref.read(sortMethodProvider).getValue()(data);
+    final sortMethodLogic = ref.read(sortMethodProvider);
+    final icon = sortMethodLogic.getIcon();
+    final iconName = sortMethodLogic.getIconName();
+    final value = sortMethodLogic.getValue()(data);
 
     return Card(
       child: ListTile(
@@ -50,7 +51,7 @@ class RepositoryDataCard extends ConsumerWidget {
         ),
         // 右隅 画像と数字
         trailing: Semantics(
-          container: false,
+          container: true,
           // 'stars 1234'というように読み上げられる
           label: '$iconName $value',
           child: Consumer(
