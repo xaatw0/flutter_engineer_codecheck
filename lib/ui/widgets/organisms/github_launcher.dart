@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_engineer_codecheck/ui/app_theme.dart' as app_theme;
 import 'package:flutter_engineer_codecheck/ui/widgets/atoms/github_icon.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -16,9 +17,12 @@ class GithubLauncher extends StatelessWidget {
     return Consumer(
       builder: (_, WidgetRef ref, __) {
         return IconButton(
-          icon: GithubIcon(
-            size: 32,
-            isDarkMode: ref.watch(app_theme.themeMode) == ThemeMode.dark,
+          icon: Semantics(
+            label: AppLocalizations.of(context).goGithub,
+            child: GithubIcon(
+              size: 32,
+              isDarkMode: ref.watch(app_theme.themeMode) == ThemeMode.dark,
+            ),
           ),
           onPressed: _launchUrl,
         );

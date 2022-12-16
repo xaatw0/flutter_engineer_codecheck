@@ -28,10 +28,14 @@ class SearchTextField extends StatelessWidget {
 
         // TextField右端のソート方法選択のアイコン
         suffixIcon: IconButton(
-          icon: Icon(
-            Icons.sort,
-            size: 32,
-            color: Theme.of(context).colorScheme.secondary,
+          icon: Semantics(
+            container: true,
+            label: AppLocalizations.of(context).sortOptions,
+            child: Icon(
+              Icons.sort,
+              size: 32,
+              color: Theme.of(context).colorScheme.secondary,
+            ),
           ),
           onPressed: onSelectSortMethod,
         ),

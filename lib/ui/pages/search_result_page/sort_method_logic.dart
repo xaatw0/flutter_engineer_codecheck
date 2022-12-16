@@ -3,6 +3,7 @@ import 'package:flutter_engineer_codecheck/domain/entities/git_repository_data.d
 import 'package:intl/intl.dart';
 
 import '../../../domain/repositories/git_repository.dart';
+import '../../../domain/string_resources.dart';
 
 /// ソート方法に関連するロジックがまとめてある。
 /// ソート方法に応じたアイコンとレポジトリのデータを取得するファンクションが取得できる。
@@ -34,6 +35,13 @@ class SortMethodLogic {
     ],
   };
 
+  /// アイコンと名称のマップ
+  final _mapIcon2Name = <IconData, String>{
+    Icons.star: StringResources.kStar,
+    Icons.fork_right: StringResources.kForks,
+    Icons.update: StringResources.kUpdate,
+  };
+
   /// ソート方法
   final SortMethod _sortMethod;
 
@@ -45,6 +53,11 @@ class SortMethodLogic {
     return _mapIcons.keys.firstWhere(
       (key) => _mapIcons[key]!.contains(_sortMethod),
     );
+  }
+
+  /// 指定のソート方法に対するアイコンの名前を取得する
+  String getIconName() {
+    return _mapIcon2Name[getIcon()]!;
   }
 
   /// 指定のソート方法に対する表示する値を取得するファンクションを取得する

@@ -18,4 +18,7 @@ class StringResources {
 
   /// GithubのDescriptionの文字列
   static const kDescription = 'Description';
+
+  /// Githubの更新日時の文字列
+  static const kUpdate = 'Update';
 }

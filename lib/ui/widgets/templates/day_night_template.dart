@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_engineer_codecheck/ui/app_theme.dart' as app_theme;
 import 'package:flutter_engineer_codecheck/ui/widgets/organisms/sun_and_moon_coin.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../domain/string_resources.dart';
@@ -48,15 +49,19 @@ class DayNightTemplate extends StatelessWidget {
                   builder: (_, WidgetRef ref, __) {
                     return Padding(
                       padding: const EdgeInsets.all(paddingSize),
-                      child: SunAndMoonCoin(
-                        initStatus:
-                            ref.read(app_theme.themeMode) == ThemeMode.light
-                                ? CoinStatus.sun
-                                : CoinStatus.moon,
-                        // パディングを増やすと、SVGの大きさが小さくなるっぽい
-                        size: 48 + paddingSize * 2,
-                        callback: (CoinStatus status) =>
-                            changeTheme(ref, status),
+                      child: Semantics(
+                        container: true,
+                        label: AppLocalizations.of(context).swapTheme,
+                        child: SunAndMoonCoin(
+                          initStatus:
+                              ref.read(app_theme.themeMode) == ThemeMode.light
+                                  ? CoinStatus.sun
+                                  : CoinStatus.moon,
+                          // パディングを増やすと、SVGの大きさが小さくなるっぽい
+                          size: 48 + paddingSize * 2,
+                          callback: (CoinStatus status) =>
+                              changeTheme(ref, status),
+                        ),
                       ),
                     );
                   },

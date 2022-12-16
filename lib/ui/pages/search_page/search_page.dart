@@ -62,10 +62,14 @@ class _SearchPageState extends ConsumerState<SearchPage> {
               ),
 
               // 検索のキーワード入力
-              SearchTextField(
-                onChangeKeyword: _vm.onChangeKeyword,
-                onSubmitted: (_) => _vm.onSearch(context),
-                onSelectSortMethod: () => _vm.onSelectSortMethod(context),
+              Semantics(
+                container: true,
+                label: AppLocalizations.of(context).searchExplain,
+                child: SearchTextField(
+                  onChangeKeyword: _vm.onChangeKeyword,
+                  onSubmitted: (_) => _vm.onSearch(context),
+                  onSelectSortMethod: () => _vm.onSelectSortMethod(context),
+                ),
               ),
               const SizedBox(height: 32),
 
@@ -73,22 +77,26 @@ class _SearchPageState extends ConsumerState<SearchPage> {
               // アプリでは、キーボードが非表示でキーワードが入力済みの時のみ表示される
               Visibility(
                 visible: visibleWidgetLogic.isButtonVisible,
-                child: OutlinedButton(
-                  onPressed: () => _vm.onSearch(context),
-                  style: OutlinedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                child: Semantics(
+                  container: true,
+                  label: AppLocalizations.of(context).search,
+                  child: OutlinedButton(
+                    onPressed: () => _vm.onSearch(context),
+                    style: OutlinedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: Text(
-                      AppLocalizations.of(context).search,
-                      style: Theme.of(context).textTheme.titleMedium!.merge(
-                            TextStyle(
-                              color: Theme.of(context).colorScheme.secondary,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Text(
+                        AppLocalizations.of(context).search,
+                        style: Theme.of(context).textTheme.titleMedium!.merge(
+                              TextStyle(
+                                color: Theme.of(context).colorScheme.secondary,
+                              ),
                             ),
-                          ),
+                      ),
                     ),
                   ),
                 ),
