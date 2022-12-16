@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_engineer_codecheck/ui/pages/search_page/search_page_vm.dart';
 import 'package:flutter_engineer_codecheck/ui/pages/search_page/visible_widget_logic.dart';
+import 'package:flutter_engineer_codecheck/ui/widgets/atoms/cancel_tab_key.dart';
 import 'package:flutter_engineer_codecheck/ui/widgets/templates/day_night_template.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -65,10 +66,13 @@ class _SearchPageState extends ConsumerState<SearchPage> {
               Semantics(
                 container: true,
                 label: AppLocalizations.of(context).searchExplain,
-                child: SearchTextField(
-                  onChangeKeyword: _vm.onChangeKeyword,
-                  onSubmitted: (_) => _vm.onSearch(context),
-                  onSelectSortMethod: () => _vm.onSelectSortMethod(context),
+                child: CancelTabKey(
+                  child: SearchTextField(
+                    controller: KanjiTextEditingController(),
+                    onChangeKeyword: _vm.onChangeKeyword,
+                    onSubmitted: (_) => _vm.onSearch(context),
+                    onSelectSortMethod: () => _vm.onSelectSortMethod(context),
+                  ),
                 ),
               ),
               const SizedBox(height: 32),
