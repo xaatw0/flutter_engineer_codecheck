@@ -45,6 +45,10 @@ class SearchPageVm {
 
   /// 検索を実施する
   void onSearch(BuildContext context) {
+    //キーワードが未入力の時は検索しない
+    if (_keyword.isEmpty) {
+      return;
+    }
     final url = SearchResultPage.path
         .replaceFirst(':${SearchResultPage.kKeyword}', _keyword);
     GoRouter.of(context).push(url, extra: _selectedSortMethod);
