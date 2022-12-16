@@ -41,7 +41,7 @@ class _SearchResultPageState extends ConsumerState<SearchResultPage> {
     super.initState();
     _vm.setRef(ref);
     final funcAfterInit = _vm.onLoad(widget.keyword, widget.sortMethod);
-    WidgetsBinding.instance.addPostFrameCallback((_) => funcAfterInit);
+    WidgetsBinding.instance.addPostFrameCallback((_) => funcAfterInit());
   }
 
   @override
