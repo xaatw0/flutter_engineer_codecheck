@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_engineer_codecheck/domain/repositories/git_repository.dart';
 
 import 'package:flutter_engineer_codecheck/main.dart' as app;
 import 'package:flutter_engineer_codecheck/ui/widgets/atoms/github_icon.dart';
@@ -45,6 +46,8 @@ void main() {
   // ファイルの確認とMockに設定
   const url1 = 'https://api.github.com/search/repositories?q=flutter&page=1';
   const url2 = 'https://api.github.com/search/repositories?q=flutter&page=2';
+  const url3 =
+      'https://api.github.com/search/repositories?q=flutter&page=1&sort=updated&order=asc';
   const urlNoResult =
       'https://api.github.com/search/repositories?q=noResult&page=1';
 
@@ -69,10 +72,12 @@ void main() {
       .thenAnswer((_) async => getDummyResponse(result.flutter1));
   when(mockClient.get(Uri.parse(url2)))
       .thenAnswer((_) async => getDummyResponse(result.flutter2));
+  when(mockClient.get(Uri.parse(url3)))
+      .thenAnswer((_) async => getDummyResponse(result.flutter1));
   when(mockClient.get(Uri.parse(urlNoResult)))
       .thenAnswer((_) async => getDummyResponse(result.noResult));
 
-  testWidgets('start', (WidgetTester tester) async {
+  testWidgets('portrait', (WidgetTester tester) async {
     GetIt.I.registerSingleton<http.Client>(mockClient);
     GetIt.I.registerSingleton<List<DeviceOrientation>>(
       [DeviceOrientation.portraitUp],
@@ -92,11 +97,13 @@ void main() {
 
     // テーマを切り替えて、ダークモードにする
     await tester.tap(find.byType(SunAndMoonCoin));
+
     await tester.pumpAndSettle();
     await takeScreenshot('${orientation}_02_darkMode');
 
     // テーマを切り替えて、ライトモードにする
     await tester.tap(find.byType(SunAndMoonCoin));
+
     await tester.pumpAndSettle();
     await takeScreenshot('${orientation}_03_lightMode');
 
@@ -143,17 +150,22 @@ void main() {
     await takeScreenshot('${orientation}_11_repositoryDetail');
 
     // テーマを切り替えて、ダークモードにする
+
     await tester.tap(find.byType(SunAndMoonCoin));
+
     await tester.pumpAndSettle();
     await takeScreenshot('${orientation}_12_darkMode');
 
     // 前のページに戻る
     await tester.tap(find.byIcon(Icons.arrow_back));
     await tester.pumpAndSettle();
+    await Future<void>.delayed(const Duration(milliseconds: 500));
     await takeScreenshot('${orientation}_13_pageResultDart');
+    await Future<void>.delayed(const Duration(milliseconds: 500));
 
     // テーマを切り替えて、ライトモードにする
     await tester.tap(find.byType(SunAndMoonCoin));
+
     await tester.pumpAndSettle();
     await takeScreenshot('${orientation}_14_pageResultLight');
 
@@ -202,7 +214,7 @@ void main() {
     await takeScreenshot('${orientation}_21_searchPageWithKeyword');
   });
 
-  testWidgets('second time', (WidgetTester tester) async {
+  testWidgets('landscape', (WidgetTester tester) async {
     await initialize();
     GetIt.I.registerSingleton<List<DeviceOrientation>>(
       [DeviceOrientation.landscapeLeft],
@@ -221,6 +233,7 @@ void main() {
 
     // テーマを切り替えて、ダークモードにする
     await tester.tap(find.byType(SunAndMoonCoin));
+
     await tester.pumpAndSettle();
     await takeScreenshot('${orientation}_02_darkMode');
 
@@ -275,6 +288,7 @@ void main() {
 
     // テーマを切り替えて、ダークモードにする
     await tester.tap(find.byType(SunAndMoonCoin));
+
     await tester.pumpAndSettle();
     await takeScreenshot('${orientation}_12_darkMode');
 
@@ -285,6 +299,7 @@ void main() {
 
     // テーマを切り替えて、ライトモードにする
     await tester.tap(find.byType(SunAndMoonCoin));
+
     await tester.pumpAndSettle();
     await takeScreenshot('${orientation}_14_pageResultLight');
 
@@ -311,5 +326,68 @@ void main() {
     await tester.tap(find.byIcon(Icons.arrow_back));
     await tester.pumpAndSettle();
     await takeScreenshot('${orientation}_21_searchPageWithKeyword');
+  });
+
+  testWidgets('selectDialog', (WidgetTester tester) async {
+    GetIt.I.registerSingleton<http.Client>(mockClient);
+    GetIt.I.registerSingleton<List<DeviceOrientation>>(
+      [DeviceOrientation.portraitUp],
+    );
+    app.main();
+
+    await initialize();
+
+    const testName = 'selectDialog';
+
+    // 起動画面
+    await tester.pumpAndSettle();
+    await takeScreenshot('${testName}_00_justLaunched');
+
+    // フィルターを押す
+    await tester.tap(find.byIcon(Icons.sort));
+    await tester.pumpAndSettle();
+    await takeScreenshot('${testName}_01_showDialogWithDefault');
+
+    // Least updated を押す
+    await tester.tap(find.text(SortMethod.leastRecentlyUpdate.title));
+    await tester.pumpAndSettle();
+    await takeScreenshot('${testName}_02_tapLeastRecentlyUpdate');
+
+    // キャンセル
+    await tester.tap(find.text('キャンセル'));
+    await tester.pumpAndSettle();
+    await takeScreenshot('${testName}_03_canceld');
+
+    // フィルターを押す
+    await tester.tap(find.byIcon(Icons.sort));
+    await tester.pumpAndSettle();
+    await takeScreenshot('${testName}_04_showDialogWithoutChange');
+
+    // Least updated を押す
+    await tester.tap(find.text(SortMethod.leastRecentlyUpdate.title));
+    await tester.pumpAndSettle();
+    await takeScreenshot('${testName}_05_tapLeastRecentlyUpdateAgain');
+
+    // OK
+    await tester.tap(find.text('OK'));
+    await tester.pumpAndSettle();
+    await takeScreenshot('${testName}_06_ok');
+
+    // フィルターを押す
+    await tester.tap(find.byIcon(Icons.sort));
+    await tester.pumpAndSettle();
+    await takeScreenshot('${testName}_07_showDialogWithChange');
+
+    //検索キーワードを入力して検索
+    await tester.tap(find.text('キャンセル'));
+    await tester.tap(find.byType(TextField));
+    await tester.enterText(find.byType(TextField), 'flutter');
+    await tester.pumpAndSettle();
+    await takeScreenshot('${testName}_11_enterKeyword');
+
+    await tester.testTextInput.receiveAction(TextInputAction.search);
+    await tester.pumpAndSettle();
+
+    await takeScreenshot('${testName}_12_resultWithUpdate');
   });
 }
