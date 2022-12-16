@@ -52,7 +52,7 @@ class RepositoryDetailPage extends StatelessWidget {
     // Widgetの場所で設定すると、向きで非表示になるので、データが取得できず例外になる。
     // そのため、ここで取得している。
     final columnsCount = context.responsive<int>(2, small: 4);
-    final isNarrow = MediaQuery.of(context).size.width < Responsive.breakMiddle;
+    final isNarrow = MediaQuery.of(context).size.width < Responsive.breakSmall;
 
     return DayNightTemplate(
       child: SingleChildScrollView(
