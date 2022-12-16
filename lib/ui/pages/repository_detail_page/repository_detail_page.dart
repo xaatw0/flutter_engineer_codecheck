@@ -51,7 +51,7 @@ class RepositoryDetailPage extends StatelessWidget {
     //表示項目の一行の数。
     // Widgetの場所で設定すると、向きで非表示になるので、データが取得できず例外になる。
     // そのため、ここで取得している。
-    final columsCount = context.responsive<int>(2, sm: 4);
+    final columsCount = context.responsive<int>(2, small: 4);
 
     return DayNightTemplate(
       child: OrientationBuilder(
