@@ -48,15 +48,19 @@ class DayNightTemplate extends StatelessWidget {
                   builder: (_, WidgetRef ref, __) {
                     return Padding(
                       padding: const EdgeInsets.all(paddingSize),
-                      child: SunAndMoonCoin(
-                        initStatus:
-                            ref.read(app_theme.themeMode) == ThemeMode.light
-                                ? CoinStatus.sun
-                                : CoinStatus.moon,
-                        // パディングを増やすと、SVGの大きさが小さくなるっぽい
-                        size: 48 + paddingSize * 2,
-                        callback: (CoinStatus status) =>
-                            changeTheme(ref, status),
+                      child: Semantics(
+                        container: true,
+                        label: StringResources.kLblTheme,
+                        child: SunAndMoonCoin(
+                          initStatus:
+                              ref.read(app_theme.themeMode) == ThemeMode.light
+                                  ? CoinStatus.sun
+                                  : CoinStatus.moon,
+                          // パディングを増やすと、SVGの大きさが小さくなるっぽい
+                          size: 48 + paddingSize * 2,
+                          callback: (CoinStatus status) =>
+                              changeTheme(ref, status),
+                        ),
                       ),
                     );
                   },

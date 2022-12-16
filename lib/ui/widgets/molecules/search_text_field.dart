@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_engineer_codecheck/domain/string_resources.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// 検索用のテキストフィールド
@@ -28,10 +29,14 @@ class SearchTextField extends StatelessWidget {
 
         // TextField右端のソート方法選択のアイコン
         suffixIcon: IconButton(
-          icon: Icon(
-            Icons.sort,
-            size: 32,
-            color: Theme.of(context).colorScheme.secondary,
+          icon: Semantics(
+            container: true,
+            label: StringResources.kLblSortMethod,
+            child: Icon(
+              Icons.sort,
+              size: 32,
+              color: Theme.of(context).colorScheme.secondary,
+            ),
           ),
           onPressed: onSelectSortMethod,
         ),
