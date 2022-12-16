@@ -114,13 +114,11 @@ void main() async {
         getTarget(ThemeMode.light, SortMethod.bestMatch),
         surfaceSize: device.size,
       );
-      print('aaa');
-      //await tester.pumpAndSettle();
+      await tester.pumpAndSettle();
       await screenMatchesGolden(
         tester,
         'SearchResultPage_noResult_${device.name}',
       );
-      print('end1');
     }
   });
 }
