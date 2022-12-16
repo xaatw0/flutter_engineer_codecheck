@@ -7,7 +7,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
 
-import '../../../domain/string_resources.dart';
 import '../../widgets/atoms/github_icon.dart';
 import '../../widgets/molecules/search_text_field.dart';
 import '../../widgets/organisms/moving_fadein_animation.dart';
@@ -65,7 +64,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
               // 検索のキーワード入力
               Semantics(
                 container: true,
-                label: StringResources.kLblFindInGithub,
+                label: AppLocalizations.of(context).searchExplain,
                 child: SearchTextField(
                   onChangeKeyword: _vm.onChangeKeyword,
                   onSubmitted: (_) => _vm.onSearch(context),

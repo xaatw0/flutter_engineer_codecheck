@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_engineer_codecheck/domain/string_resources.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// 検索用のテキストフィールド
@@ -31,7 +30,7 @@ class SearchTextField extends StatelessWidget {
         suffixIcon: IconButton(
           icon: Semantics(
             container: true,
-            label: StringResources.kLblSortMethod,
+            label: AppLocalizations.of(context).sortOptions,
             child: Icon(
               Icons.sort,
               size: 32,

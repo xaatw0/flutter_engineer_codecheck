@@ -21,11 +21,4 @@ class StringResources {
 
   /// Githubの更新日時の文字列
   static const kUpdate = 'Update';
-
-  /****** 以下、本来は言語ファイルに入れるもの **/
-  static const kLblFindInGithub = 'Githubで検索できます。キーワードを入力して、検索ボタンを押してください';
-  static const kLblTheme = '画面のライトモードとダークテーマを入れ替えます';
-  static const kLblSortMethod = '検索結果のソート方法を設定します';
-  static const kLblGoGithub = '押すとGithubのレポジトリに移動します';
-  static const kLblNotFound = '何も見つかりませんでした';
 }
