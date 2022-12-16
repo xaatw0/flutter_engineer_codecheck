@@ -7,7 +7,7 @@ import 'package:flutter_engineer_codecheck/main.dart' as app;
 import 'package:flutter_engineer_codecheck/ui/widgets/atoms/github_icon.dart';
 import 'package:flutter_engineer_codecheck/ui/widgets/molecules/repository_data_card.dart';
 import 'package:flutter_engineer_codecheck/ui/widgets/organisms/search_result_list_view.dart';
-import 'package:flutter_engineer_codecheck/ui/widgets/organisms/theme_switcher.dart';
+import 'package:flutter_engineer_codecheck/ui/widgets/organisms/sun_and_moon_coin.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
@@ -21,6 +21,15 @@ import 'mock_result.dart' as result;
 @GenerateMocks([http.Client])
 void main() {
   final binding = IntegrationTestWidgetsFlutterBinding();
+
+  /// Android端末であればスクリーンショットを撮る
+  /// iPhone端末ではスクリーンショットが撮れない(例外が発生する)
+  Future<void> takeScreenshot(String title) async {
+    if (Platform.isAndroid) {
+      await binding.takeScreenshot(title);
+    }
+  }
+
   Future<void> initialize() async {
     if (Platform.isAndroid) {
       await binding.convertFlutterSurfaceToImage();
@@ -76,40 +85,40 @@ void main() {
 
     // 起動画面
     await tester.pump();
-    await binding.takeScreenshot('${orientation}_00_justLaunched');
+    await takeScreenshot('${orientation}_00_justLaunched');
 
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_01_logoShown');
+    await takeScreenshot('${orientation}_01_logoShown');
 
     // テーマを切り替えて、ダークモードにする
-    await tester.tap(find.byType(ThemeSwitcher));
+    await tester.tap(find.byType(SunAndMoonCoin));
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_02_darkMode');
+    await takeScreenshot('${orientation}_02_darkMode');
 
     // テーマを切り替えて、ライトモードにする
-    await tester.tap(find.byType(ThemeSwitcher));
+    await tester.tap(find.byType(SunAndMoonCoin));
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_03_lightMode');
+    await takeScreenshot('${orientation}_03_lightMode');
 
     // キーボードを表示
     await tester.showKeyboard(find.byType(TextField));
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_04_showKeyboard');
+    await takeScreenshot('${orientation}_04_showKeyboard');
 
     // 結果無し用の検索キーワードを入力
     await tester.enterText(find.byType(TextField), 'noResult');
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_05_enterNoResult');
+    await takeScreenshot('${orientation}_05_enterNoResult');
 
     // Enter を入力
     await tester.testTextInput.receiveAction(TextInputAction.search);
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_06_resultPageWithNoResult');
+    await takeScreenshot('${orientation}_06_resultPageWithNoResult');
 
     // 検索結果無しを表示
     await tester.tap(find.byIcon(Icons.arrow_back));
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_07_searchPage');
+    await takeScreenshot('${orientation}_07_searchPage');
 
     // 検索キーワードを入力
     final textFinder = find.byType(TextField);
@@ -119,34 +128,34 @@ void main() {
     expect(find.text('noResult'), findsNothing);
     expect(find.text('flutter'), findsOneWidget);
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_08_enterFlutter');
+    await takeScreenshot('${orientation}_08_enterFlutter');
 
     // Enter を入力して、Flutterの検索結果を表示
     await tester.testTextInput.receiveAction(TextInputAction.search);
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_09_resultPageForFlutter');
+    await takeScreenshot('${orientation}_09_resultPageForFlutter');
 
     // Flutterの公式レポジトリのカードをタップ
     // (Flutterの公式レポジトリが検索のトップに来ていると想定→MOCKのため、必ずある)
     final flutter = find.text('flutter');
     await tester.tap(flutter);
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_11_repositoryDetail');
+    await takeScreenshot('${orientation}_11_repositoryDetail');
 
     // テーマを切り替えて、ダークモードにする
-    await tester.tap(find.byType(ThemeSwitcher));
+    await tester.tap(find.byType(SunAndMoonCoin));
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_12_darkMode');
+    await takeScreenshot('${orientation}_12_darkMode');
 
     // 前のページに戻る
     await tester.tap(find.byIcon(Icons.arrow_back));
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_13_pageResultDart');
+    await takeScreenshot('${orientation}_13_pageResultDart');
 
     // テーマを切り替えて、ライトモードにする
-    await tester.tap(find.byType(ThemeSwitcher));
+    await tester.tap(find.byType(SunAndMoonCoin));
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_14_pageResultLight');
+    await takeScreenshot('${orientation}_14_pageResultLight');
 
     // カードの数を確認する
     expect(find.byType(RepositoryDataCard), findsNWidgets(10));
@@ -156,7 +165,7 @@ void main() {
       const Offset(0, -300),
     );
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_15_scrolling1');
+    await takeScreenshot('${orientation}_15_scrolling1');
 
     expect(find.byType(RepositoryDataCard), findsNWidgets(10));
     await tester.drag(
@@ -165,7 +174,7 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    await binding.takeScreenshot(
+    await takeScreenshot(
       '${orientation}_16_scrolling2',
     );
 
@@ -177,20 +186,20 @@ void main() {
     );
 
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_17_endOfPage1');
+    await takeScreenshot('${orientation}_17_endOfPage1');
 
     // 1ページ目の最後のデータをドラッグすると、2ページ目のデータが読み込まれて表示される
     await tester.drag(find.text(endOfPage1Name), const Offset(0, -300));
     await Future<void>.delayed(const Duration(seconds: 1));
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_18_startOfPage2');
+    await takeScreenshot('${orientation}_18_startOfPage2');
 
     expect(find.text(startOfPage2Name), findsOneWidget);
 
     // 検索ページに戻る
     await tester.tap(find.byIcon(Icons.arrow_back));
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_21_searchPageWithKeyword');
+    await takeScreenshot('${orientation}_21_searchPageWithKeyword');
   });
 
   testWidgets('second time', (WidgetTester tester) async {
@@ -205,42 +214,42 @@ void main() {
 
     // 起動画面
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_00_justLaunched');
+    await takeScreenshot('${orientation}_00_justLaunched');
 
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_01_logoShown');
+    await takeScreenshot('${orientation}_01_logoShown');
 
     // テーマを切り替えて、ダークモードにする
-    await tester.tap(find.byType(ThemeSwitcher));
+    await tester.tap(find.byType(SunAndMoonCoin));
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_02_darkMode');
+    await takeScreenshot('${orientation}_02_darkMode');
 
     // テーマを切り替えて、ライトモードにする
-    await tester.tap(find.byType(ThemeSwitcher));
+    await tester.tap(find.byType(SunAndMoonCoin));
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_03_lightMode');
+    await takeScreenshot('${orientation}_03_lightMode');
 
     expect(find.byType(GithubIcon), findsOneWidget);
 
     // キーボードを表示
     await tester.showKeyboard(find.byType(TextField));
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_04_showKeyboard');
+    await takeScreenshot('${orientation}_04_showKeyboard');
 
     // 結果無し用の検索キーワードを入力
     await tester.enterText(find.byType(TextField), 'noResult');
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_05_enterNoResult');
+    await takeScreenshot('${orientation}_05_enterNoResult');
 
     // Enter を入力
     await tester.testTextInput.receiveAction(TextInputAction.search);
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_06_resultPageWithNoResult');
+    await takeScreenshot('${orientation}_06_resultPageWithNoResult');
 
     // 検索結果無しを表示
     await tester.tap(find.byIcon(Icons.arrow_back));
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_07_searchPage');
+    await takeScreenshot('${orientation}_07_searchPage');
 
     // 検索キーワードを入力
     final textFinder = find.byType(TextField);
@@ -250,34 +259,34 @@ void main() {
     expect(find.text('noResult'), findsNothing);
     expect(find.text('flutter'), findsOneWidget);
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_08_enterFlutter');
+    await takeScreenshot('${orientation}_08_enterFlutter');
 
     // Enter を入力して、Flutterの検索結果を表示
     await tester.testTextInput.receiveAction(TextInputAction.search);
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_09_resultPageForFlutter');
+    await takeScreenshot('${orientation}_09_resultPageForFlutter');
 
     // Flutterの公式レポジトリのカードをタップ
     // (Flutterの公式レポジトリが検索のトップに来ていると想定→MOCKのため、必ずある)
     final flutter = find.text('flutter');
     await tester.tap(flutter);
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_11_repositoryDetail');
+    await takeScreenshot('${orientation}_11_repositoryDetail');
 
     // テーマを切り替えて、ダークモードにする
-    await tester.tap(find.byType(ThemeSwitcher));
+    await tester.tap(find.byType(SunAndMoonCoin));
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_12_darkMode');
+    await takeScreenshot('${orientation}_12_darkMode');
 
     // 前のページに戻る
     await tester.tap(find.byIcon(Icons.arrow_back));
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_13_pageResultDart');
+    await takeScreenshot('${orientation}_13_pageResultDart');
 
     // テーマを切り替えて、ライトモードにする
-    await tester.tap(find.byType(ThemeSwitcher));
+    await tester.tap(find.byType(SunAndMoonCoin));
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_14_pageResultLight');
+    await takeScreenshot('${orientation}_14_pageResultLight');
 
     // 1ページ目の最後のデータまでドラッグし続ける
     await tester.dragUntilVisible(
@@ -288,19 +297,19 @@ void main() {
     );
 
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_17_endOfPage1');
+    await takeScreenshot('${orientation}_17_endOfPage1');
 
     // 1ページ目の最後のデータをドラッグすると、2ページ目のデータが読み込まれて表示される
     await tester.drag(find.text(endOfPage1Name), const Offset(0, -300));
     await Future<void>.delayed(const Duration(seconds: 1));
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_18_startOfPage2');
+    await takeScreenshot('${orientation}_18_startOfPage2');
 
     expect(find.text(startOfPage2Name), findsOneWidget);
 
     // 検索ページに戻る
     await tester.tap(find.byIcon(Icons.arrow_back));
     await tester.pumpAndSettle();
-    await binding.takeScreenshot('${orientation}_21_searchPageWithKeyword');
+    await takeScreenshot('${orientation}_21_searchPageWithKeyword');
   });
 }
