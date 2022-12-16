@@ -70,6 +70,8 @@ class GithubRepository implements GitRepository {
 
     final client = GetIt.I.get<http.Client>();
     final response = await client.get(apiUri);
+
+    return fromJson(response.body);
     return compute<String, List<GitRepositoryData>>(
       fromJson,
       response.body,
