@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// アプリのテーマ
 
-/// 現在のテーマ
-final themeMode = StateProvider((ref) => ThemeMode.light);
+/// 現在のテーマ(システムのテーマモードを初期値に設定する)
+final themeMode = StateProvider<ThemeMode>((ref) {
+  final brightness = SchedulerBinding.instance.window.platformBrightness;
+  return brightness == Brightness.light ? ThemeMode.light : ThemeMode.dark;
+});
 
 /// AppBarのテーマ(透明)
 const appBarTheme = AppBarTheme(
