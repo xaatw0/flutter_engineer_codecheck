@@ -81,7 +81,7 @@ class DayNightTemplate extends StatelessWidget {
           child: Center(
             child: ConstrainedBox(
               constraints: const BoxConstraints(
-                maxWidth: Responsive.breakXLarge,
+                maxWidth: Responsive.breakLarge,
               ),
               child: child,
             ),
