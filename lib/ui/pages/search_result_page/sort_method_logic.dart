@@ -10,6 +10,9 @@ import '../../../domain/string_resources.dart';
 class SortMethodLogic {
   SortMethodLogic(this._sortMethod);
 
+  @override
+  String toString() => 'SortMethodLogic[$_sortMethod]';
+
   /// アイコンとソート方法のマップ
   final _mapIcons = <IconData, List<SortMethod>>{
     Icons.star: [SortMethod.bestMatch, SortMethod.starAsc, SortMethod.starDesc],
