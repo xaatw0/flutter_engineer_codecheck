@@ -49,3 +49,9 @@ app.*.map.json
 *.gen.dart
 *.mocks.dart
 /integration_test/screenshots/*.png
+
+# GoldenTestの失敗時の画像
+**/failures/*_maskedDiff.png
+**/failures/*_masterImage.png
+**/failures/*_testImage.png
+**/failures/*_isolatedDiff.png
