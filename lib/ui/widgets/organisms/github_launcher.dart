@@ -15,12 +15,19 @@ class GithubLauncher extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (_, WidgetRef ref, __) {
-        return IconButton(
-          icon: GithubIcon(
-            size: 32,
-            isDarkMode: ref.watch(app_theme.themeMode) == ThemeMode.dark,
+        return Semantics(
+          container: true,
+          label: 'アイコンボタンDayo',
+          child: IconButton(
+            icon: Semantics(
+              label: 'アイコンDayo',
+              child: GithubIcon(
+                size: 32,
+                isDarkMode: ref.watch(app_theme.themeMode) == ThemeMode.dark,
+              ),
+            ),
+            onPressed: _launchUrl,
           ),
-          onPressed: _launchUrl,
         );
       },
     );
