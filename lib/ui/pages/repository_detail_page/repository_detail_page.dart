@@ -51,13 +51,12 @@ class RepositoryDetailPage extends StatelessWidget {
     //表示項目の一行の数。
     // Widgetの場所で設定すると、向きで非表示になるので、データが取得できず例外になる。
     // そのため、ここで取得している。
-    final columsCount = context.responsive<int>(2, small: 4);
+    final columnsCount = context.responsive<int>(2, small: 4);
 
     return DayNightTemplate(
       child: OrientationBuilder(
         builder: (BuildContext context, Orientation orientation) {
           final isPortrait = orientation == Orientation.portrait;
-
           return Column(
             children: [
               // レポジトリ名
@@ -97,7 +96,7 @@ class RepositoryDetailPage extends StatelessWidget {
                         children: [
                           RepositoryDataGridView(
                             columns: columns,
-                            axisCount: columsCount,
+                            axisCount: columnsCount,
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8),
@@ -118,7 +117,7 @@ class RepositoryDetailPage extends StatelessWidget {
                 visible: isPortrait,
                 child: RepositoryDataGridView(
                   columns: columns,
-                  axisCount: columsCount,
+                  axisCount: columnsCount,
                 ),
               ),
               if (isPortrait)
