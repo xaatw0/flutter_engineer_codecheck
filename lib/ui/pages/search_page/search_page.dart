@@ -68,7 +68,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                 label: AppLocalizations.of(context).searchExplain,
                 child: CancelTabKey(
                   child: SearchTextField(
-                    controller: KanjiTextEditingController(),
+                    controller: kIsWeb ? KanjiTextEditingController() : null,
                     onChangeKeyword: _vm.onChangeKeyword,
                     onSubmitted: (_) => _vm.onSearch(context),
                     onSelectSortMethod: () => _vm.onSelectSortMethod(context),
