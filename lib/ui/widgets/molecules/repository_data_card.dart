@@ -8,7 +8,7 @@ import '../../../domain/entities/git_repository_data.dart';
 import '../atoms/owner_image.dart';
 
 /// レポジトリの情報を表示するカード
-class RepositoryDataCard extends StatelessWidget {
+class RepositoryDataCard extends ConsumerWidget {
   const RepositoryDataCard({
     super.key,
     required this.data,
@@ -17,13 +17,19 @@ class RepositoryDataCard extends StatelessWidget {
   final GitRepositoryData data;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final icon = ref.read(sortMethodProvider).getIcon();
+    final iconName = ref.read(sortMethodProvider).getIconName();
+    final value = ref.read(sortMethodProvider).getValue()(data);
+
     return Card(
       child: ListTile(
         // 画像
         leading: Hero(
           tag: OwnerImage.kHeroKey + data.repositoryId().toString(),
-          child: OwnerImage(url: data.ownerIconUrl()),
+          child: ExcludeSemantics(
+            child: OwnerImage(url: data.ownerIconUrl()),
+          ),
         ),
         // レポジトリ名
         title: Padding(
@@ -43,12 +49,19 @@ class RepositoryDataCard extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
         ),
         // 右隅 画像と数字
-        trailing: Consumer(
-          builder: (context, ref, child) => Column(
-            children: [
-              Icon(ref.read(sortMethodProvider).getIcon()),
-              Text(ref.read(sortMethodProvider).getValue()(data)),
-            ],
+        trailing: Semantics(
+          container: false,
+          // 'stars 1234'というように読み上げられる
+          label: '$iconName $value',
+          child: Consumer(
+            builder: (context, ref, child) => ExcludeSemantics(
+              child: Column(
+                children: [
+                  Icon(icon),
+                  Text(value),
+                ],
+              ),
+            ),
           ),
         ),
       ),
