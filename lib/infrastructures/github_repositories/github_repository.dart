@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_engineer_codecheck/domain/entities/git_repository_data.dart';
@@ -70,10 +71,8 @@ class GithubRepository implements GitRepository {
 
     final client = GetIt.I.get<http.Client>();
     final response = await client.get(apiUri);
-    return compute<String, List<GitRepositoryData>>(
-      fromJson,
-      response.body,
-    );
+
+    return useIsolateIfPossible(response.body);
   }
 
   /// キーワード、ページ、ソート条件に基づいた検索用のURLを発行する
@@ -103,6 +102,19 @@ class GithubRepository implements GitRepository {
     final map = json.decode(jsonData) as Map<String, dynamic>;
     final result = Result.fromJson(map);
     return result.items.map((item) => item.toGitRepositoryData()).toList();
+  }
+
+  /// Isolateを使ってJsonの処理をする。ただし、テストの場合はIsolateは使えない。
+  Future<List<GitRepositoryData>> useIsolateIfPossible(String json) async {
+    // Webもしくは、アプリ起動時(テストでない)
+    if (kIsWeb || !Platform.environment.containsKey('FLUTTER_TEST')) {
+      return compute<String, List<GitRepositoryData>>(
+        fromJson,
+        json,
+      );
+    }
+
+    return fromJson(json);
   }
 
   @override

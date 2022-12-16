@@ -8,6 +8,7 @@ class SearchTextField extends StatelessWidget {
     required this.onChangeKeyword,
     required this.onSubmitted,
     required this.onSelectSortMethod,
+    this.controller,
   });
 
   /// キーワードが更新されたときのファンクション
@@ -18,6 +19,9 @@ class SearchTextField extends StatelessWidget {
 
   /// ソート方法のアイコンが押されたときのイベント
   final void Function() onSelectSortMethod;
+
+  /// 入力中のコントローラ
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +55,7 @@ class SearchTextField extends StatelessWidget {
       ),
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.search,
+      controller: controller,
       onChanged: onChangeKeyword,
       onSubmitted: onSubmitted,
     );

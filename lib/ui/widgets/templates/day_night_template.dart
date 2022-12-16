@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_engineer_codecheck/ui/app_theme.dart' as app_theme;
+import 'package:flutter_engineer_codecheck/ui/responsive.dart';
 import 'package:flutter_engineer_codecheck/ui/widgets/organisms/sun_and_moon_coin.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -77,7 +78,14 @@ class DayNightTemplate extends StatelessWidget {
             normalPaddingSize,
             0,
           ),
-          child: child,
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(
+                maxWidth: Responsive.breakLarge,
+              ),
+              child: child,
+            ),
+          ),
         ),
       ),
     );
