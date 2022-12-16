@@ -50,7 +50,7 @@ class RepositoryDataCard extends ConsumerWidget {
         ),
         // 右隅 画像と数字
         trailing: Semantics(
-          container: false,
+          container: true,
           // 'stars 1234'というように読み上げられる
           label: '$iconName $value',
           child: Consumer(
