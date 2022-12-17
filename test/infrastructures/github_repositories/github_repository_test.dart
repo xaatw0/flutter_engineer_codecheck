@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter_engineer_codecheck/domain/exceptions/git_repository_exception.dart';
 import 'package:flutter_engineer_codecheck/domain/repositories/git_repository.dart';
 import 'package:flutter_engineer_codecheck/infrastructures/github_repositories/github_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -135,5 +136,16 @@ void main() async {
 
     final fileData = file.readAsStringSync();
     expect(fileData.replaceAll('\r', ''), result.flutter1);
+  });
+
+  test('incorrect url', () async {
+    const filePath =
+        'test/infrastructures/github_repositories/dto/result_error.txt';
+    final file = File(filePath);
+    expect(file.existsSync(), true);
+
+    final repository = GithubRepository();
+    expect(() => repository.fromJson(file.readAsStringSync()),
+        throwsA(isInstanceOf<GitRepositoryException>()));
   });
 }

@@ -12,7 +12,7 @@ class GitRepositoryException {
 
   /// リクエストに問題があったときの対応以来メッセージ
   static const _incorrectFormat =
-      'Data not accepted due to incorrect data format.  Try again, and if not, contact the administrator.';
+      'Data not accepted due to incorrect data format.  Try again, and if not, contact the administrator. ';
 
   const GitRepositoryException({
     this.exception,
@@ -39,7 +39,7 @@ class GitRepositoryException {
         );
 
   /// データフォーマットによる例外(サーバには達したが、無効なデータが返信された場合)
-  const GitRepositoryException.ValidationFailed(StackTrace stackTrace)
+  const GitRepositoryException.ValidationFailed({StackTrace? stackTrace})
       : this(
           message: _incorrectFormat,
           stackTrace: stackTrace,
