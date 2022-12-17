@@ -77,11 +77,18 @@ void main() {
   when(mockClient.get(Uri.parse(urlNoResult)))
       .thenAnswer((_) async => getDummyResponse(result.noResult));
 
+  final backIcon = Platform.isAndroid
+      ? Icons.arrow_back
+      : Platform.isIOS
+          ? Icons.arrow_back_ios
+          : throw UnsupportedError('OS用のバックアイコンを設定してください');
+
   testWidgets('portrait', (WidgetTester tester) async {
     GetIt.I.registerSingleton<http.Client>(mockClient);
     GetIt.I.registerSingleton<List<DeviceOrientation>>(
       [DeviceOrientation.portraitUp],
     );
+    GetIt.I.registerFactory<Locale>(() => const Locale('en'));
     app.main();
 
     await initialize();
@@ -123,7 +130,7 @@ void main() {
     await takeScreenshot('${orientation}_06_resultPageWithNoResult');
 
     // 検索結果無しを表示
-    await tester.tap(find.byIcon(Icons.arrow_back));
+    await tester.tap(find.byIcon(backIcon));
     await tester.pumpAndSettle();
     await takeScreenshot('${orientation}_07_searchPage');
 
@@ -157,7 +164,7 @@ void main() {
     await takeScreenshot('${orientation}_12_darkMode');
 
     // 前のページに戻る
-    await tester.tap(find.byIcon(Icons.arrow_back));
+    await tester.tap(find.byIcon(backIcon));
     await tester.pumpAndSettle();
     await Future<void>.delayed(const Duration(milliseconds: 500));
     await takeScreenshot('${orientation}_13_pageResultDart');
@@ -170,18 +177,17 @@ void main() {
     await takeScreenshot('${orientation}_14_pageResultLight');
 
     // カードの数を確認する
-    expect(find.byType(RepositoryDataCard), findsNWidgets(10));
+    expect(find.byType(RepositoryDataCard), findsWidgets);
 
     await tester.drag(
-      find.byType(RepositoryDataCard).at(8),
+      find.byType(RepositoryDataCard).at(3),
       const Offset(0, -300),
     );
     await tester.pumpAndSettle();
     await takeScreenshot('${orientation}_15_scrolling1');
 
-    expect(find.byType(RepositoryDataCard), findsNWidgets(10));
     await tester.drag(
-      find.byType(RepositoryDataCard).at(8),
+      find.byType(RepositoryDataCard).at(3),
       const Offset(0, -300),
     );
     await tester.pumpAndSettle();
@@ -209,7 +215,7 @@ void main() {
     expect(find.text(startOfPage2Name), findsOneWidget);
 
     // 検索ページに戻る
-    await tester.tap(find.byIcon(Icons.arrow_back));
+    await tester.tap(find.byIcon(backIcon));
     await tester.pumpAndSettle();
     await takeScreenshot('${orientation}_21_searchPageWithKeyword');
   });
@@ -260,7 +266,7 @@ void main() {
     await takeScreenshot('${orientation}_06_resultPageWithNoResult');
 
     // 検索結果無しを表示
-    await tester.tap(find.byIcon(Icons.arrow_back));
+    await tester.tap(find.byIcon(backIcon));
     await tester.pumpAndSettle();
     await takeScreenshot('${orientation}_07_searchPage');
 
@@ -293,7 +299,7 @@ void main() {
     await takeScreenshot('${orientation}_12_darkMode');
 
     // 前のページに戻る
-    await tester.tap(find.byIcon(Icons.arrow_back));
+    await tester.tap(find.byIcon(backIcon));
     await tester.pumpAndSettle();
     await takeScreenshot('${orientation}_13_pageResultDart');
 
@@ -323,7 +329,7 @@ void main() {
     expect(find.text(startOfPage2Name), findsOneWidget);
 
     // 検索ページに戻る
-    await tester.tap(find.byIcon(Icons.arrow_back));
+    await tester.tap(find.byIcon(backIcon));
     await tester.pumpAndSettle();
     await takeScreenshot('${orientation}_21_searchPageWithKeyword');
   });
@@ -354,7 +360,19 @@ void main() {
     await takeScreenshot('${testName}_02_tapLeastRecentlyUpdate');
 
     // キャンセル
-    await tester.tap(find.text('キャンセル'));
+    final finderRichText =
+        find.byWidgetPredicate((widget) => widget is RichText);
+
+    for (final a in finderRichText.evaluate()) {
+      print(a.widget.toStringShort());
+    }
+    final finderText = find.byWidgetPredicate((widget) => widget is Text);
+
+    for (final a in finderText.evaluate()) {
+      print(a.widget.toStringShort());
+    }
+    print(finderRichText);
+    await tester.tap(find.text('Cancel'));
     await tester.pumpAndSettle();
     await takeScreenshot('${testName}_03_canceld');
 
