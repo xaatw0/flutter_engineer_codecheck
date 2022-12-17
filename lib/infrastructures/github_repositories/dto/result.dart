@@ -14,9 +14,10 @@ class Result with _$Result {
     fieldRename: FieldRename.snake,
   )
   const factory Result({
-    required int totalCount,
-    required bool incompleteResults,
-    required List<Item> items,
+    @Default(-1) int totalCount,
+    @Default(false) bool incompleteResults,
+    @Default(<Item>[]) List<Item> items,
+    String? message,
   }) = _Result;
 
   const Result._();

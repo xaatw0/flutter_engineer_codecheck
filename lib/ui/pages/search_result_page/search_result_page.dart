@@ -4,6 +4,7 @@ import 'package:flutter_engineer_codecheck/ui/pages/search_result_page/search_re
 import 'package:flutter_engineer_codecheck/ui/widgets/templates/day_night_template.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:loading_animations/loading_animations.dart';
 
 import '../../widgets/atoms/not_found_result.dart';
@@ -53,7 +54,13 @@ class _SearchResultPageState extends ConsumerState<SearchResultPage> {
           children: [
             Expanded(
               child: _vm.getRepositoryData.when(
-                error: (error, _) => Text(error.toString()),
+                error: (error, stacktrace) {
+                  _vm
+                      .onErrorOccurred(context, error)
+                      .then((callback) => callback());
+
+                  return Container();
+                },
                 loading: LoadingRotating.square,
                 data: (data) => NotificationListener<ScrollEndNotification>(
                   onNotification: (ScrollEndNotification notification) {

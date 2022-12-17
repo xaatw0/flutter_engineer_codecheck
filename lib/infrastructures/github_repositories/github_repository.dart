@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_engineer_codecheck/domain/entities/git_repository_data.dart';
+import 'package:flutter_engineer_codecheck/domain/exceptions/git_repository_exception.dart';
 import 'package:flutter_engineer_codecheck/domain/repositories/git_repository.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
@@ -101,6 +102,9 @@ class GithubRepository implements GitRepository {
   List<GitRepositoryData> fromJson(String jsonData) {
     final map = json.decode(jsonData) as Map<String, dynamic>;
     final result = Result.fromJson(map);
+    if (result.message != null) {
+      throw GitRepositoryException.ValidationFailed();
+    }
     return result.items.map((item) => item.toGitRepositoryData()).toList();
   }
 

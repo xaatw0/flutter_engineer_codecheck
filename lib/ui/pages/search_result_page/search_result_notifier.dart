@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter_engineer_codecheck/domain/entities/git_repository_data.dart';
+import 'package:flutter_engineer_codecheck/domain/exceptions/git_repository_exception.dart';
 import 'package:flutter_engineer_codecheck/domain/repositories/git_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -19,9 +22,20 @@ class SearchResultNotifier
     required bool isLoadMoreData,
   }) async {
     state = await AsyncValue.guard(() async {
-      final newData =
-          await repository.search(keyword, page: page, sortMethod: sortMethod);
-
+      late final List<GitRepositoryData> newData;
+      try {
+        newData = await repository.search(
+          keyword,
+          page: page,
+          sortMethod: sortMethod,
+        );
+      } on SocketException catch (exception, stacktrace) {
+        // SocketExceptionの場合、ネットワーク関連のエラーのため、接続エラーする
+        throw GitRepositoryException.NotConnected(
+          exception,
+          stackTrace: stacktrace,
+        );
+      }
       // 同じIDがレポジトリがある場合、追加しない
       // (検索中に順位が入れ替わったケースを想定。その場合、抜けるレポジトリがあるのか)
       final existIds = state.value?.map((e) => e.repositoryId) ?? [];
