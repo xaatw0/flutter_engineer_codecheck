@@ -36,9 +36,9 @@ void main() async {
     }
   });
 
-  test('page', () async {
+  test('page', skip: true, () async {
     final repository = GithubRepository();
-    final result = await repository.search('flutter');
+    final result = await repository.search('Flutter');
 
     expect(result.length, 30);
     expect(result.first.repositoryName(), 'flutter');
@@ -107,7 +107,7 @@ void main() async {
     expect(result.statusCode, 200);
   });
 
-  test('mockdata from file', () async {
+  test('mockdata from file', skip: true, () async {
     const filePath =
         'test/infrastructures/github_repositories/dto/result_test.txt';
     final file = File(filePath);
