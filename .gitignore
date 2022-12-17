@@ -55,3 +55,6 @@ app.*.map.json
 **/failures/*_masterImage.png
 **/failures/*_testImage.png
 **/failures/*_isolatedDiff.png
+
+# 暗号鍵など
+/android/keys/
