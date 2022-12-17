@@ -145,7 +145,9 @@ void main() async {
     expect(file.existsSync(), true);
 
     final repository = GithubRepository();
-    expect(() => repository.fromJson(file.readAsStringSync()),
-        throwsA(isInstanceOf<GitRepositoryException>()));
+    expect(
+      () => repository.fromJson(file.readAsStringSync()),
+      throwsA(isInstanceOf<GitRepositoryException>()),
+    );
   });
 }

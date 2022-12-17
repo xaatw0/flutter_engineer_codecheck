@@ -69,10 +69,8 @@ class GithubRepository implements GitRepository {
   }) async {
     final uri = getSearchUrl(keyword, page, sortMethod);
     final apiUri = Uri.parse(uri);
-
     final client = GetIt.I.get<http.Client>();
     final response = await client.get(apiUri);
-
     return useIsolateIfPossible(response.body);
   }
 
@@ -103,13 +101,15 @@ class GithubRepository implements GitRepository {
     final map = json.decode(jsonData) as Map<String, dynamic>;
     final result = Result.fromJson(map);
     if (result.message != null) {
-      throw GitRepositoryException.ValidationFailed();
+      throw const GitRepositoryException.validationFailed();
     }
     return result.items.map((item) => item.toGitRepositoryData()).toList();
   }
 
   /// Isolateを使ってJsonの処理をする。ただし、テストの場合はIsolateは使えない。
   Future<List<GitRepositoryData>> useIsolateIfPossible(String json) async {
+    assert(json.isNotEmpty, 'jsonファイルが空文字');
+
     // Webもしくは、アプリ起動時(テストでない)
     if (kIsWeb || !Platform.environment.containsKey('FLUTTER_TEST')) {
       return compute<String, List<GitRepositoryData>>(

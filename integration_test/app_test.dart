@@ -358,10 +358,11 @@ void main() {
     await tester.tap(find.text(SortMethod.leastRecentlyUpdate.title));
     await tester.pumpAndSettle();
     await takeScreenshot('${testName}_02_tapLeastRecentlyUpdate');
-
+    /******* ダイアログをタップするためのテストコード
     // キャンセル
     final finderRichText =
         find.byWidgetPredicate((widget) => widget is RichText);
+
 
     for (final a in finderRichText.evaluate()) {
       print(a.widget.toStringShort());
@@ -372,6 +373,8 @@ void main() {
       print(a.widget.toStringShort());
     }
     print(finderRichText);
+        **/
+
     await tester.tap(find.text('Cancel'));
     await tester.pumpAndSettle();
     await takeScreenshot('${testName}_03_canceld');
