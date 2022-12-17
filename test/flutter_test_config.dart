@@ -11,7 +11,7 @@ Future<void> testExecutable(FutureOr<void> Function() testMain) async {
       await testMain();
     },
     config: GoldenToolkitConfiguration(
-      skipGoldenAssertion: () => Platform.isMacOS,
+      skipGoldenAssertion: () => !Platform.isMacOS,
     ),
   );
 }
