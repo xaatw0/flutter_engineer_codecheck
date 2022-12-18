@@ -8,7 +8,7 @@ import '../../../domain/entities/git_repository_data.dart';
 import '../atoms/owner_image.dart';
 
 /// レポジトリの情報を表示するカード
-class RepositoryDataCard extends ConsumerWidget {
+class RepositoryDataCard extends StatelessWidget {
   const RepositoryDataCard({
     super.key,
     required this.data,
@@ -17,12 +17,7 @@ class RepositoryDataCard extends ConsumerWidget {
   final GitRepositoryData data;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final sortMethodLogic = ref.read(sortMethodProvider);
-    final icon = sortMethodLogic.getIcon();
-    final iconName = sortMethodLogic.getIconName();
-    final value = sortMethodLogic.getValue()(data);
-
+  Widget build(BuildContext context) {
     return Card(
       child: ListTile(
         // 画像
@@ -50,21 +45,28 @@ class RepositoryDataCard extends ConsumerWidget {
           overflow: TextOverflow.ellipsis,
         ),
         // 右隅 画像と数字
-        trailing: Semantics(
-          container: true,
-          // 'stars 1234'というように読み上げられる
-          label: '$iconName $value',
-          child: Consumer(
-            builder: (context, ref, child) => ExcludeSemantics(
-              child: Column(
-                children: [
-                  Icon(icon),
-                  Text(value),
-                ],
+        trailing: Consumer(builder: (_, WidgetRef ref, __) {
+          final sortMethodLogic = ref.read(sortMethodProvider);
+          final icon = sortMethodLogic.getIcon();
+          final iconName = sortMethodLogic.getIconName();
+          final value = sortMethodLogic.getValue()(data);
+
+          return Semantics(
+            container: true,
+            // 'stars 1234'というように読み上げられる
+            label: '$iconName $value',
+            child: Consumer(
+              builder: (context, ref, child) => ExcludeSemantics(
+                child: Column(
+                  children: [
+                    Icon(icon),
+                    Text(value),
+                  ],
+                ),
               ),
             ),
-          ),
-        ),
+          );
+        }),
       ),
     );
   }
