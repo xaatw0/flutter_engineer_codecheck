@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 void main() async {
   final timeOffset = DateTime.now().timeZoneOffset.inHours;
 
-  test('datetime test', skip: true, () async {
+  test('datetime test', () async {
     // 2012年3月4日 5時6分7秒
     final datetime = DateTime(2012, 3, 4, 5, 6, 7);
     expect(datetime.toString(), '2012-03-04 05:06:07.000');
@@ -13,11 +13,11 @@ void main() async {
 
     expect(
       DateTime.parse('2022-12-06T18:37:57Z'),
-      DateTime(2022, 12, 6, 18 + 9, 37, 57).toUtc(),
+      DateTime(2022, 12, 6, 18 + timeOffset, 37, 57).toUtc(),
     );
 
     expect(
-      DateTime(2022, 12, 6, 18 + 9, 37, 57).toUtc().toString(),
+      DateTime(2022, 12, 6, 18 + timeOffset, 37, 57).toUtc().toString(),
       '2022-12-06 18:37:57.000Z',
     );
 
