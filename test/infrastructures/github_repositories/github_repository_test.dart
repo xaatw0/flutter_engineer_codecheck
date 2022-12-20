@@ -99,7 +99,7 @@ void main() async {
     final file = File(filePath);
     expect(file.existsSync(), true);
 
-    final url = 'https://api.github.com/search/repositories?q=flutter&page=1';
+    const url = 'https://api.github.com/search/repositories?q=flutter&page=1';
     final uri = Uri.parse(url);
 
     final client = MockClient();
@@ -137,7 +137,9 @@ void main() async {
     expect(file.existsSync(), true);
 
     final repository = GithubRepository();
-    expect(() => repository.fromJson(file.readAsStringSync()),
-        throwsA(isInstanceOf<GitRepositoryException>()));
+    expect(
+      () => repository.fromJson(file.readAsStringSync()),
+      throwsA(isInstanceOf<GitRepositoryException>()),
+    );
   });
 }

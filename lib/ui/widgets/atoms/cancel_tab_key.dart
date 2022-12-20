@@ -6,9 +6,9 @@ import 'package:flutter/services.dart';
 /// そのため、このWidgetを使用して、この中のTextFieldではTab移動を無効化する。
 class CancelTabKey extends StatelessWidget {
   const CancelTabKey({
-    Key? super.key,
+    super.key,
     required this.child,
-    this.onEnterNextFocus = false,
+    @Deprecated('開発中') this.onEnterNextFocus = false,
   });
 
   final Widget child;
@@ -24,21 +24,22 @@ class CancelTabKey extends StatelessWidget {
     }
 
     return Focus(
-        onKeyEvent: (FocusNode node, KeyEvent event) {
-          if (event is KeyDownEvent) {
-            if (event.physicalKey == PhysicalKeyboardKey.tab) {
-              // タブの入力をキャンセルする
-              return KeyEventResult.handled;
-            } else if (onEnterNextFocus &&
-                event.physicalKey == PhysicalKeyboardKey.enter) {
-              // TODO Enterで次のフォーカスに移動できるようにする
-              node.nextFocus();
-              return KeyEventResult.handled;
-            }
+      onKeyEvent: (FocusNode node, KeyEvent event) {
+        if (event is KeyDownEvent) {
+          if (event.physicalKey == PhysicalKeyboardKey.tab) {
+            // タブの入力をキャンセルする
+            return KeyEventResult.handled;
+          } else if (onEnterNextFocus &&
+              event.physicalKey == PhysicalKeyboardKey.enter) {
+            // TODO(username): Enterで次のフォーカスに移動できるようにする, https://github.com/xaatw0/flutter_engineer_codecheck/issues/68.
+            node.nextFocus();
+            return KeyEventResult.handled;
           }
-          return KeyEventResult.ignored;
-        },
-        child: child);
+        }
+        return KeyEventResult.ignored;
+      },
+      child: child,
+    );
   }
 }
 
@@ -54,12 +55,5 @@ class KanjiTextEditingController extends TextEditingController {
   /// テキスト指定をなくすためのリスナー
   void _listener() {
     value = value.copyWith(composing: TextRange.empty);
-  }
-
-  @override
-  void dispose() {
-    if (kIsWeb) {
-      removeListener(_listener);
-    }
   }
 }
