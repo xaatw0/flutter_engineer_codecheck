@@ -14,8 +14,10 @@ import 'mock_result.dart' as result;
 
 @GenerateMocks([http.Client])
 void main() async {
-  setUpAll(() {
-    GetIt.I.registerSingleton(http.Client());
+  test('http.client cannot connect', () async {
+    const url = 'https://api.github.com/search/repositories?q=flutter';
+    final result = await http.Client().get(Uri.parse(url));
+    expect(result.body.isEmpty, true);
   });
 
   test('fromJson', () async {
@@ -34,22 +36,6 @@ void main() async {
     for (final data in result) {
       expect(data.countStar(), data.countWatcher());
     }
-  });
-
-  test('page', skip: true, () async {
-    final repository = GithubRepository();
-    final result = await repository.search('Flutter');
-
-    expect(result.length, 30);
-    expect(result.first.repositoryName(), 'flutter');
-
-    // ページ1の最初は公式だし、多分「flutter」。
-    final page1 = await repository.search('flutter');
-    expect(page1.first.repositoryName(), 'flutter');
-
-    // ページ2の最初は多分「Flutter」ではない
-    final page2 = await repository.search('flutter', page: 2);
-    expect(page2.first.repositoryName(), isNot('flutter'));
   });
 
   test('getSearchUrl', () async {
@@ -107,20 +93,26 @@ void main() async {
     expect(result.statusCode, 200);
   });
 
-  test('mockdata from file', skip: true, () async {
+  test('mockdata from file', () async {
     const filePath =
         'test/infrastructures/github_repositories/dto/result_test.txt';
     final file = File(filePath);
     expect(file.existsSync(), true);
 
-    final uri = Uri.parse(
-      'https://api.github.com/search/repositories?q=flutter&page=1',
-    );
+    final url = 'https://api.github.com/search/repositories?q=flutter&page=1';
+    final uri = Uri.parse(url);
 
     final client = MockClient();
     when(client.get(uri)).thenAnswer(
-      (_) async => http.Response(file.readAsStringSync(), 200),
+      (_) async => http.Response(
+        file.readAsStringSync(),
+        200,
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json; charset=utf-8'
+        },
+      ),
     );
+    GetIt.I.registerSingleton<http.Client>(client);
 
     final repository = GithubRepository();
     final result = await repository.search('flutter');
