@@ -13,7 +13,7 @@
 	<key>stripSwiftSymbols</key>
 	<true/>
 	<key>teamID</key>
-	<string>${TEAM_ID}</string>
+	<string>LQ58HAVAZJ</string>
 	<key>uploadBitcode</key>
 	<false/>
 	<key>uploadSymbols</key>
