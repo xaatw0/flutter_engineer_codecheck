@@ -29,11 +29,12 @@ class CancelTabKey extends StatelessWidget {
           if (event.physicalKey == PhysicalKeyboardKey.tab) {
             // タブの入力をキャンセルする
             return KeyEventResult.handled;
-          } else if (onEnterNextFocus &&
+            /*   } else if (onEnterNextFocus &&
               event.physicalKey == PhysicalKeyboardKey.enter) {
             // TODO(username): Enterで次のフォーカスに移動できるようにする, https://github.com/xaatw0/flutter_engineer_codecheck/issues/68.
             node.nextFocus();
             return KeyEventResult.handled;
+     */
           }
         }
         return KeyEventResult.ignored;
