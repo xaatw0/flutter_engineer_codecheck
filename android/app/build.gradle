@@ -56,7 +56,14 @@ android {
     def keystorePropertiesFile = rootProject.file("keys/keystore.properties")
     signingConfigs {
         release {
-            if (keystorePropertiesFile.exists()) {
+            // https://docs.codemagic.io/flutter-code-signing/android-code-signing/
+            if (System.getenv()["CI"]) { // CI=true is exported by Codemagic
+                storeFile file(System.getenv()["CM_KEYSTORE_PATH"])
+                storePassword System.getenv()["CM_KEYSTORE_PASSWORD"]
+                keyAlias System.getenv()["CM_KEY_ALIAS"]
+                keyPassword System.getenv()["CM_KEY_PASSWORD"]
+            }
+            else if (keystorePropertiesFile.exists()) {
                 def keystoreProperties = new Properties()
                 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
                 keyAlias keystoreProperties['keyAlias']
