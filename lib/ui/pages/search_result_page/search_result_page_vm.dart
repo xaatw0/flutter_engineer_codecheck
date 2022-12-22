@@ -92,7 +92,9 @@ class SearchResultPageVm {
 
   /// エラーが発生した場合の処理を定義する
   Future<Future<void> Function()> onErrorOccurred(
-      BuildContext context, Object error) async {
+    BuildContext context,
+    Object error,
+  ) async {
     final message =
         error is GitRepositoryException ? error.message : error.toString();
 
