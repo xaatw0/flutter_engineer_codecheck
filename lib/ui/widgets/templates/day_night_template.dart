@@ -52,18 +52,16 @@ class DayNightTemplate extends StatelessWidget {
                   child: Semantics(
                     container: true,
                     label: AppLocalizations.of(context).swapTheme,
-                    child: Consumer(builder: (_, WidgetRef ref, __) {
-                      return SunAndMoonCoin(
-                        initStatus:
-                            ref.read(app_theme.themeMode) == ThemeMode.light
-                                ? CoinStatus.sun
-                                : CoinStatus.moon,
-                        // パディングを増やすと、SVGの大きさが小さくなるっぽい
-                        size: 48 + paddingSize * 2,
-                        callback: (CoinStatus status) =>
-                            changeTheme(ref, status),
-                      );
-                    }),
+                    child: Consumer(
+                      builder: (_, WidgetRef ref, __) {
+                        return SunAndMoonCoin(
+                          // パディングを増やすと、SVGの大きさが小さくなるっぽい
+                          size: 48 + paddingSize * 2,
+                          callback: (CoinStatus status) =>
+                              changeTheme(ref, status),
+                        );
+                      },
+                    ),
                   ),
                 ),
               ],
