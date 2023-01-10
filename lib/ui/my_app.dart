@@ -1,3 +1,4 @@
+import 'package:accessibility_tools/accessibility_tools.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_engineer_codecheck/ui/app_theme.dart' as app_theme;
 import 'package:flutter_engineer_codecheck/ui/router.dart';
@@ -26,6 +27,10 @@ class MyApp extends StatelessWidget {
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         locale: GetIt.I.isRegistered<Locale>() ? GetIt.I<Locale>() : null,
+
+        builder: (context, child) => AccessibilityTools(
+          child: child,
+        ),
       ),
     );
   }
