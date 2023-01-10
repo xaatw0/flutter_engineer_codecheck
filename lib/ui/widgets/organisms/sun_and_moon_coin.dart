@@ -1,6 +1,8 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_engineer_codecheck/ui/app_theme.dart' as app_theme;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../gen/assets.gen.dart';
@@ -15,12 +17,11 @@ enum CoinStatus {
 }
 
 /// 太陽と月がそれぞれ表と裏に書かれているコインをイメージして作成しました。
-class SunAndMoonCoin extends StatefulWidget {
+class SunAndMoonCoin extends ConsumerStatefulWidget {
   const SunAndMoonCoin({
     super.key,
     this.callback,
     this.duration = const Duration(milliseconds: 100),
-    this.initStatus = CoinStatus.sun,
     this.size = 32,
     this.color = Colors.orangeAccent,
   });
@@ -32,9 +33,6 @@ class SunAndMoonCoin extends StatefulWidget {
   /// アニメーションの時間
   final Duration duration;
 
-  ///初期状態
-  final CoinStatus initStatus;
-
   /// サイズ
   final double size;
 
@@ -42,10 +40,10 @@ class SunAndMoonCoin extends StatefulWidget {
   final Color color;
 
   @override
-  State<SunAndMoonCoin> createState() => _SunAndMoonCoinState();
+  ConsumerState<SunAndMoonCoin> createState() => _SunAndMoonCoinState();
 }
 
-class _SunAndMoonCoinState extends State<SunAndMoonCoin>
+class _SunAndMoonCoinState extends ConsumerState<SunAndMoonCoin>
     with TickerProviderStateMixin<SunAndMoonCoin> {
   /// 太陽のアイコン
   late final sunIcon = SvgPicture.asset(
@@ -73,7 +71,10 @@ class _SunAndMoonCoinState extends State<SunAndMoonCoin>
   static const breakValue = (startValue + endValue) / 2;
 
   /// 現在の状態
-  CoinStatus _currentStatus = CoinStatus.sun;
+  CoinStatus get _currentStatus =>
+      ref.watch(app_theme.themeMode) == ThemeMode.light
+          ? CoinStatus.sun
+          : CoinStatus.moon;
 
   /// アニメーションのコントローラ
   late final AnimationController _controller = AnimationController(
@@ -94,13 +95,11 @@ class _SunAndMoonCoinState extends State<SunAndMoonCoin>
             // 太陽→月に変えるタイミング
             if (_currentStatus == CoinStatus.sun &&
                 breakValue < _animationValue.value) {
-              _currentStatus = CoinStatus.moon;
               _callback();
             }
             //  月→太陽 に変えるタイミング
             else if (_currentStatus == CoinStatus.moon &&
                 _animationValue.value < breakValue) {
-              _currentStatus = CoinStatus.sun;
               _callback();
             }
           },
@@ -109,23 +108,22 @@ class _SunAndMoonCoinState extends State<SunAndMoonCoin>
   /// 太陽と月が入れ替わるときにコースバックを実施する
   void _callback() {
     if (widget.callback != null) {
-      widget.callback!(_currentStatus);
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    // 初期値が月だった場合、月のアイコンにして、アニメーションを進めておく
-    if (widget.initStatus == CoinStatus.moon) {
-      _currentStatus = CoinStatus.moon;
-      _controller.forward();
+      widget.callback!(
+        _currentStatus == CoinStatus.sun ? CoinStatus.moon : CoinStatus.sun,
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    // 次のページに行ってから、ダークモードを切り替えて、戻ったときに
+    // 元のページは以前とアニメーションの値を保持している。
+    // その場合、アニメーションを進めてアニメーションの値を合わせる。
+    // fromを使うことで、アニメーションしているところを省略する
+    if (_animationValue.value == 0 && _currentStatus == CoinStatus.moon) {
+      _controller.forward(from: endValue);
+    }
+
     return GestureDetector(
       onTap: () {
         if (_animationValue.value == startValue) {
@@ -147,5 +145,12 @@ class _SunAndMoonCoinState extends State<SunAndMoonCoin>
         },
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+
+    super.dispose();
   }
 }
