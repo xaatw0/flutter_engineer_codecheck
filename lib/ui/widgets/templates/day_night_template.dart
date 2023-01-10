@@ -44,6 +44,7 @@ class DayNightTemplate extends StatelessWidget {
     return Scaffold(
       appBar: isAppBarShown && hasPadding
           ? AppBar(
+              toolbarHeight: 64,
               title: Text(title ?? StringResources.kEmpty),
               actions: [
                 Padding(

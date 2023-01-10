@@ -31,17 +31,20 @@ class SearchTextField extends StatelessWidget {
         prefixIcon: const Icon(Icons.search),
 
         // TextField右端のソート方法選択のアイコン
-        suffixIcon: IconButton(
-          icon: Semantics(
-            container: true,
-            label: AppLocalizations.of(context).sortOptions,
-            child: Icon(
-              Icons.sort,
-              size: 32,
-              color: Theme.of(context).colorScheme.secondary,
+        suffixIcon: Semantics(
+          container: true,
+          label: AppLocalizations.of(context).sortOptions,
+          child: IconButton(
+            icon: Semantics(
+              label: AppLocalizations.of(context).sortOptions,
+              child: Icon(
+                Icons.sort,
+                size: 48,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
             ),
+            onPressed: onSelectSortMethod,
           ),
-          onPressed: onSelectSortMethod,
         ),
 
         // 空白時(初期状態)でTextFiledに入力されている文字
