@@ -68,11 +68,12 @@ class _SearchResultPageState extends ConsumerState<SearchResultPage> {
                   if (!hasErrorShown) {
                     WidgetsBinding.instance.addPostFrameCallback((_) async {
                       await showOkAlertDialog(
-                          context: context,
-                          title: 'Exception occurred',
-                          message: error is GitRepositoryException
-                              ? error.message
-                              : error.toString());
+                        context: context,
+                        title: 'Exception occurred',
+                        message: error is GitRepositoryException
+                            ? error.message
+                            : error.toString(),
+                      );
                       hasErrorShown = true;
                       if (mounted) {
                         GoRouter.of(context).pop();
