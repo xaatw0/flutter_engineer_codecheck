@@ -1,11 +1,11 @@
-name: Check and test the source code
+name: analyze and test code before pull request for dev
 on:
   pull_request:
     branches:
       - dev
 jobs:
   test:
-    name: Check the source code
+    name: check flutter source
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

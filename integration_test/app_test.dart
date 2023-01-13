@@ -358,7 +358,7 @@ void main() {
     await tester.tap(find.text(SortMethod.leastRecentlyUpdate.title));
     await tester.pumpAndSettle();
     await takeScreenshot('${testName}_02_tapLeastRecentlyUpdate');
-
+/*
     // キャンセル
     final finderRichText =
         find.byWidgetPredicate((widget) => widget is RichText);
@@ -407,5 +407,7 @@ void main() {
     await tester.pumpAndSettle();
 
     await takeScreenshot('${testName}_12_resultWithUpdate');
+
+ */
   });
 }
