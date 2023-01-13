@@ -43,7 +43,7 @@ class _SearchResultPageState extends ConsumerState<SearchResultPage> {
   /// エラーダイアログの表示をしたか
   /// (一度ダイアログを表示しても、テーマを切り替えたり、バックすると
   /// 再度表示されるのを防止するため)
-  bool hasErrorShown = false;
+  bool _hasErrorShown = false;
 
   @override
   void initState() {
@@ -65,7 +65,7 @@ class _SearchResultPageState extends ConsumerState<SearchResultPage> {
             Expanded(
               child: _vm.getRepositoryData.when(
                 error: (error, stacktrace) {
-                  if (!hasErrorShown) {
+                  if (!_hasErrorShown) {
                     WidgetsBinding.instance.addPostFrameCallback((_) async {
                       await showOkAlertDialog(
                         context: context,
@@ -74,7 +74,7 @@ class _SearchResultPageState extends ConsumerState<SearchResultPage> {
                             ? error.message
                             : error.toString(),
                       );
-                      hasErrorShown = true;
+                      _hasErrorShown = true;
                       if (mounted) {
                         GoRouter.of(context).pop();
                       }
