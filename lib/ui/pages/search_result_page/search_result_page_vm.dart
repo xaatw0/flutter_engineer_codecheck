@@ -74,11 +74,9 @@ class SearchResultPageVm {
   /// [_keyword]を検索キーワードにして、[_page]ページ目の GitRepositoryのデータを取得する。
   void onLoadMore() {
     if (_ref.read(_searchResultProvider.notifier).isLoading()) {
-      print('loading and cancel');
       return;
     }
 
-    print('start fetch');
     _page++;
     _fetch(_keyword, _page, _sortMethod, true);
   }

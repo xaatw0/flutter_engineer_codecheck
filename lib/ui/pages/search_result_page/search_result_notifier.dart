@@ -29,7 +29,6 @@ class SearchResultNotifier
     state = await AsyncValue.guard(() async {
       late final List<GitRepositoryData> newData;
       try {
-        print('start loading');
         newData = await repository.search(
           keyword,
           page: page,
@@ -42,8 +41,6 @@ class SearchResultNotifier
           stackTrace: stacktrace,
         );
       }
-
-      print('end loading');
 
       // 同じIDがレポジトリがある場合、追加しない
       // (検索中に順位が入れ替わったケースを想定。その場合、抜けるレポジトリがあるのか)

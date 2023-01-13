@@ -24,7 +24,7 @@ class SearchResultListView extends StatelessWidget {
       itemCount: data.length + (isLoading ? 1 : 0),
       itemBuilder: (context, index) {
         if (isLoading && index == data.length) {
-          return ShimmerCard();
+          return const ShimmerCard();
         }
 
         final repository = data[index];
