@@ -89,12 +89,4 @@ class SearchResultPageVm {
     GoRouter.of(context)
         .push(RepositoryDetailPage.path, extra: gitRepositoryData);
   }
-
-  /// エラーが発生した場合の処理を定義する
-  void onErrorOccurred(Object error, BuildContext context) async {
-    final message =
-        error is GitRepositoryException ? error.message : error.toString();
-
-    DisplayErrorDialog(context).showCustomDialog();
-  }
 }

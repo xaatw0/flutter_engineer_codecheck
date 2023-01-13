@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_engineer_codecheck/domain/exceptions/git_repository_exception.dart';
 import 'package:flutter_engineer_codecheck/domain/repositories/git_repository.dart';
 import 'package:flutter_engineer_codecheck/ui/pages/search_result_page/search_result_page_vm.dart';
 import 'package:flutter_engineer_codecheck/ui/widgets/templates/day_night_template.dart';
@@ -8,6 +9,8 @@ import 'package:go_router/go_router.dart';
 import 'package:loading_animations/loading_animations.dart';
 
 import '../../widgets/atoms/not_found_result.dart';
+import '../../widgets/molecules/custome_dialog.dart';
+import '../../widgets/molecules/modal_overlay.dart';
 import '../../widgets/organisms/search_result_list_view.dart';
 import '../../widgets/atoms/github_icon.dart';
 
@@ -58,8 +61,25 @@ class _SearchResultPageState extends ConsumerState<SearchResultPage> {
             Expanded(
               child: _vm.getRepositoryData.when(
                 error: (error, stacktrace) {
-                  WidgetsBinding.instance.addPostFrameCallback(
-                      (_) => _vm.onErrorOccurred(error, context));
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    Navigator.push(
+                      context,
+                      ModalOverlay(
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 32),
+                          child: Center(
+                            child: CustomeDialog(
+                              title: 'Exception occurred',
+                              description: error is GitRepositoryException
+                                  ? error.message
+                                  : error.toString(),
+                              onTap: () => Navigator.of(context).pop(),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  });
 
                   return Container();
                 },
@@ -86,133 +106,5 @@ class _SearchResultPageState extends ConsumerState<SearchResultPage> {
         ),
       ),
     );
-  }
-}
-
-class ModalOverlay extends ModalRoute<void> {
-  // ダイアログ内のWidget
-  final Widget child;
-
-  ModalOverlay(this.child) : super();
-
-  /// ダイアログの表示・非表示の切り替わり時のアニメーションの時間
-  @override
-  Duration get transitionDuration => const Duration(milliseconds: 100);
-  @override
-  bool get opaque => false;
-  @override
-  bool get barrierDismissible => false;
-
-  /// ダイアログと前のページとの間の色
-  @override
-  Color get barrierColor => Colors.black.withOpacity(0.7);
-  @override
-  String get barrierLabel => 'test';
-  @override
-  bool get maintainState => true;
-
-  @override
-  Widget buildPage(
-    BuildContext context,
-    Animation<double> animation,
-    Animation<double> secondaryAnimation,
-  ) {
-    return Material(
-      type: MaterialType.transparency,
-      child: SafeArea(
-        child: _buildOverlayContent(context),
-      ),
-    );
-  }
-
-  @override
-  Widget buildTransitions(BuildContext context, Animation<double> animation,
-      Animation<double> secondaryAnimation, Widget child) {
-    return FadeTransition(
-      opacity: animation,
-      child: ScaleTransition(
-        scale: animation,
-        child: child,
-      ),
-    );
-  }
-
-  Widget _buildOverlayContent(BuildContext context) {
-    return Center(
-      child: dialogContent(context),
-    );
-  }
-
-  Widget dialogContent(BuildContext context) {
-    return WillPopScope(
-      child: child,
-      onWillPop: () {
-        return Future(() => true);
-      },
-    );
-  }
-}
-
-class DisplayErrorDialog {
-  const DisplayErrorDialog(this.context) : super();
-  final BuildContext context;
-
-  void showCustomDialog() {
-    Navigator.push(
-      context,
-      ModalOverlay(
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 32),
-          child: Center(
-              child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Center(
-                child: Container(
-                  padding: EdgeInsets.all(32),
-                  color: Colors.white54,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      // タイトル
-                      Text(
-                        "カスタムダイアログ",
-                        style: TextStyle(
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-
-                      // メッセージ
-                      Text(
-                        "こんな感じでダイアログが出せるよsadfsdfsdjflsdfksldjlzs;kjfl;sjf;lsejf;ljsefljselfse;lfjsle;fjeslfjl",
-                        style: TextStyle(
-                          fontSize: 16.0,
-                        ),
-                      ),
-                      ElevatedButton(
-                        child: Text(
-                          "OK",
-                        ),
-                        onPressed: () {
-                          hideCustomDialog();
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          )),
-        ),
-      ),
-    );
-  }
-
-  /*
-   * 非表示
-   */
-  void hideCustomDialog() {
-    Navigator.of(context).pop();
   }
 }
