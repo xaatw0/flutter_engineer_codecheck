@@ -47,28 +47,30 @@ class RepositoryDataCard extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ),
           // 右隅 画像と数字
-          trailing: Consumer(builder: (_, WidgetRef ref, __) {
-            final sortMethodLogic = ref.read(sortMethodProvider);
-            final icon = sortMethodLogic.getIcon();
-            final iconName = sortMethodLogic.getIconName();
-            final value = sortMethodLogic.getValue()(data);
+          trailing: Consumer(
+            builder: (_, WidgetRef ref, __) {
+              final sortMethodLogic = ref.read(sortMethodProvider);
+              final icon = sortMethodLogic.getIcon();
+              final iconName = sortMethodLogic.getIconName();
+              final value = sortMethodLogic.getValue()(data);
 
-            return Semantics(
-              container: true,
-              // 'stars 1234'というように読み上げられる
-              label: '$iconName $value',
-              child: Consumer(
-                builder: (context, ref, child) => ExcludeSemantics(
-                  child: Column(
-                    children: [
-                      Icon(icon),
-                      Text(value),
-                    ],
+              return Semantics(
+                container: true,
+                // 'stars 1234'というように読み上げられる
+                label: '$iconName $value',
+                child: Consumer(
+                  builder: (context, ref, child) => ExcludeSemantics(
+                    child: Column(
+                      children: [
+                        Icon(icon),
+                        Text(value),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            );
-          }),
+              );
+            },
+          ),
         ),
       ),
     );

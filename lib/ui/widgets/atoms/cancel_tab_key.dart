@@ -6,17 +6,17 @@ import 'package:flutter/services.dart';
 /// そのため、このWidgetを使用して、この中のTextFieldではTab移動を無効化する。
 class CancelTabKey extends StatelessWidget {
   const CancelTabKey({
-    Key? super.key,
+    super.key,
+//    this.onEnterNextFocus = false,
     required this.child,
-    this.onEnterNextFocus = false,
   });
 
   final Widget child;
 
   /// タブ移動ができないので、Enterで次の項目に移動できるようにする
-  @Deprecated('開発中')
+  /* @Deprecated('開発中')
   final bool onEnterNextFocus;
-
+*/
   @override
   Widget build(BuildContext context) {
     if (!kIsWeb) {
@@ -24,21 +24,22 @@ class CancelTabKey extends StatelessWidget {
     }
 
     return Focus(
-        onKeyEvent: (FocusNode node, KeyEvent event) {
-          if (event is KeyDownEvent) {
-            if (event.physicalKey == PhysicalKeyboardKey.tab) {
-              // タブの入力をキャンセルする
-              return KeyEventResult.handled;
-            } else if (onEnterNextFocus &&
-                event.physicalKey == PhysicalKeyboardKey.enter) {
-              // TODO Enterで次のフォーカスに移動できるようにする
-              node.nextFocus();
-              return KeyEventResult.handled;
-            }
+      onKeyEvent: (FocusNode node, KeyEvent event) {
+        if (event is KeyDownEvent) {
+          if (event.physicalKey == PhysicalKeyboardKey.tab) {
+            // タブの入力をキャンセルする
+            return KeyEventResult.handled;
+          } else if ( //onEnterNextFocus &&
+              event.physicalKey == PhysicalKeyboardKey.enter) {
+            // TODO(xaatw0): Enterで次のフォーカスに移動できるようにする, https://github.com/xaatw0/flutter_engineer_codecheck/issues/91
+            node.nextFocus();
+            return KeyEventResult.handled;
           }
-          return KeyEventResult.ignored;
-        },
-        child: child);
+        }
+        return KeyEventResult.ignored;
+      },
+      child: child,
+    );
   }
 }
 
@@ -61,5 +62,6 @@ class KanjiTextEditingController extends TextEditingController {
     if (kIsWeb) {
       removeListener(_listener);
     }
+    super.dispose();
   }
 }

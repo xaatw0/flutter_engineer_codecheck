@@ -31,7 +31,7 @@ class SearchResultNotifier
         );
       } on SocketException catch (exception, stacktrace) {
         // SocketExceptionの場合、ネットワーク関連のエラーのため、接続エラーする
-        throw GitRepositoryException.NotConnected(
+        throw GitRepositoryException.notConnected(
           exception,
           stackTrace: stacktrace,
         );
