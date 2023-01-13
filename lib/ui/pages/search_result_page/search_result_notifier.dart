@@ -50,6 +50,7 @@ class SearchResultNotifier
     });
   }
 
+  /// ロード中かどうかを表す
   bool isLoading() =>
       state ==
       const AsyncLoading<List<GitRepositoryData>>().copyWithPrevious(state);

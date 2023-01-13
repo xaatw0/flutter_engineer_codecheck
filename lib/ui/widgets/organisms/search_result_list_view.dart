@@ -23,6 +23,7 @@ class SearchResultListView extends StatelessWidget {
     return ListView.builder(
       itemCount: data.length + (isLoading ? 1 : 0),
       itemBuilder: (context, index) {
+        // ロード中はシマｰカードを一番下に表示する
         if (isLoading && index == data.length) {
           return const ShimmerCard();
         }
