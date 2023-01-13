@@ -97,6 +97,7 @@ class _SearchResultPageState extends ConsumerState<SearchResultPage> {
                       : SearchResultListView(
                           data: data,
                           onTapped: _vm.onRepositoryTapped,
+                          isLoading: _vm.getRepositoryData.isLoading,
                         ),
                 ),
               ),
