@@ -59,3 +59,6 @@ app.*.map.json
 # 暗号関連
 /android/keys/keystore.p12
 /android/keys/keystore.properties
+
+# FVM
+/.fvm/flutter_sdk/
