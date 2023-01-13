@@ -1,4 +1,6 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_engineer_codecheck/domain/exceptions/git_repository_exception.dart';
 import 'package:flutter_engineer_codecheck/domain/repositories/git_repository.dart';
 import 'package:flutter_engineer_codecheck/ui/pages/search_result_page/search_result_page_vm.dart';
 import 'package:flutter_engineer_codecheck/ui/widgets/templates/day_night_template.dart';
@@ -35,13 +37,21 @@ class SearchResultPage extends ConsumerStatefulWidget {
 }
 
 class _SearchResultPageState extends ConsumerState<SearchResultPage> {
+  /// ViewModel
   final SearchResultPageVm _vm = SearchResultPageVm();
+
+  /// エラーダイアログの表示をしたか
+  /// (一度ダイアログを表示しても、テーマを切り替えたり、バックすると
+  /// 再度表示されるのを防止するため)
+  bool _hasErrorShown = false;
 
   @override
   void initState() {
     super.initState();
     _vm.setRef(ref);
     final funcAfterInit = _vm.onLoad(widget.keyword, widget.sortMethod);
+
+    // 状態管理の変更は、initState完了後に実施する
     WidgetsBinding.instance.addPostFrameCallback((_) => funcAfterInit());
   }
 
@@ -55,10 +65,21 @@ class _SearchResultPageState extends ConsumerState<SearchResultPage> {
             Expanded(
               child: _vm.getRepositoryData.when(
                 error: (error, stacktrace) {
-                  _vm
-                      .onErrorOccurred(context, error)
-                      .then((callback) => callback());
-
+                  if (!_hasErrorShown) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) async {
+                      await showOkAlertDialog(
+                        context: context,
+                        title: 'Exception occurred',
+                        message: error is GitRepositoryException
+                            ? error.message
+                            : error.toString(),
+                      );
+                      _hasErrorShown = true;
+                      if (mounted) {
+                        GoRouter.of(context).pop();
+                      }
+                    });
+                  }
                   return Container();
                 },
                 loading: LoadingRotating.square,
