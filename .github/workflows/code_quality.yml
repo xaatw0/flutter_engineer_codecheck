@@ -12,8 +12,12 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+      - name: Create language
+        run: flutter gen-l10n
       - name: Install packages
         run: flutter pub get
+      - name: Run build_runner
+        run: flutter pub run build_runner build
       - name: Linter
         run: flutter analyze
       - name: Test
