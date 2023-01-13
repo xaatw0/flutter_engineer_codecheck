@@ -1,3 +1,4 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_engineer_codecheck/domain/exceptions/git_repository_exception.dart';
 import 'package:flutter_engineer_codecheck/domain/repositories/git_repository.dart';
@@ -9,10 +10,7 @@ import 'package:go_router/go_router.dart';
 import 'package:loading_animations/loading_animations.dart';
 
 import '../../widgets/atoms/not_found_result.dart';
-import '../../widgets/molecules/custome_dialog.dart';
-import '../../widgets/molecules/modal_overlay.dart';
 import '../../widgets/organisms/search_result_list_view.dart';
-import '../../widgets/atoms/github_icon.dart';
 
 /// 検索結果を表示するためのページのView
 class SearchResultPage extends ConsumerStatefulWidget {
@@ -39,7 +37,13 @@ class SearchResultPage extends ConsumerStatefulWidget {
 }
 
 class _SearchResultPageState extends ConsumerState<SearchResultPage> {
+  /// ViewModel
   final SearchResultPageVm _vm = SearchResultPageVm();
+
+  /// エラーダイアログの表示をしたか
+  /// (一度ダイアログを表示しても、テーマを切り替えたり、バックすると
+  /// 再度表示されるのを防止するため)
+  bool hasErrorShown = false;
 
   @override
   void initState() {
@@ -61,26 +65,20 @@ class _SearchResultPageState extends ConsumerState<SearchResultPage> {
             Expanded(
               child: _vm.getRepositoryData.when(
                 error: (error, stacktrace) {
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    Navigator.push(
-                      context,
-                      ModalOverlay(
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 32),
-                          child: Center(
-                            child: CustomeDialog(
-                              title: 'Exception occurred',
-                              description: error is GitRepositoryException
-                                  ? error.message
-                                  : error.toString(),
-                              onTap: () => Navigator.of(context).pop(),
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  });
-
+                  if (!hasErrorShown) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) async {
+                      await showOkAlertDialog(
+                          context: context,
+                          title: 'Exception occurred',
+                          message: error is GitRepositoryException
+                              ? error.message
+                              : error.toString());
+                      hasErrorShown = true;
+                      if (mounted) {
+                        GoRouter.of(context).pop();
+                      }
+                    });
+                  }
                   return Container();
                 },
                 loading: LoadingRotating.square,
