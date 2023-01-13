@@ -21,9 +21,15 @@ class SearchResultNotifier
     SortMethod sortMethod, {
     required bool isLoadMoreData,
   }) async {
+    if (isLoadMoreData) {
+      state =
+          const AsyncLoading<List<GitRepositoryData>>().copyWithPrevious(state);
+    }
+
     state = await AsyncValue.guard(() async {
       late final List<GitRepositoryData> newData;
       try {
+        print('start loading');
         newData = await repository.search(
           keyword,
           page: page,
@@ -36,6 +42,9 @@ class SearchResultNotifier
           stackTrace: stacktrace,
         );
       }
+
+      print('end loading');
+
       // 同じIDがレポジトリがある場合、追加しない
       // (検索中に順位が入れ替わったケースを想定。その場合、抜けるレポジトリがあるのか)
       final existIds = state.value?.map((e) => e.repositoryId) ?? [];
@@ -47,22 +56,4 @@ class SearchResultNotifier
   bool isLoading() =>
       state ==
       const AsyncLoading<List<GitRepositoryData>>().copyWithPrevious(state);
-
-  void load(
-    String keyword,
-    int page,
-    SortMethod sortMethod, {
-    required bool isLoadMoreData,
-  }) {
-    // ローディング中にローディングしないようにする
-    if (isLoading()) {
-      return;
-    }
-
-    // 取得済みのデータを保持しながら状態をローディング中にする
-    state =
-        const AsyncLoading<List<GitRepositoryData>>().copyWithPrevious(state);
-
-    fetch(keyword, page, sortMethod, isLoadMoreData: isLoadMoreData);
-  }
 }
