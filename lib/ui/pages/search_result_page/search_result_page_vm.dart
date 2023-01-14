@@ -1,7 +1,5 @@
-import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_engineer_codecheck/domain/entities/git_repository_data.dart';
-import 'package:flutter_engineer_codecheck/domain/exceptions/git_repository_exception.dart';
 import 'package:flutter_engineer_codecheck/domain/string_resources.dart';
 import 'package:flutter_engineer_codecheck/ui/pages/repository_detail_page/repository_detail_page.dart';
 import 'package:flutter_engineer_codecheck/ui/pages/search_result_page/search_result_notifier.dart';
@@ -75,10 +73,12 @@ class SearchResultPageVm {
 
   /// [_keyword]を検索キーワードにして、[_page]ページ目の GitRepositoryのデータを取得する。
   void onLoadMore() {
-    _page++;
-    if (!_ref.read(_searchResultProvider.notifier).isLoading()) {
-      _fetch(_keyword, _page, _sortMethod, true);
+    if (_ref.read(_searchResultProvider.notifier).isLoading()) {
+      return;
     }
+
+    _page++;
+    _fetch(_keyword, _page, _sortMethod, true);
   }
 
   /// レポジトリのカードが押下されたら、レポジトリ詳細画面に遷移する
@@ -88,20 +88,5 @@ class SearchResultPageVm {
   ) {
     GoRouter.of(context)
         .push(RepositoryDetailPage.path, extra: gitRepositoryData);
-  }
-
-  /// エラーが発生した場合の処理を定義する
-  Future<Future<void> Function()> onErrorOccurred(
-      BuildContext context, Object error) async {
-    final message =
-        error is GitRepositoryException ? error.message : error.toString();
-
-    return () async {
-      return showOkAlertDialog(
-        context: context,
-        title: 'Error occurred',
-        message: message,
-      );
-    };
   }
 }

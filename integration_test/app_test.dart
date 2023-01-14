@@ -354,12 +354,19 @@ void main() {
     await tester.pumpAndSettle();
     await takeScreenshot('${testName}_01_showDialogWithDefault');
 
+    // ボタンの確認
+    expect(find.text(SortMethod.leastRecentlyUpdate.title), findsOneWidget);
+    expect(find.text('Least recently updated'), findsOneWidget);
+    expect(find.text('CANCEL'), findsOneWidget);
+    expect(find.text('OK'), findsOneWidget);
+
     // Least updated を押す
     await tester.tap(find.text(SortMethod.leastRecentlyUpdate.title));
     await tester.pumpAndSettle();
     await takeScreenshot('${testName}_02_tapLeastRecentlyUpdate');
 
     // キャンセル
+/*
     final finderRichText =
         find.byWidgetPredicate((widget) => widget is RichText);
 
@@ -372,9 +379,11 @@ void main() {
       print(a.widget.toStringShort());
     }
     print(finderRichText);
-    await tester.tap(find.text('Cancel'));
+
+ */
+    await tester.tap(find.text('CANCEL'));
     await tester.pumpAndSettle();
-    await takeScreenshot('${testName}_03_canceld');
+    await takeScreenshot('${testName}_03_canceled');
 
     // フィルターを押す
     await tester.tap(find.byIcon(Icons.sort));
@@ -397,7 +406,9 @@ void main() {
     await takeScreenshot('${testName}_07_showDialogWithChange');
 
     //検索キーワードを入力して検索
-    await tester.tap(find.text('キャンセル'));
+    await tester.tap(find.text('OK'));
+    await tester.pumpAndSettle();
+
     await tester.tap(find.byType(TextField));
     await tester.enterText(find.byType(TextField), 'flutter');
     await tester.pumpAndSettle();

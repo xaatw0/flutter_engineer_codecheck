@@ -103,7 +103,7 @@ class GithubRepository implements GitRepository {
     final map = json.decode(jsonData) as Map<String, dynamic>;
     final result = Result.fromJson(map);
     if (result.message != null) {
-      throw GitRepositoryException.ValidationFailed();
+      throw const GitRepositoryException.validationFailed();
     }
     return result.items.map((item) => item.toGitRepositoryData()).toList();
   }
