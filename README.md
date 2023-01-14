@@ -17,9 +17,12 @@
 
 以下は、30秒目までインテグレーションテスト(実機でのモックデータを取得して自動テスト)を撮影し、大まかなアプリの流れを実施しています。31秒目からその他の各機能の解説になってます。
 ![flutterccodecheck](https://user-images.githubusercontent.com/7291860/208287960-30719948-ff93-4152-977b-b6376a8fa2bc.gif)
-
+<video src="https://user-images.githubusercontent.com/アップロード先URLその1.mp4">
 大きい画面向けのmp4は、[こちら](https://github.com/xaatw0/flutter_engineer_codecheck/blob/master/flutterccodecheck.mp4)。
 
+|Before|After|
+|:-:|:-:|
+|<video src="https://github.com/xaatw0/flutter_engineer_codecheck/blob/master/flutterccodecheck.mp4">|<video src="https://github.com/xaatw0/flutter_engineer_codecheck/blob/master/flutterccodecheck.mp4">|
 
 
 ## 言葉の定義
