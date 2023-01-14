@@ -17,7 +17,7 @@
 
 以下は、30秒目までインテグレーションテスト(実機でのモックデータを取得して自動テスト)を撮影し、大まかなアプリの流れを実施しています。31秒目からその他の各機能の解説になってます。
 
-<div><video width="60%" controls src="https://user-images.githubusercontent.com/7291860/212442592-2b891e97-2c82-4eea-b1a7-152b4e4d2249.mp4" muted="false"></video></div>
+<div><video controls src="https://user-images.githubusercontent.com/7291860/212442592-2b891e97-2c82-4eea-b1a7-152b4e4d2249.mp4" muted="false"></video></div>
 
 ## 言葉の定義
 ### 本システム
