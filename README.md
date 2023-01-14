@@ -20,9 +20,7 @@
 <video src="https://user-images.githubusercontent.com/アップロード先URLその1.mp4">
 大きい画面向けのmp4は、[こちら](https://github.com/xaatw0/flutter_engineer_codecheck/blob/master/flutterccodecheck.mp4)。
 
-|Before|After|
-|:-:|:-:|
-|<video src="https://github.com/xaatw0/flutter_engineer_codecheck/blob/master/flutterccodecheck.mp4">|<video src="https://github.com/xaatw0/flutter_engineer_codecheck/blob/master/flutterccodecheck.mp4">|
+<video src="https://github.com/xaatw0/flutter_engineer_codecheck/blob/master/flutterccodecheck.mp4">
 
 
 ## 言葉の定義
