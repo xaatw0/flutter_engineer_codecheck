@@ -198,7 +198,7 @@ void main() async {
       await tester.pumpAndSettle();
       await screenMatchesGolden(
           tester,
-          'SearchPage_keyboard'
+          '$dirOS/SearchPage_keyboard'
           '_${device.name}');
     }
   });
