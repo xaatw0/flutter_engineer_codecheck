@@ -21,4 +21,11 @@ void main() {
       expect(Platform.isMacOS, true);
     }
   });
+
+  test('Platform.operatingSystem', () async {
+    // 家のWindows 11
+    expect(Platform.operatingSystem, 'windows');
+    expect(Platform.operatingSystemVersion,
+        '"Windows 10 Home" 10.0 (Build 22621)');
+  });
 }
