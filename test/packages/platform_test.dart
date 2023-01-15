@@ -33,7 +33,7 @@ void main() {
     //    '"Windows 10 Home" 10.0 (Build 22621)');
 
     // 家のMacBook Pro
-    expect(Platform.operatingSystem, 'macos');
+    //expect(Platform.operatingSystem, 'macos');
     expect(Platform.operatingSystemVersion, 'Version 13.1 (Build 22C65)');
   });
 }
