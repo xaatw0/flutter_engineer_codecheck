@@ -97,6 +97,8 @@ Widget target() => MaterialApp(
 
 void main() {
   final utility = GoldenTestUtility();
+  final dirOS = utility.dirOS;
+
   setUpAll(() async {
     await utility.loadJapaneseFont();
   });
@@ -114,7 +116,8 @@ void main() {
         ),
         surfaceSize: device.size,
       );
-      await screenMatchesGolden(tester, 'RepositoryDataCard_${device.name}');
+      await screenMatchesGolden(
+          tester, '$dirOS/RepositoryDataCard_${device.name}');
     }
   });
 
@@ -131,7 +134,8 @@ void main() {
       ),
       surfaceSize: utility.devices.first.size,
     );
-    await screenMatchesGolden(tester, 'RepositoryDataCard_${sortMethod.name}');
+    await screenMatchesGolden(
+        tester, '$dirOS/RepositoryDataCard_${sortMethod.name}');
   });
 
   testGoldens('RepositoryDataCard stars', (WidgetTester tester) async {
@@ -147,7 +151,8 @@ void main() {
       ),
       surfaceSize: utility.devices.first.size,
     );
-    await screenMatchesGolden(tester, 'RepositoryDataCard_${sortMethod.name}');
+    await screenMatchesGolden(
+        tester, '$dirOS/RepositoryDataCard_${sortMethod.name}');
   });
 
   testGoldens('RepositoryDataCard forks', (WidgetTester tester) async {
@@ -163,7 +168,8 @@ void main() {
       ),
       surfaceSize: utility.devices.first.size,
     );
-    await screenMatchesGolden(tester, 'RepositoryDataCard_${sortMethod.name}');
+    await screenMatchesGolden(
+        tester, '$dirOS/RepositoryDataCard_${sortMethod.name}');
   });
 
   testGoldens('RepositoryDataCard updated', (WidgetTester tester) async {
@@ -179,6 +185,7 @@ void main() {
       ),
       surfaceSize: utility.devices.first.size,
     );
-    await screenMatchesGolden(tester, 'RepositoryDataCard_${sortMethod.name}');
+    await screenMatchesGolden(
+        tester, '$dirOS/RepositoryDataCard_${sortMethod.name}');
   });
 }

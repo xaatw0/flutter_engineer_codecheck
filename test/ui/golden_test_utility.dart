@@ -39,7 +39,7 @@ class GoldenTestUtility {
   /// ラップトップブラウザ
   static const webLaptop = Device(name: 'laptop', size: Size(1536, 864));
 
-  // デバイスの一覧
+  /// デバイスの一覧
   List<Device> get devices => [
         iPhone55P,
         iPhone65P,
@@ -51,6 +51,15 @@ class GoldenTestUtility {
         webLaptop,
       ];
 
+  /// windowsのGoldenテストの結果ディレクトリ
+  static const kDirWindows = 'windows';
+
+  /// macos12のGoldenテストの結果ディレクトリ
+  static const kDirMac12 = 'mac12';
+
+  /// macos13のGoldenテストの結果ディレクトリ
+  static const kDirMac13 = 'mac13';
+
   /// 日本語のフォントを読み込む
   Future<void> loadJapaneseFont() async {
     final fontFile = File('test/assets/NotoSansJP-Regular.otf');
@@ -61,11 +70,20 @@ class GoldenTestUtility {
     await loadAppFonts();
   }
 
+  /// MacOS12 で動作している確認する
   bool get isMacOS12 =>
       Platform.isMacOS &&
       Platform.operatingSystemVersion.startsWith('Version 12');
 
+  /// MacOS13 で動作している確認する
   bool get isMacOS13 =>
       Platform.isMacOS &&
       Platform.operatingSystemVersion.startsWith('Version 13');
+
+  /// OS毎にゴールデンテストの結果を保存するディレクトリ
+  String get dirOS => isMacOS12
+      ? kDirMac12
+      : isMacOS13
+          ? kDirMac13
+          : kDirWindows;
 }
