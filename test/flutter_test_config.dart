@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:golden_toolkit/golden_toolkit.dart';
 

@@ -53,7 +53,9 @@ void main() async {
       await tester.pumpWidgetBuilder(target, surfaceSize: device.size);
       await tester.pumpAndSettle();
       await screenMatchesGolden(
-          tester, '$dirOS/SearchPage_light_${device.name}');
+        tester,
+        '$dirOS/SearchPage_light_${device.name}',
+      );
     }
   });
 
@@ -337,7 +339,9 @@ void main() async {
     await tester.tap(find.byType(OutlinedButton));
     await tester.pumpAndSettle();
     await screenMatchesGolden(
-        tester, '$dirOS/SearchPage_showSortMedhodDialog_1init');
+      tester,
+      '$dirOS/SearchPage_showSortMedhodDialog_1init',
+    );
     await tester.tap(find.text(findText));
     await tester.pumpAndSettle();
     await screenMatchesGolden(

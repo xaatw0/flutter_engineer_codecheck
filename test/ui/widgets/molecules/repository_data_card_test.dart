@@ -117,7 +117,9 @@ void main() {
         surfaceSize: device.size,
       );
       await screenMatchesGolden(
-          tester, '$dirOS/RepositoryDataCard_${device.name}');
+        tester,
+        '$dirOS/RepositoryDataCard_${device.name}',
+      );
     }
   });
 
@@ -135,7 +137,9 @@ void main() {
       surfaceSize: utility.devices.first.size,
     );
     await screenMatchesGolden(
-        tester, '$dirOS/RepositoryDataCard_${sortMethod.name}');
+      tester,
+      '$dirOS/RepositoryDataCard_${sortMethod.name}',
+    );
   });
 
   testGoldens('RepositoryDataCard stars', (WidgetTester tester) async {
@@ -152,7 +156,9 @@ void main() {
       surfaceSize: utility.devices.first.size,
     );
     await screenMatchesGolden(
-        tester, '$dirOS/RepositoryDataCard_${sortMethod.name}');
+      tester,
+      '$dirOS/RepositoryDataCard_${sortMethod.name}',
+    );
   });
 
   testGoldens('RepositoryDataCard forks', (WidgetTester tester) async {
@@ -169,7 +175,9 @@ void main() {
       surfaceSize: utility.devices.first.size,
     );
     await screenMatchesGolden(
-        tester, '$dirOS/RepositoryDataCard_${sortMethod.name}');
+      tester,
+      '$dirOS/RepositoryDataCard_${sortMethod.name}',
+    );
   });
 
   testGoldens('RepositoryDataCard updated', (WidgetTester tester) async {
@@ -186,6 +194,8 @@ void main() {
       surfaceSize: utility.devices.first.size,
     );
     await screenMatchesGolden(
-        tester, '$dirOS/RepositoryDataCard_${sortMethod.name}');
+      tester,
+      '$dirOS/RepositoryDataCard_${sortMethod.name}',
+    );
   });
 }

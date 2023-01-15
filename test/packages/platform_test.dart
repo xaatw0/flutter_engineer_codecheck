@@ -27,21 +27,25 @@ void main() {
     }
   });
 
+  const skipForWindow = Skip('Windowsのみでテストを実行');
   final runOnWindows = <String, dynamic>{
-    'linux': Skip('Windowsのみでテスト'),
-    'mac-os': Skip('Windowsのみでテスト'),
-    'browser': Skip('Windowsのみでテスト'),
-  };
-  final runOnMacOS = <String, dynamic>{
-    'windows': Skip('MacOSのみでテスト'),
-    'linux': Skip('MacOSのみでテスト'),
-    'browser': Skip('MacOSのみでテスト'),
+    'linux': skipForWindow,
+    'mac-os': skipForWindow,
+    'browser': skipForWindow,
   };
 
+  const skipForMacOS = Skip('MacOSのみでテストを実行');
+  final runOnMacOS = <String, dynamic>{
+    'windows': skipForMacOS,
+    'linux': skipForMacOS,
+    'browser': skipForMacOS,
+  };
+
+  const skipForLinux = Skip('Linuxのみでテストを実行');
   final runOnLinux = <String, dynamic>{
-    'windows': Skip('runOnLinux'),
-    'mac-os': Skip('runOnLinux'),
-    'browser': Skip('runOnLinux'),
+    'windows': skipForLinux,
+    'mac-os': skipForLinux,
+    'browser': skipForLinux,
   };
 
   test(
@@ -68,13 +72,31 @@ void main() {
   );
 
   test(
+    'run on linux',
+    onPlatform: runOnLinux,
+    () async {
+      expect(Platform.operatingSystem, 'linux');
+
+      // 家のMacBook Pro で有効
+      // expect(Platform.operatingSystemVersion, 'Version 13.1 (Build 22C65)');
+
+      expect(Platform.isLinux, true);
+    },
+  );
+
+  test(
     'Platform.operatingSystem',
     skip: true,
     () async {
       // 家のWindows 11
-      expect(Platform.operatingSystem, 'windows');
-      expect(Platform.operatingSystemVersion,
-          '"Windows 10 Home" 10.0 (Build 22621)');
+      expect(
+        Platform.operatingSystem,
+        'windows',
+      );
+      expect(
+        Platform.operatingSystemVersion,
+        '"Windows 10 Home" 10.0 (Build 22621)',
+      );
 
       // 家のMacBook Pro
       expect(Platform.operatingSystem, 'macos');
