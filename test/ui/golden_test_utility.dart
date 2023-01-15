@@ -60,4 +60,12 @@ class GoldenTestUtility {
     await fontLoader.load();
     await loadAppFonts();
   }
+
+  bool get isMacOS12 =>
+      Platform.isMacOS &&
+      Platform.operatingSystemVersion.startsWith('Version 12');
+
+  bool get isMacOS13 =>
+      Platform.isMacOS &&
+      Platform.operatingSystemVersion.startsWith('Version 13');
 }
