@@ -14,9 +14,6 @@ void main() async {
   final utility = GoldenTestUtility();
   final dirOS = utility.dirOS;
 
-  setUpAll(() async {
-    await utility.loadJapaneseFont();
-  });
   for (final theme in <ThemeMode>[ThemeMode.light, ThemeMode.dark]) {
     testGoldens('RepositoryDetailPage short data ${theme.name}',
         (WidgetTester tester) async {

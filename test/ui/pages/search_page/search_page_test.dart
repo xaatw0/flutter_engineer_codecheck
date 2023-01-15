@@ -22,10 +22,6 @@ void main() async {
   final mockVm = MockSearchPageVm();
   GetIt.I.registerSingleton<SearchPageVm>(mockVm);
 
-  setUpAll(() async {
-    await utility.loadJapaneseFont();
-  });
-
   test('mockito test', tags: ['unit'], () async {
     expect(mockVm.isDarkMode, false);
     when(mockVm.isDarkMode).thenReturn(true);

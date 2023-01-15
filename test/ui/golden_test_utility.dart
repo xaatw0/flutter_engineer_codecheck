@@ -61,16 +61,6 @@ class GoldenTestUtility {
   /// macos13のGoldenテストの結果ディレクトリ
   static const kDirMac13 = 'mac13';
 
-  /// 日本語のフォントを読み込む
-  Future<void> loadJapaneseFont() async {
-    final fontFile = File('test/assets/NotoSansJP-Regular.otf');
-    final fontData = await fontFile.readAsBytes();
-    final fontLoader = FontLoader('Roboto')
-      ..addFont(Future.value(ByteData.view(fontData.buffer)));
-    await fontLoader.load();
-    await loadAppFonts();
-  }
-
   /// MacOS12 で動作している確認する
   bool get isMacOS12 =>
       Platform.isMacOS &&
