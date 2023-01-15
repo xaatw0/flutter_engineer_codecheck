@@ -1,4 +1,4 @@
-name: analyze and test code before pull request for dev
+name: analyze and test code on linux for dev
 on:
   pull_request:
     branches:
@@ -6,7 +6,7 @@ on:
 jobs:
   test:
     name: check flutter source
-    runs-on: macos-10.15
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
