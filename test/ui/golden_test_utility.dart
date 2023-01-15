@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/services.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 
 /// GoldenTestのユーティリティクラス
@@ -83,7 +84,7 @@ class GoldenTestUtility {
   /// OS毎にゴールデンテストの結果を保存するディレクトリ
   String get dirOS => isMacOS12
       ? kDirMac12
-      : isMacOS13
-          ? kDirMac13
-          : kDirWindows;
+      : isWindows
+          ? kDirWindows
+          : kDirMac13;
 }
