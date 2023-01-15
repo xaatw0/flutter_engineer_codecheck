@@ -46,10 +46,6 @@ void main() async {
   GetIt.I.registerSingleton<http.Client>(mockClient);
   GetIt.I.registerSingleton<GitRepository>(GithubRepository());
 
-  setUpAll(() async {
-    await utility.loadJapaneseFont();
-  });
-
   MaterialApp getTarget(ThemeMode theme, SortMethod sortMethod) {
     return MaterialApp(
       localizationsDelegates: AppLocalizations.localizationsDelegates,

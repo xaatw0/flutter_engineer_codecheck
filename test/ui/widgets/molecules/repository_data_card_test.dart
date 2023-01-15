@@ -99,10 +99,6 @@ void main() {
   final utility = GoldenTestUtility();
   final dirOS = utility.dirOS;
 
-  setUpAll(() async {
-    await utility.loadJapaneseFont();
-  });
-
   testGoldens('RepositoryDataCard devices', (WidgetTester tester) async {
     for (final device in utility.devices) {
       await tester.pumpWidgetBuilder(
