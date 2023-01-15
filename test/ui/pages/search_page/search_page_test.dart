@@ -26,7 +26,7 @@ void main() async {
     await utility.loadJapaneseFont();
   });
 
-  test('mockito test', () async {
+  test('mockito test', tags: ['unit'], () async {
     expect(mockVm.isDarkMode, false);
     when(mockVm.isDarkMode).thenReturn(true);
     expect(mockVm.isDarkMode, true);
