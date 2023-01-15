@@ -84,7 +84,10 @@ class GoldenTestUtility {
   /// OS毎にゴールデンテストの結果を保存するディレクトリ
   String get dirOS => isMacOS12
       ? kDirMac12
-      : isWindows
-          ? kDirWindows
-          : kDirMac13;
+      : isMacOS13
+          ? kDirMac13
+          : isWindows
+              ? kDirWindows
+              : throw UnsupportedError(
+                  'Supported on only windows, mac12 and mac13');
 }
