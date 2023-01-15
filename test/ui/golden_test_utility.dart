@@ -79,5 +79,6 @@ class GoldenTestUtility {
           : isWindows
               ? kDirWindows
               : throw UnsupportedError(
-                  'Supported on only windows, mac12 and mac13');
+                  'Supported on only windows, mac12 and mac13',
+                );
 }
