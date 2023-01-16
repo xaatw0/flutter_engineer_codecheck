@@ -456,6 +456,17 @@ github_repository.dartには、Github用の検索用URLを作成するメソッ�
 ### なんとか_mocks.dart のファイル
 各ディレクトリにファイル名の最後が「_mocks.dart」となっているファイルがある。こちらは「_mock」を抜いたファイル名のテストコードから、mockitoが作成したファイルとなります。作成元のファイルで使用されるMockクラスをmockitoが「flutter pub run build_runner build」時に自動生成します。
 
+### 新規ページの作成
+新規ページを簡単に作れるように、masonを使用してテンプレートを作成することができる。
+以下の手順で、masonをインストール、ページ作成用コマンドをインストール、ページ作成用コマンドを実施することによって、ページのテンプレートを作成することができる。
+lib/ui/pagesの下に新しいディレクトリを作成して、pageとvmのテンプレートファイルを作成する。
+
+```
+dart pub global activate mason_cli
+mason.bat add mvvm --path .mason\templates\mvvm
+mason.bat make mvvm
+```
+
 ## インテグレーションテストのディレクトリ
 ### test_driverのディレクトリ
 #### test_driver/integration_test.dart
