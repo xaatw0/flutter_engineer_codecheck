@@ -61,6 +61,10 @@ class GoldenTestUtility {
   /// macos13のGoldenテストの結果ディレクトリ
   static const kDirMac13 = 'mac13';
 
+  /// 存在しないはずのディレクトリ
+  /// GoldenTest を実施しないOS用のダミーのディレクトリ名
+  static const kDirDummy = 'dummy';
+
   /// MacOS12 で動作している確認する
   bool get isMacOS12 =>
       Platform.isMacOS &&
@@ -78,7 +82,5 @@ class GoldenTestUtility {
           ? kDirMac13
           : isWindows
               ? kDirWindows
-              : throw UnsupportedError(
-                  'Supported on only windows, mac12 and mac13',
-                );
+              : kDirDummy;
 }
