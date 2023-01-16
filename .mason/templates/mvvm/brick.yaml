@@ -21,8 +21,8 @@ environment:
 #  * an optional prompt phrase used when asking for the variable
 #  * a list of values (enums only)
 vars:
-  name:
+  page_name:
     type: string
-    description: Your name
-    default: Dash
-    prompt: What is your name?
+    description: 作成するページの名前
+    default: test_page
+    prompt: 作成するページの名前を入力してください(末尾はpage推奨)
