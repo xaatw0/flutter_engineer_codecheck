@@ -22,11 +22,13 @@ Widget target() => MaterialApp(
 
 void main() {
   final utility = GoldenTestUtility();
+  final dirOS = utility.dirOS;
+
   testGoldens('OwnerImage', (WidgetTester tester) async {
     await tester.pumpWidgetBuilder(
       target(),
       surfaceSize: utility.devices.first.size,
     );
-    await screenMatchesGolden(tester, 'OwnerImage');
+    await screenMatchesGolden(tester, '$dirOS/OwnerImage');
   });
 }

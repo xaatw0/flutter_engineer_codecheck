@@ -23,6 +23,7 @@ import 'search_result_page_test.mocks.dart';
 @GenerateMocks([http.Client])
 void main() async {
   final utility = GoldenTestUtility();
+  final dirOS = utility.dirOS;
 
   // DIの設定を変更して、GithubApi のデータをファイルから取得するようにする
   final mockClient = MockClient();
@@ -44,10 +45,6 @@ void main() async {
   // DIの登録
   GetIt.I.registerSingleton<http.Client>(mockClient);
   GetIt.I.registerSingleton<GitRepository>(GithubRepository());
-
-  setUpAll(() async {
-    await utility.loadJapaneseFont();
-  });
 
   MaterialApp getTarget(ThemeMode theme, SortMethod sortMethod) {
     return MaterialApp(
@@ -83,7 +80,7 @@ void main() async {
         await tester.pumpAndSettle();
         await screenMatchesGolden(
           tester,
-          'SearchResultPage_display_${theme.name}_${device.name}',
+          '$dirOS/SearchResultPage_display_${theme.name}_${device.name}',
         );
       }
     });
@@ -100,7 +97,7 @@ void main() async {
       await tester.pumpAndSettle();
       await screenMatchesGolden(
         tester,
-        'SearchResultPage_sortMethod_${sortMethod.title}',
+        '$dirOS/SearchResultPage_sortMethod_${sortMethod.title}',
       );
     });
   }
@@ -117,7 +114,7 @@ void main() async {
       await tester.pumpAndSettle();
       await screenMatchesGolden(
         tester,
-        'SearchResultPage_noResult_${device.name}',
+        '$dirOS/SearchResultPage_noResult_${device.name}',
       );
     }
   });

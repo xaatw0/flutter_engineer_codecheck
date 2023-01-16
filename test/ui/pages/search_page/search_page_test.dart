@@ -17,14 +17,12 @@ import 'search_page_test.mocks.dart';
 
 void main() async {
   final utility = GoldenTestUtility();
+  final dirOS = utility.dirOS;
+
   final mockVm = MockSearchPageVm();
   GetIt.I.registerSingleton<SearchPageVm>(mockVm);
 
-  setUpAll(() async {
-    await utility.loadJapaneseFont();
-  });
-
-  test('mockito test', () async {
+  test('mockito test', tags: ['unit'], () async {
     expect(mockVm.isDarkMode, false);
     when(mockVm.isDarkMode).thenReturn(true);
     expect(mockVm.isDarkMode, true);
@@ -50,7 +48,10 @@ void main() async {
     for (final device in utility.devices) {
       await tester.pumpWidgetBuilder(target, surfaceSize: device.size);
       await tester.pumpAndSettle();
-      await screenMatchesGolden(tester, 'SearchPage_light_${device.name}');
+      await screenMatchesGolden(
+        tester,
+        '$dirOS/SearchPage_light_${device.name}',
+      );
     }
   });
 
@@ -74,7 +75,7 @@ void main() async {
     final device = utility.devices.first;
     await tester.pumpWidgetBuilder(target, surfaceSize: device.size);
     await tester.pumpAndSettle();
-    await screenMatchesGolden(tester, 'SearchPage_dark_${device.name}');
+    await screenMatchesGolden(tester, '$dirOS/SearchPage_dark_${device.name}');
   });
 
   /**
@@ -136,7 +137,7 @@ void main() async {
       await tester.pumpAndSettle();
       final lang = locale.languageCode +
           (locale.countryCode == null ? '' : '_${locale.languageCode}');
-      await screenMatchesGolden(tester, 'SearchPage_lang_$lang');
+      await screenMatchesGolden(tester, '$dirOS/SearchPage_lang_$lang');
     }
   });
 
@@ -166,7 +167,7 @@ void main() async {
     await tester.tap(find.byIcon(Icons.sort));
     await tester.pumpAndSettle();
     verify(mockVm.onSelectSortMethod(any)).called(1);
-    await screenMatchesGolden(tester, 'SearchPage_tap_sort_icon');
+    await screenMatchesGolden(tester, '$dirOS/SearchPage_tap_sort_icon');
   });
 
   testGoldens('SearchPage hide theme-switcher and github icon',
@@ -195,7 +196,7 @@ void main() async {
       await tester.pumpAndSettle();
       await screenMatchesGolden(
           tester,
-          'SearchPage_keyboard'
+          '$dirOS/SearchPage_keyboard'
           '_${device.name}');
     }
   });
@@ -228,7 +229,7 @@ void main() async {
       await tester.pumpAndSettle();
       await screenMatchesGolden(
           tester,
-          'SearchPage_showSortMedhodDialog'
+          '$dirOS/SearchPage_showSortMedhodDialog'
           '_${device.name}');
 
       await tester.tap(find.text('CANCEL'));
@@ -264,7 +265,7 @@ void main() async {
     await tester.pumpAndSettle();
     await screenMatchesGolden(
         tester,
-        'SearchPage_showSortMedhodDialog'
+        '$dirOS/SearchPage_showSortMedhodDialog'
         '_darkTheme');
 
     await tester.tap(find.text('CANCEL'));
@@ -333,12 +334,15 @@ void main() async {
     // デフォルトのMost matchのままになる
     await tester.tap(find.byType(OutlinedButton));
     await tester.pumpAndSettle();
-    await screenMatchesGolden(tester, 'SearchPage_showSortMedhodDialog_1init');
+    await screenMatchesGolden(
+      tester,
+      '$dirOS/SearchPage_showSortMedhodDialog_1init',
+    );
     await tester.tap(find.text(findText));
     await tester.pumpAndSettle();
     await screenMatchesGolden(
       tester,
-      'SearchPage_showSortMedhodDialog_2mostForksTapped',
+      '$dirOS/SearchPage_showSortMedhodDialog_2mostForksTapped',
     );
     await tester.tap(find.text('CANCEL'));
     await tester.pumpAndSettle();
@@ -348,7 +352,7 @@ void main() async {
     await tester.pumpAndSettle();
     await screenMatchesGolden(
       tester,
-      'SearchPage_showSortMedhodDialog_3canceld',
+      '$dirOS/SearchPage_showSortMedhodDialog_3canceld',
     );
 
     // MostFolksを選択して、OKを押す。次回の起動はMostFolksのはず。
@@ -356,13 +360,13 @@ void main() async {
     await tester.pumpAndSettle();
     await screenMatchesGolden(
       tester,
-      'SearchPage_showSortMedhodDialog_4mostForksTappedAgain',
+      '$dirOS/SearchPage_showSortMedhodDialog_4mostForksTappedAgain',
     );
     await tester.tap(find.text('OK'));
     await tester.pumpAndSettle();
     await screenMatchesGolden(
       tester,
-      'SearchPage_showSortMedhodDialog_5dialogClosed',
+      '$dirOS/SearchPage_showSortMedhodDialog_5dialogClosed',
     );
 
     // ダイアログを再起動すると、MostForksが初期値になっている
@@ -370,7 +374,7 @@ void main() async {
     await tester.pumpAndSettle();
     await screenMatchesGolden(
       tester,
-      'SearchPage_showSortMedhodDialog_6mostFolksSelected',
+      '$dirOS/SearchPage_showSortMedhodDialog_6mostFolksSelected',
     );
   });
 }
