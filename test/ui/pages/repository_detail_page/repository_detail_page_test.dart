@@ -12,10 +12,8 @@ import '../../golden_test_utility.dart';
 
 void main() async {
   final utility = GoldenTestUtility();
+  final dirOS = utility.dirOS;
 
-  setUpAll(() async {
-    await utility.loadJapaneseFont();
-  });
   for (final theme in <ThemeMode>[ThemeMode.light, ThemeMode.dark]) {
     testGoldens('RepositoryDetailPage short data ${theme.name}',
         (WidgetTester tester) async {
@@ -56,7 +54,7 @@ void main() async {
         await tester.pumpAndSettle();
         await screenMatchesGolden(
           tester,
-          'RepositoryDetailPage_short_${theme.name}_${device.name}',
+          '$dirOS/RepositoryDetailPage_short_${theme.name}_${device.name}',
         );
       }
     });
@@ -99,7 +97,7 @@ void main() async {
       await tester.pumpAndSettle();
       await screenMatchesGolden(
         tester,
-        'RepositoryDetailPage_normal_light_${device.name}',
+        '$dirOS/RepositoryDetailPage_normal_light_${device.name}',
       );
     }
   });
@@ -144,7 +142,7 @@ void main() async {
       await tester.pumpAndSettle();
       await screenMatchesGolden(
         tester,
-        'RepositoryDetailPage_long_light_${device.name}',
+        '$dirOS/RepositoryDetailPage_long_light_${device.name}',
       );
     }
   });

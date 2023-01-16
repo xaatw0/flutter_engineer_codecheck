@@ -1,0 +1,23 @@
+tags:
+  unit:
+    timeout: 1m
+  widget:
+    timeout: 1m
+  golden:
+    timeout: 1m
+
+  atoms:
+    timeout: 1m
+  molecules:
+    timeout: 1m
+  organisms:
+    timeout: 1m
+  templates:
+    timeout: 1m
+  pages:
+    timeout: 1m
+
+  mobile:
+    timeout: 1m
+  desktop:
+    timeout: 1m

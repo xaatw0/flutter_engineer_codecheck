@@ -1,0 +1,26 @@
+name: analyze and test code on linux for dev
+on:
+  pull_request:
+    branches:
+      - dev
+jobs:
+  test:
+    name: check flutter source
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - name: Record Status
+        run: flutter doctor
+      - name: Create language
+        run: flutter gen-l10n
+      - name: Install packages
+        run: flutter pub get
+      - name: Run build_runner
+        run: flutter pub run build_runner build
+      - name: Linter
+        run: flutter analyze
+      - name: Test
+        run: flutter test
