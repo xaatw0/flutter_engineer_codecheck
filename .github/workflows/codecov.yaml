@@ -1,4 +1,4 @@
-name: analyze and test code on mac12 for dev
+name: upload codecov on mac12 for dev
 on:
   pull_request:
     branches:
@@ -24,8 +24,8 @@ jobs:
       - name: Linter
         run: flutter analyze
       - name: Test
-        run: flutter test
-      - uses: codecov/codecov-action@v1
+        run: flutter test --coverage --coverage-path=~/coverage/lcov.info
+      - uses: codecov/codecov-action@v3
         with:
           token: ${{secrets.CODECOV_TOKEN}}
           file: ~/coverage/lcov.info
