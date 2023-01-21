@@ -1,13 +1,8 @@
-version: 2.1
-
 name: analyze and test code on mac12 for dev
 on:
   pull_request:
     branches:
       - dev
-
-orbs:
-  codecov: codecov/codecov@3.2.4
 
 jobs:
   test:
@@ -29,4 +24,4 @@ jobs:
       - name: Linter
         run: flutter analyze
       - name: Test
-        run: flutter test --coverage --coverage-path=~/coverage/lcov.info
+        run: flutter test
