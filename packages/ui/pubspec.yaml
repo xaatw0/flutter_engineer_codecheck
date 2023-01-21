@@ -1,0 +1,5 @@
+dependencies:
+  domain:
+    path: ../domain/
+  infrastraucturs:
+    path: ../infrastraucturs/
