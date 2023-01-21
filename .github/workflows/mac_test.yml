@@ -1,4 +1,4 @@
-name: analyze and test code on mac12 for dev
+name: analyze, test code and upload coverage to codecov on mac12 for dev
 on:
   pull_request:
     branches:
