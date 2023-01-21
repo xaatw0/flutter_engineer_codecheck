@@ -1,5 +1,7 @@
 # flutter_engineer_codecheck
 
+[![codecov](https://codecov.io/github/xaatw0/flutter_engineer_codecheck/branch/dev/graph/badge.svg?token=6GGT9JLF19)](https://codecov.io/github/xaatw0/flutter_engineer_codecheck)
+
 本プロジェクトは「[株式会社ゆめみ Flutter エンジニアコードチェック課題](https://github.com/yumemi-inc/flutter-engineer-codecheck)」の課題に対する回答です。
 ちなみに作成時時点では、カジュアル面談に申し込んだだけなので、「本課題が与えられ」てません。
 自分の勉強しているFlutterの知識を詰め込んで、自分自身のポートフォリオになるようにしました。また(止められなければ、) 今後Flutterを勉強する方のための資料になるために公開したいと思います。
