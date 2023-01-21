@@ -29,7 +29,9 @@ jobs:
       - name: Linter
         run: flutter analyze
       - name: Test
-        run: flutter test --coverage
-      - name: upload codecov
-        run: codecov/upload
-          file: ~/coverage/lcov.info
+        run: flutter test --coverage --coverage-path=~/coverage/lcov.info
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: ~/coverage/lcov.info
+          token: CODECOV_TOKEN=8f2ee8b0-f951-4854-8e28-8c6dead35647
