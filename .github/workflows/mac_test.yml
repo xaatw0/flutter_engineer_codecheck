@@ -33,5 +33,4 @@ jobs:
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
-          files: ~/coverage/lcov.info
           token: CODECOV_TOKEN=8f2ee8b0-f951-4854-8e28-8c6dead35647
