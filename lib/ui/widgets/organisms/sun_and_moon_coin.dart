@@ -48,7 +48,7 @@ class _SunAndMoonCoinState extends ConsumerState<SunAndMoonCoin>
   /// 太陽のアイコン
   late final sunIcon = SvgPicture.asset(
     Assets.images.dayIcon,
-    color: widget.color,
+    colorFilter: ColorFilter.mode(widget.color, BlendMode.srcIn),
     height: widget.size,
     width: widget.size,
   );
@@ -56,7 +56,7 @@ class _SunAndMoonCoinState extends ConsumerState<SunAndMoonCoin>
   /// 月のアイコン
   late final moonIcon = SvgPicture.asset(
     Assets.images.nightIcon,
-    color: widget.color,
+    colorFilter: ColorFilter.mode(widget.color, BlendMode.srcIn),
     height: widget.size,
     width: widget.size,
   );
