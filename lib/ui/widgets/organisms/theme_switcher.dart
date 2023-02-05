@@ -33,7 +33,10 @@ class _ThemeSwitcherState extends ConsumerState<ThemeSwitcher> {
         assetPath,
         width: iconSize,
         height: iconSize,
-        color: Theme.of(context).colorScheme.secondary,
+        colorFilter: ColorFilter.mode(
+          Theme.of(context).colorScheme.secondary,
+          BlendMode.srcIn,
+        ),
       ),
     );
   }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_engineer_codecheck/ui/widgets/molecules/shimmer_card.dart';
 import 'package:flutter_engineer_codecheck/ui/widgets/organisms/tap_widget_animation.dart';
 
-import '../../../domain/entities/git_repository_data.dart';
+import '../../../usecase/search_repositoies_use_case.dart';
 import '../molecules/repository_data_card.dart';
 
 /// レポジトリの検索結果を表示するためのListView
@@ -14,8 +14,8 @@ class SearchResultListView extends StatelessWidget {
     this.isLoading = false,
   });
 
-  final List<GitRepositoryData> data;
-  final void Function(BuildContext context, GitRepositoryData data)? onTapped;
+  final List<SearchRepositoryDto> data;
+  final void Function(BuildContext context, SearchRepositoryDto data)? onTapped;
   final bool isLoading;
 
   @override

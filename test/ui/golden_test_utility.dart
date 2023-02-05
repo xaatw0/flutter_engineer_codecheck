@@ -55,32 +55,17 @@ class GoldenTestUtility {
   /// windowsのGoldenテストの結果ディレクトリ
   static const kDirWindows = 'windows';
 
-  /// macos12のGoldenテストの結果ディレクトリ
-  static const kDirMac12 = 'mac12';
-
-  /// macos13のGoldenテストの結果ディレクトリ
-  static const kDirMac13 = 'mac13';
+  /// macosのGoldenテストの結果ディレクトリ
+  static const kDirMac = 'mac';
 
   /// 存在しないはずのディレクトリ
   /// GoldenTest を実施しないOS用のダミーのディレクトリ名
   static const kDirDummy = 'dummy';
 
-  /// MacOS12 で動作している確認する
-  bool get isMacOS12 =>
-      Platform.isMacOS &&
-      Platform.operatingSystemVersion.startsWith('Version 12');
-
-  /// MacOS13 で動作している確認する
-  bool get isMacOS13 =>
-      Platform.isMacOS &&
-      Platform.operatingSystemVersion.startsWith('Version 13');
-
   /// OS毎にゴールデンテストの結果を保存するディレクトリ
-  String get dirOS => isMacOS12
-      ? kDirMac12
-      : isMacOS13
-          ? kDirMac13
-          : isWindows
-              ? kDirWindows
-              : kDirDummy;
+  String get dirOS => Platform.isMacOS
+      ? kDirMac
+      : isWindows
+          ? kDirWindows
+          : kDirDummy;
 }

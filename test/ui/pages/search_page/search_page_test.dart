@@ -18,6 +18,7 @@ import 'search_page_test.mocks.dart';
 void main() async {
   final utility = GoldenTestUtility();
   final dirOS = utility.dirOS;
+  const cancelLabel = 'Cancel';
 
   final mockVm = MockSearchPageVm();
   GetIt.I.registerSingleton<SearchPageVm>(mockVm);
@@ -232,7 +233,7 @@ void main() async {
           '$dirOS/SearchPage_showSortMedhodDialog'
           '_${device.name}');
 
-      await tester.tap(find.text('CANCEL'));
+      await tester.tap(find.text(cancelLabel));
       await tester.pumpAndSettle();
     }
   });
@@ -268,7 +269,7 @@ void main() async {
         '$dirOS/SearchPage_showSortMedhodDialog'
         '_darkTheme');
 
-    await tester.tap(find.text('CANCEL'));
+    await tester.tap(find.text(cancelLabel));
     await tester.pumpAndSettle();
   });
 
@@ -344,7 +345,7 @@ void main() async {
       tester,
       '$dirOS/SearchPage_showSortMedhodDialog_2mostForksTapped',
     );
-    await tester.tap(find.text('CANCEL'));
+    await tester.tap(find.text(cancelLabel));
     await tester.pumpAndSettle();
 
     // ダイアログを起動すると、Most Matchのままであることを確認する

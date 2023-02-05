@@ -2,22 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_engineer_codecheck/domain/repositories/git_repository.dart';
 import 'package:flutter_engineer_codecheck/domain/repository_data_types.dart';
 import 'package:flutter_engineer_codecheck/ui/pages/search_result_page/sort_method_logic.dart';
+import 'package:flutter_engineer_codecheck/usecase/search_repositoies_use_case.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() async {
-  final gitRepositoryData = GitRepositoryData(
-    repositoryId: RepositoryId(123),
-    repositoryName: RepositoryName('repositoryName'),
-    ownerIconUrl: OwnerIconUrl('OwnerIconUrl'),
-    projectLanguage: ProjectLanguage('projectLanguage'),
-    repositoryDescription: const RepositoryDescription('repositoryDescription'),
-    repositoryHtmlUrl: const RepositoryHtmlUrl('RepositoryHtmlUrl'),
-    countStar: CountStar(1),
-    countWatcher: CountWatcher(2),
-    countFork: CountFork(3),
-    countIssue: CountIssue(4),
-    createTime: RepositoryCreateTime(DateTime(2011, 2, 3)),
-    updateTime: RepositoryUpdateTime(DateTime(2014, 5, 6)),
+  final gitRepositoryData = SearchRepositoryDto(
+    GitRepositoryData(
+      repositoryId: RepositoryId(123),
+      repositoryName: RepositoryName('repositoryName'),
+      ownerIconUrl: OwnerIconUrl('OwnerIconUrl'),
+      projectLanguage: ProjectLanguage('projectLanguage'),
+      repositoryDescription:
+          const RepositoryDescription('repositoryDescription'),
+      repositoryHtmlUrl: const RepositoryHtmlUrl('RepositoryHtmlUrl'),
+      countStar: CountStar(1),
+      countWatcher: CountWatcher(2),
+      countFork: CountFork(3),
+      countIssue: CountIssue(4),
+      createTime: RepositoryCreateTime(DateTime(2011, 2, 3)),
+      updateTime: RepositoryUpdateTime(DateTime(2014, 5, 6)),
+    ),
   );
 
   test('star', () async {
