@@ -5,7 +5,6 @@ import 'package:flutter_engineer_codecheck/ui/pages/repository_detail_page/repos
 import 'package:flutter_engineer_codecheck/ui/pages/search_result_page/search_result_notifier.dart';
 import 'package:flutter_engineer_codecheck/ui/pages/search_result_page/sort_method_logic.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../domain/repositories/git_repository.dart';
@@ -18,13 +17,10 @@ final sortMethodProvider = StateProvider(
 
 /// 剣客結果を表示するページのViewModel
 class SearchResultPageVm {
-  // GitRepositoryのインスタンス
-  final _gitRepository = GetIt.I.get<GitRepository>();
-
   // キーワードに基づいた検索結果を取得するProvider
   late final _searchResultProvider = StateNotifierProvider<SearchResultNotifier,
       AsyncValue<List<GitRepositoryData>>>(
-    (ref) => SearchResultNotifier(_gitRepository),
+    (ref) => SearchResultNotifier(keyword: _keyword, sortMethod: _sortMethod),
   );
 
   // キーワードに基づいた検索結果を取得するProviderの状態を管理するAsyncValue
@@ -49,23 +45,20 @@ class SearchResultPageVm {
   /// [keyword]を検索キーワードにして、[page]ページ目の GitRepositoryのデータを取得する。
   /// [isLoadMoreData] false: 初回取得 true:2回目以降の取得
   void _fetch(
-    String keyword,
     int page,
-    SortMethod sortMethod,
     bool isLoadMoreData,
   ) {
     _ref
         .read(_searchResultProvider.notifier)
-        .fetch(keyword, page, sortMethod, isLoadMoreData: isLoadMoreData);
+        .fetch(page, isLoadMoreData: isLoadMoreData);
   }
 
   /// [keyword]で初めて検索をする。[sortMethod]でソート方法を指定する。
   /// ロードが完了後実施したいファンクションを返す。
   void Function() onLoad(String keyword, SortMethod sortMethod) {
     _keyword = keyword;
-    _page = _gitRepository.getFirstPageIndex();
     _sortMethod = sortMethod;
-    _fetch(_keyword, _page, _sortMethod, false);
+    _fetch(_page, false);
 
     return () => _ref.read(sortMethodProvider.notifier).state =
         SortMethodLogic(sortMethod);
@@ -78,7 +71,7 @@ class SearchResultPageVm {
     }
 
     _page++;
-    _fetch(_keyword, _page, _sortMethod, true);
+    _fetch(_page, true);
   }
 
   /// レポジトリのカードが押下されたら、レポジトリ詳細画面に遷移する
