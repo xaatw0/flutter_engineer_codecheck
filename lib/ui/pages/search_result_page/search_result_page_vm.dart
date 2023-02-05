@@ -39,7 +39,6 @@ class SearchResultPageVm {
   /// ソート方法
   SortMethod _sortMethod = SortMethod.bestMatch;
 
-  /// [keyword]を検索キーワードにして、[page]ページ目の GitRepositoryのデータを取得する。
   /// [isLoadMoreData] false: 初回取得 true:2回目以降の取得
   void _fetch(
     bool isLoadMoreData,
@@ -60,7 +59,7 @@ class SearchResultPageVm {
         SortMethodLogic(sortMethod);
   }
 
-  /// [_keyword]を検索キーワードにして、[_page]ページ目の GitRepositoryのデータを取得する。
+  /// GitRepositoryのデータを取得する。
   void onLoadMore() {
     if (_ref.read(_searchResultProvider.notifier).isLoading()) {
       return;

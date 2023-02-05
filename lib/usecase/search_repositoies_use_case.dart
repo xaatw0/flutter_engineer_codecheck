@@ -8,8 +8,10 @@ import '../domain/exceptions/git_repository_exception.dart';
 
 /// Gitのレポジトリを検索するユースケース
 class SearchRepositoryUseCase {
-  SearchRepositoryUseCase(this.keyword,
-      {this.sortMethod = SortMethod.bestMatch});
+  SearchRepositoryUseCase(
+    this.keyword, {
+    this.sortMethod = SortMethod.bestMatch,
+  });
 
   final String keyword;
   final SortMethod sortMethod;
@@ -20,7 +22,6 @@ class SearchRepositoryUseCase {
   late int _page = _gitRepository.getFirstPageIndex();
 
   Future<List<GitRepositoryData>> execute() async {
-    late final List<GitRepositoryData> list;
     try {
       return _gitRepository.search(
         keyword,
