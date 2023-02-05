@@ -5,12 +5,11 @@ import 'package:flutter_engineer_codecheck/domain/repositories/git_repository.da
 import 'package:get_it/get_it.dart';
 
 import '../domain/exceptions/git_repository_exception.dart';
-import 'abstract_use_case.dart';
 
 /// Gitのレポジトリを検索するユースケース
-class SearchRepository
-    implements AbstractUseCase<int, List<GitRepositoryData>> {
-  SearchRepository(this.keyword, {this.sortMethod = SortMethod.bestMatch});
+class SearchRepositoryUseCase {
+  SearchRepositoryUseCase(this.keyword,
+      {this.sortMethod = SortMethod.bestMatch});
 
   final String keyword;
   final SortMethod sortMethod;
@@ -18,13 +17,14 @@ class SearchRepository
   // GitRepositoryのインスタンス
   final _gitRepository = GetIt.I.get<GitRepository>();
 
-  @override
-  Future<List<GitRepositoryData>> execute(int page) async {
+  late int _page = _gitRepository.getFirstPageIndex();
+
+  Future<List<GitRepositoryData>> execute() async {
     late final List<GitRepositoryData> list;
     try {
-      list = await _gitRepository.search(
+      return _gitRepository.search(
         keyword,
-        page: page,
+        page: _page++,
         sortMethod: sortMethod,
       );
     } on SocketException catch (exception, stacktrace) {
@@ -34,6 +34,5 @@ class SearchRepository
         stackTrace: stacktrace,
       );
     }
-    return list;
   }
 }

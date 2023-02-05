@@ -39,18 +39,14 @@ class SearchResultPageVm {
   /// ソート方法
   SortMethod _sortMethod = SortMethod.bestMatch;
 
-  /// データ取得が終了したページのインデックス
-  int _page = 0;
-
   /// [keyword]を検索キーワードにして、[page]ページ目の GitRepositoryのデータを取得する。
   /// [isLoadMoreData] false: 初回取得 true:2回目以降の取得
   void _fetch(
-    int page,
     bool isLoadMoreData,
   ) {
     _ref
         .read(_searchResultProvider.notifier)
-        .fetch(page, isLoadMoreData: isLoadMoreData);
+        .fetch(isLoadMoreData: isLoadMoreData);
   }
 
   /// [keyword]で初めて検索をする。[sortMethod]でソート方法を指定する。
@@ -58,7 +54,7 @@ class SearchResultPageVm {
   void Function() onLoad(String keyword, SortMethod sortMethod) {
     _keyword = keyword;
     _sortMethod = sortMethod;
-    _fetch(_page, false);
+    _fetch(false);
 
     return () => _ref.read(sortMethodProvider.notifier).state =
         SortMethodLogic(sortMethod);
@@ -70,8 +66,7 @@ class SearchResultPageVm {
       return;
     }
 
-    _page++;
-    _fetch(_page, true);
+    _fetch(true);
   }
 
   /// レポジトリのカードが押下されたら、レポジトリ詳細画面に遷移する

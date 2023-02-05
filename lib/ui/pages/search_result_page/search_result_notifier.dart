@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter_engineer_codecheck/domain/entities/git_repository_data.dart';
 import 'package:flutter_engineer_codecheck/domain/exceptions/git_repository_exception.dart';
 import 'package:flutter_engineer_codecheck/domain/repositories/git_repository.dart';
-import 'package:flutter_engineer_codecheck/usecase/search_repositoies.dart';
+import 'package:flutter_engineer_codecheck/usecase/search_repositoies_use_case.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// 検索結果を表示するためのStateNotifier
@@ -19,11 +19,10 @@ class SearchResultNotifier
   final String keyword;
 
   late final _searchRepository =
-      SearchRepository(keyword, sortMethod: sortMethod);
+      SearchRepositoryUseCase(keyword, sortMethod: sortMethod);
 
   /// データの読込
-  Future<void> fetch(
-    int page, {
+  Future<void> fetch({
     required bool isLoadMoreData,
   }) async {
     if (isLoadMoreData) {
@@ -34,7 +33,7 @@ class SearchResultNotifier
     state = await AsyncValue.guard(() async {
       late final List<GitRepositoryData> newData;
       try {
-        newData = await _searchRepository.execute(page);
+        newData = await _searchRepository.execute();
       } on SocketException catch (exception, stacktrace) {
         // SocketExceptionの場合、ネットワーク関連のエラーのため、接続エラーする
         throw GitRepositoryException.notConnected(
