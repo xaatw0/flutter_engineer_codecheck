@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_engineer_codecheck/domain/entities/git_repository_data.dart';
 import 'package:intl/intl.dart';
 
 import '../../../domain/repositories/git_repository.dart';
 import '../../../domain/string_resources.dart';
+import '../../../usecase/search_repositoies_use_case.dart';
 
 /// ソート方法に関連するロジックがまとめてある。
 /// ソート方法に応じたアイコンとレポジトリのデータを取得するファンクションが取得できる。
@@ -22,17 +22,17 @@ class SortMethodLogic {
 
   /// ファンクションとソート方法のマップ
   late final _mapFunctions =
-      <String Function(GitRepositoryData data), List<SortMethod>>{
-    (data) => data.countStar().toString(): [
+      <String Function(SearchRepositoryDto data), List<SortMethod>>{
+    (data) => data.countStar.toString(): [
       SortMethod.bestMatch,
       SortMethod.starAsc,
       SortMethod.starDesc
     ],
-    (data) => data.countFork().toString(): [
+    (data) => data.countFork.toString(): [
       SortMethod.forkAsc,
       SortMethod.forkDesc
     ],
-    (data) => _dateFormat.format(data.updateTime()): [
+    (data) => _dateFormat.format(data.updateTime): [
       SortMethod.recentlyUpdated,
       SortMethod.leastRecentlyUpdate
     ],
@@ -64,7 +64,7 @@ class SortMethodLogic {
   }
 
   /// 指定のソート方法に対する表示する値を取得するファンクションを取得する
-  String Function(GitRepositoryData data) getValue() {
+  String Function(SearchRepositoryDto data) getValue() {
     return _mapFunctions.keys.firstWhere(
       (key) => _mapFunctions[key]!.contains(_sortMethod),
     );

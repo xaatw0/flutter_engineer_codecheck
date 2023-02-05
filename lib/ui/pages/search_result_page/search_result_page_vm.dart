@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_engineer_codecheck/domain/entities/git_repository_data.dart';
 import 'package:flutter_engineer_codecheck/domain/string_resources.dart';
 import 'package:flutter_engineer_codecheck/ui/pages/repository_detail_page/repository_detail_page.dart';
 import 'package:flutter_engineer_codecheck/ui/pages/search_result_page/search_result_notifier.dart';
@@ -8,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../domain/repositories/git_repository.dart';
+import '../../../usecase/search_repositoies_use_case.dart';
 
 /// 選択したソート方法に基づき、RepositoryDataCard のアイコンと表示する項目を管理するロジックのProvider。
 /// 選択したソート方法をこのクラスで設定するため、ここに定義している。
@@ -19,12 +19,12 @@ final sortMethodProvider = StateProvider(
 class SearchResultPageVm {
   // キーワードに基づいた検索結果を取得するProvider
   late final _searchResultProvider = StateNotifierProvider<SearchResultNotifier,
-      AsyncValue<List<GitRepositoryData>>>(
+      AsyncValue<List<SearchRepositoryDto>>>(
     (ref) => SearchResultNotifier(keyword: _keyword, sortMethod: _sortMethod),
   );
 
   // キーワードに基づいた検索結果を取得するProviderの状態を管理するAsyncValue
-  AsyncValue<List<GitRepositoryData>> get getRepositoryData =>
+  AsyncValue<List<SearchRepositoryDto>> get getRepositoryData =>
       _ref.watch(_searchResultProvider);
 
   late final WidgetRef _ref;
@@ -71,7 +71,7 @@ class SearchResultPageVm {
   /// レポジトリのカードが押下されたら、レポジトリ詳細画面に遷移する
   void onRepositoryTapped(
     BuildContext context,
-    GitRepositoryData gitRepositoryData,
+    SearchRepositoryDto gitRepositoryData,
   ) {
     GoRouter.of(context)
         .push(RepositoryDetailPage.path, extra: gitRepositoryData);

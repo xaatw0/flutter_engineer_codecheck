@@ -1,10 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_engineer_codecheck/domain/string_resources.dart';
 import 'package:flutter_engineer_codecheck/ui/pages/search_result_page/search_result_page_vm.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../domain/entities/git_repository_data.dart';
+import '../../../usecase/search_repositoies_use_case.dart';
 import '../atoms/owner_image.dart';
 
 /// レポジトリの情報を表示するカード
@@ -14,7 +13,7 @@ class RepositoryDataCard extends StatelessWidget {
     required this.data,
   });
 
-  final GitRepositoryData data;
+  final SearchRepositoryDto data;
 
   @override
   Widget build(BuildContext context) {
@@ -24,16 +23,16 @@ class RepositoryDataCard extends StatelessWidget {
         child: ListTile(
           // 画像
           leading: Hero(
-            tag: OwnerImage.kHeroKey + data.repositoryId().toString(),
+            tag: OwnerImage.kHeroKey + data.repositoryId.toString(),
             child: ExcludeSemantics(
-              child: OwnerImage(url: data.ownerIconUrl()),
+              child: OwnerImage(url: data.ownerIconUrl),
             ),
           ),
           // レポジトリ名
           title: Padding(
             padding: const EdgeInsets.all(4),
             child: AutoSizeText(
-              data.repositoryName(),
+              data.repositoryName,
               style: Theme.of(context).textTheme.titleMedium,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
@@ -41,7 +40,7 @@ class RepositoryDataCard extends StatelessWidget {
           ),
           // レポジトリの概要
           subtitle: AutoSizeText(
-            data.repositoryDescription() ?? StringResources.kEmpty,
+            data.repositoryDescription,
             style: Theme.of(context).textTheme.bodySmall,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
